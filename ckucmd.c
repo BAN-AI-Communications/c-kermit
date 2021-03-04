@@ -7542,7 +7542,7 @@ cmdgetc(timelimit) int timelimit; {	/* Get a character from the tty. */
 #ifndef USE_FILE_R			/* stdin->_cnt */
 #ifndef USE_FILE_CNT
 #ifndef USE_FILE__CNT
-#define USE_FILE_CNT			/* Everybody else (but Linux) */
+/* #define USE_FILE_CNT */			/* Everybody else (but Linux) */
 #endif /* USE_FILE__CNT */
 #endif /* USE_FILE_CNT */
 #endif /* USE_FILE_R */
