@@ -5918,6 +5918,21 @@ static int notermcap = 0;
 #endif /* NOTERMCAP */
 
 #ifndef NODISPLAY
+#ifndef COHERENT
+#ifndef OS2
+#ifndef STRATUS
+#ifdef CK_CURSES
+#ifndef VMS
+#include <curses.h>
+#include <term.h>
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+
+#ifndef NODISPLAY
 CKVOID
 fxdinit(xdispla) int xdispla; {
 #ifndef COHERENT

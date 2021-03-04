@@ -686,6 +686,10 @@ pty_cleanup(slave, pid, update_utmp) char *slave; int pid; int update_utmp; {
     return(0);
 }
 
+#ifdef HAVE_OPENPTY
+#include <pty.h>
+#endif
+
 long
 pty_getpty(fd, slave, slavelength) int slavelength; int *fd; char *slave; {
     char *cp;

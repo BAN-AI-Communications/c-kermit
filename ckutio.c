@@ -14569,6 +14569,10 @@ sigchld_handler(sig) int sig; {
 #define HAVE_IAC 1
 #define HAVE_CR  2
 
+#ifndef USE_CKUPTY_C
+#include <pty.h>
+#endif
+
 int
 ttptycmd(s) char *s; {
     CHAR tbuf[PTY_TBUF_SIZE];		/* Read from net, write to pty */

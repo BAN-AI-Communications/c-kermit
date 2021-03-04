@@ -620,6 +620,14 @@ ACKNOWLEDGMENTS:
 #include "ckntap.h"
 #endif /* NT */
 
+#ifndef NOSPL
+#ifndef NORANDOM
+#ifndef VMS
+#include <time.h>
+#endif /* VMS */
+#endif /* NORANDOM */
+#endif /* NOSPL */
+
 #ifndef NOSERVER
 /* Text message definitions.. each should be 256 chars long, or less. */
 #ifdef MINIX
