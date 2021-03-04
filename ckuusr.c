@@ -3,18 +3,18 @@
 #endif /* SSHTEST */
 
 #include "ckcsym.h"
-char *userv = "User Interface 9.0.299, 9 Jun 2011";
+char *userv = "User Interface 9.0.314, 25 Apr 2017";
 
 /*  C K U U S R --  "User Interface" for C-Kermit (Part 1)  */
 
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2017,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -136,7 +136,6 @@ extern int tt_scroll;
 #ifndef NOTERM
 extern tt_status[VNUM];
 #endif /* NOTERM */
-int display_demo = 1;
 #include "ckossh.h"
 #ifdef KUI
 #include "ikui.h"
@@ -162,6 +161,8 @@ extern int batch;
 #endif /* datageneral */
 
 extern int xcmdsrc, hints, cmflgs, whyclosed;
+
+int isinternal = 0;                     /* Flag for internally-defined macro */
 
 char * hlptok = NULL;
 
@@ -730,6 +731,7 @@ struct keytab cmdtab[] = {
 #endif /* PIPESEND */
 #endif /* NOXFER */
     { "ch",          XXCHK,   CM_INV|CM_ABR },
+    { "change",      XXCHG,   0 },	/* CHANGE strings in file 2013-04-18 */
     { "check",       XXCHK,   0 },	/* CHECK for a feature */
 #ifdef CK_PERMS
 #ifdef UNIX
@@ -1170,9 +1172,13 @@ struct keytab cmdtab[] = {
     { "more",        XXMORE, CM_INV },	/* MORE */
 #endif /* NOFRILLS */
 
+#ifdef OLDMOVE
 #ifndef NOXFER
-    { "move",        XXMOVE, 0 },	/* MOVE  */
+    { "move",        XXMOVE, 0 },	/* MOVE = SEND /DELETE */
 #endif /* NOXFER */
+#else
+    { "move",        XXREN, CM_INV },	/* MOVE = RENAME */
+#endif /* OLDMOVE */
 
 #ifndef NOSPL
     { "mpause",      XXMSL, CM_INV },	/* Millisecond sleep */
@@ -1811,6 +1817,8 @@ struct keytab cmdtab[] = {
     { "xmit",        XXNOTAV, CM_INV },
 #endif /* NOXMIT */
 
+    { "xmsg",    XXXMSG, CM_INV },	/* Synonym for XMESSAGE */
+
 #ifndef OS2
 #ifndef NOJC
     { "z",           XXSUS, CM_INV|CM_PSH }, /* Synonym for SUSPEND */
@@ -2078,6 +2086,9 @@ struct keytab prmtab[] = {
     { "line",             XYLINE,  CM_LOC },
     { "local-echo",	  XYLCLE,  CM_INV|CM_LOC },
 #endif /* NOLOCAL */
+#ifdef HAVE_LOCALE
+    { "locale",           XYLOCALE,0 },
+#endif /* HAVE_LOCALE */
 #ifdef LOCUS
     { "locus",            XYLOCUS, 0 },
 #endif /* LOCUS */
@@ -2262,6 +2273,9 @@ struct keytab prmtab[] = {
 #ifdef OS2
     { "title",		  XYTITLE, CM_LOC },
 #endif /* OS2 */
+#ifndef NOSPL
+    { "tmp-directory",    XYTMPDIR,CM_INV },
+#endif /* NOSPL */
 #ifdef TLOG
     { "transaction-log",  XYTLOG,  0 },
 #endif /* TLOG */
@@ -2968,7 +2982,11 @@ struct keytab shotab[] = {
 #endif /* CK_LABELED */
 #ifndef NOCSETS
     { "languages",    SHLNG, 0 },
+#ifndef NO_LOCALE
+    { "locale",       SHOLOC,0 },
+#endif /* NO_LOCALE */
 #endif /* NOCSETS */
+    { "log",          SHLOG, CM_INV|CM_ABR },
     { "logs",         SHLOG, 0 },
 #ifndef NOSPL
     { "macros",       SHMAC, 0 },
@@ -3042,9 +3060,13 @@ struct keytab shotab[] = {
     { "tel",           SHTEL,  CM_INV|CM_ABR },
     { "telnet",        SHTEL,  0 },
     { "telopt",        SHTOPT, 0 },
+    { "temp-directory", SHOTMPDIR, 0 },
 #endif /* TNCODE */
     { "terminal",      SHTER,  CM_LOC },
 #endif /* NOLOCAL */
+#ifndef NOSPL
+    { "tmp-directory", SHOTMPDIR, CM_INV },
+#endif /* NOSPL */
 #ifndef NOXMIT
     { "tr",            SHXMI, CM_INV|CM_ABR },
     { "tra",           SHXMI, CM_INV|CM_ABR },
@@ -3590,6 +3612,8 @@ settypopts() {				/* Set TYPE option defaults */
     if (xp > -1) typ_page = xp;		/* Confirmed, save defaults */
     return(success = 1);
 }
+
+_PROTOTYP (char * getbasename, ( char * ) );
 
 /* Forward declarations of functions local to this module */
 
@@ -7895,6 +7919,166 @@ hmsgaa(s,s2) char *s[]; char *s2;
     return(0);
 }
 
+/*  I S I N T E R N A L M A C R O  -- April 2017  */
+
+int
+isinternalmacro(x) int x; {          /* Test if macro is internally defined */
+    char * m;
+    char * tags[] = { "_whi", "_for", "_sw_", "_if_" };
+    int i, internal = 0;
+
+    m = mactab[x].kwd;
+
+#ifdef COMMENT
+    /* Good idea but this flag is not set for _whi2, etc */
+    internal = ((cmdstk[cmdlvl].ccflgs & CF_IMAC) ? 1 : 0);
+    debug(F111,"isinternalmacro",m,internal);
+    return(internal);
+#endif  /* COMMENT */
+
+    debug(F101,"isinternalmacro x","",x);
+    if (*m != '_') {
+        debug(F110," not internal",m,0);
+        return(0);
+    }
+    if (!m) m = "";
+    if (*m) {
+        debug(F110," macro name",m,0);
+        internal = ckindex(m,"|_while|_forx|_forz|_xif|_switx|",0,0,0);
+        debug(F111," internal macro","A",internal);
+        if (!internal) {
+            int i, j, n, len = 0;
+            n = -1;
+            for (i = 0; i < sizeof(* tags); i++) {
+                if (ckindex(tags[i],m,0,0,0)) {
+                    n = i;
+                    break;
+                }
+            }
+            debug(F111," tags index",tags[n],n);
+            if (n > -1) {
+                char * tag = tags[i];
+                len = (int)strlen(tag);
+                debug(F111," tag len",tag,len);
+                for (i = len; m[i]; i++) {
+                    debug(F101," loop i","",i);
+                    debug(F000," char","",m[i]);
+                    if (!isdigit(m[i])) {
+                        internal = 0;
+                        break;
+                    } else {
+                        internal = 1;
+                    }
+                }
+            } 
+            debug(F101," internal macro","B",internal);
+        }
+    }
+    return(internal);
+}
+
+/*  N E W E R R M S G  -- New error message routine, April 2017  */
+
+#define ERRMSGBUFSIZ 320
+static char errmsgbuf[ERRMSGBUFSIZ] = { '\0' };
+
+VOID newerrmsg(s) char *s; {
+    char * tmperrbuf[ERRMSGBUFSIZ];
+
+    extern char lasttakeline[];
+    extern char *tfnam[];
+    extern int tfblockstart[];
+    extern int tlevel;
+    int len1, len2, len3, len4, len5;
+    char * buf = errmsgbuf;
+    char * takefile = getbasename(tfnam[tlevel]);
+    char nbuf[20];
+    char * lineno = nbuf;
+    int x;
+
+    debug(F110,"newerrmsg",s,0);
+    ckstrncpy(nbuf,ckitoa(tfblockstart[tlevel]),20);
+    lineno = (char *)nbuf;
+
+    if (!s) s = "";
+    if (!*s) s = "Syntax error";
+
+    if (tlevel < 0) {
+        printf("?%s\n",s);
+        return;
+    }
+    len1 = (int)strlen(s);
+    len2 = (int)strlen(takefile);
+    len3 = (int)strlen(lineno);
+    len4 = (int)strlen((char *)lasttakeline);
+    len5 = len1 + len2 + len3 + 12;
+
+    x = 80 - len5;         /* Free space for beginning of offending command */
+    if (x > len4) {        /* Free space is greater than command length */
+#ifdef HAVE_SNPRINTF
+        snprintf((char *)tmperrbuf,ERRMSGBUFSIZ,"?%s[%s]: \"%s\": %s\n",
+               takefile,
+               lineno,
+               (char *)lasttakeline,
+               s
+               );
+#else
+        sprintf((char *)tmperrbuf,"?%s[%s]: \"%s\": %s\n",
+               takefile,
+               lineno,
+               (char *)lasttakeline,
+               s
+               );
+#endif  /* HAVE_SNPRINTF */
+
+    } else if (x > 40) {
+        char c;
+        c = lasttakeline[x];
+        lasttakeline[x] = NUL;
+#ifdef HAVE_SNPRINTF
+        snprintf((char *)tmperrbuf,ERRMSGBUFSIZ,"?%s[%s]: \"%s...\": %s\n",
+               takefile, lineno, (char *)lasttakeline, s);
+#else
+        sprintf((char *)tmperrbuf,"?%s[%s]: \"%s...\": %s\n",
+               takefile, lineno, (char *)lasttakeline, s);
+#endif  /* HAVE_SNPRINTF */
+        lasttakeline[x] = c;
+    } else {
+        char c;
+        if (len4 > 74) {
+            x = 74 - (len2 + len3 + 8);
+            c = lasttakeline[x];
+            lasttakeline[x] = NUL;
+#ifdef HAVE_SNPRINTF
+            snprintf((char *)tmperrbuf,ERRMSGBUFSIZ,
+                "?%s[%s]: \"%s...\":\n Error: %s\n",
+                takefile, lineno, (char *)lasttakeline, s);
+#else
+            sprintf((char *)tmperrbuf,"?%s[%s]: \"%s...\":\n Error: %s\n",
+                   takefile, lineno, (char *)lasttakeline, s);
+
+#endif  /* HAVE_SNPRINTF */
+            lasttakeline[x] = c;
+        } else {
+#ifdef HAVE_SNPRINTF
+            snprintf((char *)tmperrbuf,ERRMSGBUFSIZ,
+                     "?%s[%s]: \"%s\":\n %s\n",
+                     takefile, lineno, (char *)lasttakeline, s);
+#else
+            sprintf((char *)tmperrbuf,"?%s[%s]: \"%s\":\n %s\n",
+                   takefile, lineno, (char *)lasttakeline, s);
+#endif  /* HAVE_SNPRINTF */
+        }
+    }
+  xnewerrmsg:
+    /* Print the message only if it's not the same as the last one */
+    if (ckstrcmp((char *)errmsgbuf,(char *)tmperrbuf,ERRMSGBUFSIZ,1)) {
+        ckstrncpy((char *)errmsgbuf,(char *)tmperrbuf,ERRMSGBUFSIZ);
+        printf("%s",(char *)errmsgbuf);
+    }
+    return;
+}
+
 /*  D O C M D  --  Do a command  */
 
 /*
@@ -7920,9 +8104,9 @@ docmd(cx) int cx; {
   Originally all commands were handled with a big switch() statement,
   but eventually this started blowing up compilers.  Now we have a series
   of separate if statements and small switches, with the commands that are
-  most commonly executed in scipts and loops coming first, to speed up
+  most commonly executed in scripts and loops coming first, to speed up
   compute-bound scripts.
-  */
+*/
 
 #ifdef DEBUG
     if (cmdstats[0] == -1) {		/* Count commands */
@@ -8119,9 +8303,24 @@ docmd(cx) int cx; {
 		mtchanged = 0;		/* Mark state of macro table */
 		makestr(&macroname,mactab[mx].kwd); /* Save name */
 
-		if ((y = cmtxt("optional arguments","",&s,xxstring)) < 0)
-		  return(y);		/* Get macro args */
-
+/*
+  Prior to C-Kermit 9.0.304 Dev.22, April 23, 2017, cmtxt() was called in
+  all cases with zzstring.  But this fouled up the identification of macro
+  arguments when their values contained grouping characters such as
+  doublequotes and braces.  Now we defer the evaluation of the macro
+  arguments until after the arguments themselves have been correctly
+  identified.  An exception is made for the internal macros that implement
+  the FOR, WHILE, IF, and SWITCH commands.
+*/
+                if (isinternalmacro(x)) {
+                    debug(F100,"DO parser internal macro","",0);
+                    if ((y = cmtxt("optional arguments","",&s,zzstring)) < 0)
+                      return(y);		/* Get macro args */
+                } else {
+                    debug(F100,"DO parser normal macro","",0);
+                    if ((y = cmtxt("optional arguments","",&s,NULL)) < 0)
+                      return(y);		/* Get macro args */
+                }
 		if (mtchanged) {	/* Macro table changed? */
 		    mx = mlook(mactab,macroname,nmac); /* Look up name again */
 		}
@@ -8266,7 +8465,7 @@ docmd(cx) int cx; {
 	}
 	s = tmpbuf;
 	makestr(&lastsexp,s);
-	q = cksplit(1,SEXPMAX,s,NULL,NULL,8,0,0); /* Precheck for > 1 SEXP */
+	q = cksplit(1,SEXPMAX,s,NULL,NULL,8,0,0,0); /* Precheck for > 1 SEXP */
 	debug(F101,"sexp split","",q->a_size);
 
 	if (q->a_size == 1) {		/* We should get exactly one back */
@@ -8277,7 +8476,8 @@ docmd(cx) int cx; {
 	    if (sexprc == 0) {		/* Success */
 		/* Echo the result if desired */
 		if ((!xcmdsrc && sexpecho != SET_OFF) || sexpecho == SET_ON)
-		  printf(" %s\n",result ? result : "");
+                  if (result) if (*result)
+                    printf(" %s\n",result);
 		makestr(&sexpval,result);
 		success = sexppv > -1 ? sexppv : 1;
 		return(success);
@@ -8678,6 +8878,8 @@ docmd(cx) int cx; {
 
     if (cx == XXTOUC)			/* TOUCH */
       return(dodir(cx));
+    if (cx == XXCHG)			/* CHANGE */
+      return(dodir(cx));
 
     /* DIRECTORY commands */
 
@@ -8996,9 +9198,14 @@ docmd(cx) int cx; {
 	if (!hupok(0))			/* Check if connection still open */
 	  return(success = 0);
 
-	if (line[0])			/* Print EXIT message if given */
-	  printf("%s\n",(char *)line);
-
+	if (line[0]) {			/* Print EXIT message if given */
+	    extern int exitmsg;
+	    switch (exitmsg) {
+	      case 0: break;
+	      case 1: printf("%s\n",(char *)line); break;
+	      case 2: fprintf(stderr,"%s\n",(char *)line); break;
+	    }
+	}
 	quitting = 1;			/* Flag that we are quitting. */
 
 #ifdef VMS
@@ -9120,9 +9327,8 @@ docmd(cx) int cx; {
 #ifdef CK_RECALL
 	      case '^': x = XXREDO; break;
 #endif	/* CK_RECALL */
-	      case '&': x = XXECH; break; /* (what is this?) */
 	      default:
-		printf("\n?Invalid - %s\n",cmdbuf);
+		printf("\n?Not a valid command or token - %s\n",cmdbuf);
 		x = -2;
 	    }
 	}
@@ -9359,7 +9565,7 @@ docmd(cx) int cx; {
 		}
 		debug(F111,"MINPUT field",s,k);
 		if (isjoin) {
-		    if ((q = cksplit(1,0,s," ",(char *)c1chars,3,0,0))) {
+		    if ((q = cksplit(1,0,s," ",(char *)c1chars,3,0,0,0))) {
 			char ** ap = q->a_head;
 			n = q->a_size;
 			debug(F101,"minput cksplit size","",n);
@@ -12437,7 +12643,9 @@ necessary DLLs did not load.  Use SHOW NETWORK to check network status.\n"
 #endif	/* CK_64BIT */
 	printf("\n\n");
         printf("Authors:\n");
-	printf(" Frank da Cruz, Columbia University\n");
+	printf(" Frank da Cruz, the Kermit Project %s\n",
+               "<fdc@kermitproject.org>"
+	       );
         printf(" Jeffrey Eric Altman, Secure Endpoints, Inc. %s\n",
 	       "<jaltman@secure-endpoints.com>"
 	       );
@@ -12453,7 +12661,9 @@ necessary DLLs did not load.  Use SHOW NETWORK to check network status.\n"
 	}
 	printf(" Type COPYRIGHT for copyright and license.\n\n");
 #ifdef OS2
+#ifdef COMMENT
 	shoreg();
+#endif /* COMMENT */
 #else
 #ifdef COMMENT
 	hmtopline = n+1;

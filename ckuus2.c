@@ -7,11 +7,11 @@
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2017,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -109,12 +109,11 @@ static char *tophlp[] = {
 #ifndef NOHELP
 "  Type EXIT    to exit.",
 #ifdef OS2
-"  Type INTRO   for a brief introduction to the Kermit Command screen.",
-"  Type LICENSE to see the Kermit 95 license.",
+"  Type INTRO   for a brief introduction to the C-Kermit Command screen.",
 #else
 "  Type INTRO   for a brief introduction to C-Kermit.",
-"  Type LICENSE to see the C-Kermit license.",
 #endif /* OS2 */
+"  Type LICENSE to see the C-Kermit license.",
 "  Type HELP    followed by a command name for help about a specific command.",
 #ifndef NOPUSH
 #ifdef UNIX
@@ -123,11 +122,7 @@ static char *tophlp[] = {
 #ifdef VMS
 "  Type MANUAL  to access the C-Kermit help topic.",
 #else
-#ifdef OS2
-"  Type MANUAL  to access the K95 manual.",
-#else
 "  Type MANUAL  to access the C-Kermit manual.",
-#endif /* OS2 */
 #endif /* VMS */
 #endif /* UNIX */
 #endif /* NOPUSH */
@@ -153,7 +148,7 @@ static char *tophlp[] = {
 #else
 "DOCUMENTATION: \"Using C-Kermit\" by Frank da Cruz and Christine M. Gianone,",
 "2nd Edition, Digital Press / Butterworth-Heinemann 1997, ISBN 1-55558-164-1,",
-"plus supplements at http://kermit.columbia.edu/ckermit.html#doc.",
+"plus supplements at http://www.kermitproject.org/ckermit.html#doc.",
 #endif /* MAC */
 #endif /* OS2 */
 #ifdef MAC
@@ -187,7 +182,7 @@ static char *tophlpi[] = {              /* Top-level help for IKSD */
 " ",
 "DOCUMENTATION: \"Using C-Kermit\" by Frank da Cruz and Christine M. Gianone,",
 "2nd Edition, Digital Press (1997), ISBN 1-55558-164-1.  More info at the",
-"Kermit Project website, http://kermit.columbia.edu/.",
+"Kermit Project website, http://www.kermitproject.org/.",
 ""
 };
 #endif /* NOIKSD */
@@ -195,45 +190,66 @@ static char *tophlpi[] = {              /* Top-level help for IKSD */
 #ifndef NOHELP
 char *newstxt[] = {
 #ifdef OS2
-"Welcome to Kermit 95 3.x.x.  Major new features since 2.1.3 include:",
+"Welcome to C-Kermit for Windows, the Open-Source successor to",
+"Columbia University's Kermit 95 package.",
+
+#ifdef BETATEST
+" ",
+"THIS IS A PRERELEASE TEST VERSION NOT SUITABLE FOR PRODUCTION."
+"FOR DETAILS, SEE http://www.kermitproject.org/ckwindows.html",
+#endif /* BETATEST */
+
+" ",
+"Major new features since the final Kermit 95 release include:",
 #else
-"Welcome to C-Kermit 9.0.300.  New features since 8.0.211 include:",
+"Welcome to C-Kermit 9.0.304.  New features since 8.0.211 include:",
 #endif /* OS2 */
 " . Open Source Simplified 3-Clause BSD License",
+#ifdef OS2
+" . Source code!  The Windows edition of C-Kermit, formerly known",
+"   as Kermit 95 or K-95, is now available under the Revised 3-Clause",
+"   BSD Open Source license.",
+#endif /* OS2 */
+#ifndef OS2
 " . Full 64-bit memory model on platforms that support it",
 " . Large file support (64-bit file size) on most platforms",
 " . Long integer variables and constants in commands and scripts",
+#endif /* OS2 */
 " . Bigger maximum command and macro lengths",
 " . Bigger filename expansion space",
-" . New super-flexible RENAME command",
-" . New COPY and DIRECTORY command options",
-" . New TOUCH command",
+" . New super-flexible RENAME command (HELP RENAME)",
+" . New CHANGE command for changing text files (HELP CHANGE)",
+" . New COPY and DIRECTORY command options (HELP COPY, HELP DIRECTORY)",
+" . New TOUCH command (HELP TOUCH)",
+#ifdef UNIX
+" . Limited Unix Locale support (HELP SET LOCALE)",
+#endif /* UNIX */
+#ifdef CK_SSL
 " . Raw SSL/TLS connections for connecting to POP3 and similar services",
-" . At prompt, Ctrl-K recalls most recent filename",
-" . Scripting and performance improvements and bug fixes",
+#endif /* CK_SSL */
+" . At the prompt, Ctrl-K recalls most recent filename",
+" . Scripting and performance improvements",
+" . Bug fixes",
 " ",
 "Documentation:",
-" 1. http://kermit.columbia.edu/usingckermit.html",
+" 1. http://www.kermitproject.org/usingckermit.html",
 "    \"Using C-Kermit\", second edition (1997), current with C-Kermit 6.0.",
 " ",
-" 2. http://kermit.columbia.edu/ckermit70.html",
+" 2. http://www.kermitproject.org/ckermit70.html",
 "    which documents the new features of C-Kermit 7.0.",
 " ",
-" 3. http://kermit.columbia.edu/ckermit80.html",
+" 3. http://www.kermitproject.org/ckermit80.html",
 "    which documents the new features of C-Kermit 8.0.",
 " ",
-" 4. http://kermit.columbia.edu/ckermit90.html",
+" 4. http://www.kermitproject.org/ckermit90.html",
 "    which documents the new features of C-Kermit 9.0.",
 " ",
 "If the release date shown by the VERSION command is long past, be sure to",
-"check with the Kermit website to see if there have been updates:",
+"check the Kermit website to see if there have been updates:",
 " ",
-#ifdef OS2
-"  http://kermit.columbia.edu/k95.html     (Kermit 95 home page)",
-#else
-"  http://kermit.columbia.edu/ckermit.html (C-Kermit home page)",
-#endif	/* OS2 */
-"  http://kermit.columbia.edu/             (Kermit Project home page)",
+"  http://www.kermitproject.org/             (Kermit Project home page)",
+"  http://www.kermitproject.org/ckermit.html (C-Kermit home page)",
+"  http://www.kermitproject.org/ckdaily.html (C-Kermit development)",
 ""
 };
 #endif /* NOHELP */
@@ -241,14 +257,10 @@ char *newstxt[] = {
 #ifndef NOHELP
 char *introtxt[] = {
 #ifdef OS2
-"Welcome to K-95, Kermit communications software for:",
+"Welcome to C-Kermit for Windows, communication software for:",
 #else
 #ifdef UNIX
-#ifdef HPUX
-"Welcome to HP-UX C-Kermit communications software for:",
-#else
 "Welcome to UNIX C-Kermit communications software for:",
-#endif /* HPUX */
 #else
 #ifdef VMS
 "Welcome to VMS C-Kermit communications software for:",
@@ -505,11 +517,11 @@ char *introtxt[] = {
 
 #ifdef NT
 " ",
-"To return from the terminal window to the K-95> prompt:",
+"To return from the terminal window to the C-Kermit> prompt:",
 #else
 #ifdef OS2
 " ",
-"To return from the terminal window to the K/2> prompt:",
+"To return from the terminal window to the C-Kermit> prompt:",
 #else
 " ",
 "To return from a terminal connection to the C-Kermit prompt:",
@@ -536,29 +548,24 @@ Press the key or key-combination shown after \"Command:\" in the status line",
 " ",
 "The manual for C-Kermit is the book \"Using C-Kermit\".  For information",
 "about the manual, visit:",
-"  http://kermit.columbia.edu/usingckermit.html",
+"  http://www.kermitproject.org/usingckermit.html",
 " ",
-#ifdef OS2
-"For a Kermit 95 tutorial, visit:",
-"  http://kermit.columbia.edu/k95tutor.html",
-" ",
-#endif /* OS2 */
 "For an online C-Kermit tutorial, visit:",
-"  http://kermit.columbia.edu/ckututor.html",
+"  http://www.kermitproject.org/ckututor.html",
 " ",
 "To learn about script programming and automation:",
-"  http://kermit.columbia.edu/ckscripts.html",
+"  http://www.kermitproject.org/ckscripts.html",
 " ",
 "For further information about a particular command, type HELP xxx,",
 "where xxx is the name of the command.  For documentation, news of new",
 "releases, and information about other Kermit software, visit the",
 "Kermit Project website:",
 " ",
-"  http://kermit.columbia.edu/",
+"  http://www.kermitproject.org/",
 " ",
 "For information about technical support please visit this page:",
 " ",
-"  http://kermit.columbia.edu/support.html",
+"  http://www.kermitproject.org/support.html",
 ""
 };
 
@@ -618,8 +625,8 @@ static char * hmxygui[] = {
 "  re-enabled.", 
 " ",
 "SET GUI WINDOW POSITION x y",
-"  Moves the K95 window to the given X,Y coordinates, pixels from top left.",
-"  (Not yet implemented -- use command-line options to do this.)",
+"  Moves the C-Kermit window to the given X,Y coordinates, pixels from top",
+"  left.  (Not yet implemented -- use command-line options to do this.)",
 " ",
 "SET GUI WINDOW RESIZE-MODE { CHANGE-DIMENSIONS, SCALE-FONT }",
 "  Default is CHANGE-DIMENSIONS.",
@@ -630,6 +637,34 @@ static char * hmxygui[] = {
 };
 #endif /* KUI */
 #endif /* OS2 */
+
+static char * hmxxfunc[] = {
+"KERMIT FUNCTIONS",
+"   ",
+"  Functions are part of Kermit's programming language used in writing",
+"  scripts.  They are like functions in other programming languages like C",
+"  and Perl; each function has a name and an argument list, and it returns",
+"  (is replaced by) a value.  In a Kermit script, the function name preceded",
+"  by a backslash (\\) and then the letter F; for example:",
+" ",
+"     \\Findex(string1,string2).",
+" ",
+"  The argument list is in parentheses.  In this example the name of the",
+"  function is 'index', the arguments are string1 and string2, and the return",
+"  value is the starting position of string2 in string1; type HELP FUNC INDEX",
+"  for details.",
+" ",
+"  Type SHOW FUNCTIONS to see a list of available functions.",
+" ",
+"  Type HELP FUNCTION xxx more information about specific functions:",
+" ",
+"   . If xxx matches only one function name the documentation for that",
+"     function is printed; example: HELP FUNCTION INDEX.",
+" ",
+"  . If xxx matches more than one function name, a list of all functions",
+"     whose names contain xxx is printed; example: HELP FUNCTION DATE.",
+""
+};
 
 #ifdef ANYSSH
 static char * hmxxssh[] = {
@@ -1008,11 +1043,7 @@ static char *hmxxtak[] = {
 
 #ifdef TCPSOCKET
 static char *hmxxfirew[] = {
-#ifdef OS2
-"Firewall Traversal in Kermit 95",
-#else
 "Firewall Traversal in C-Kermit",
-#endif
 " ",
 #ifndef NEWFTP
 #ifndef CKHTTP
@@ -1090,7 +1121,7 @@ static char *hmxxfirew[] = {
 
 #ifdef OS2
 #ifdef NT
-"Kermit 95 supports SOCKS 4.2.  The SOCKS Server is specified with:",
+"C-Kermit for Windows supports SOCKS 4.2. The SOCKS Server is specified with:",
 " ",
 "  SET TCP SOCKS-SERVER hostname/ip-address",
 " ",
@@ -1100,11 +1131,11 @@ static char *hmxxfirew[] = {
 
 #else /* NT */
 
-"Kermit/2 provides support for SOCKS 4.2 servers when using IBM TCP/IP 2.0,",
+"C-Kermit provides support for SOCKS 4.2 servers when using IBM TCP/IP 2.0,",
 "IBM OS/2 WARP, or a compatible protocol stack. SOCKS is one popular means",
 "of implementing a firewall between a private network and the Internet.",
 " ",
-"Kermit/2 shares the same SOCKS environment variables as IBM Gopher. It also",
+"C-Kermit shares the same SOCKS environment variables as IBM Gopher. It also",
 "supports the use of local SOCKS configuration files.",
 " ",
 "To specify the default SOCKS Server, add SET SOCKS_SERVER= to your",
@@ -1137,7 +1168,7 @@ static char *hmxxfirew[] = {
 
 " ",
 
-"Kermit/2 ignores the [*=userlist] and [@=serverlist] fields. Matches are",
+"C-Kermit ignores the [*=userlist] and [@=serverlist] fields. Matches are",
 "determined on a first match not a best match basis. Addresses for which no",
 "match is found default to \"sockd\".",
 
@@ -1655,6 +1686,7 @@ static char *hmxxsexp[] = {
 "  CEILING   Ceiling of floating-point operand      (ceiling 1.25)    2",
 "  FLOOR     Floor of floating-point operand        (floor 1.25)      1",
 "  ROUND     Operand rounded to nearest integer     (round 1.75)      2",
+"  ROUND     ...or to given number of decimals      (round 1.7584 2)  1.76",
 "  SQRT      Square root of 1 operand               (sqrt 2)          1.414..",
 "  EXP       e (2.71828..) to the given power       (exp -1)          0.367..",
 "  SIN       Sine of angle expressed in radians     (sin (/ pi 2))    1.0",
@@ -1846,13 +1878,110 @@ static char *hmxxdir[] = {
 #endif /* DOMYDIR */
 ""};
 
-static char *hmxxtouc[] = {
+static char *hmxxtouch[] = {
 "Syntax: TOUCH [ switches ] filespec",
 "  Updates the modification time of the given file or files to the current",
-"  date and time.  If the filespec is the name of a single file that does not",
-"  exist, the file is created.  The optional switches are the same as for",
-"  the DIRECTORY command.  TOUCH operates silently unless the /VERBOSE",
-"  switch is given, in which case it lists each file it affects.",
+"  date and time or to the date and time specified in the /MODTIME: switch.",
+"  If the filespec is the name of a single file that does not exist, the file",
+"  is created.  The following switches can be used to restrict the files",
+"  to be touched according to various criteria:",
+" ",
+"   /FILES           Select files but not directories.",
+"   /DIRECTORIES     Select directories but not files.",
+"   /ALL           + Select both files and directories.",
+"   /AFTER:          Select files modified after the given date",
+"   /BEFORE:         Select files modified before the given date",
+"   /LARGER:         Select files larger than the given size in bytes",
+"   /SMALLER:        Select files smaller than the given size in bytes",
+"   /EXCEPT:         Exclude the given files (list or pattern)",
+#ifdef UNIXOROSK
+"   /DOTFILES        Include files whose names start with dot (period).",
+"   /NODOTFILES    + Don't include files whose names start with dot.",
+"   /FOLLOWLINKS     For symbolic link touch the linked-to file, not the link",
+"   /NOFOLLOWLINKS + Select the link itself, not the file it links to.",
+"   /NOLINKS         Skip over symbolic links.",
+"   /BACKUP        + Include backup files (names end with .~n~).",
+"   /NOBACKUPFILES   Don't include backup files.",
+#endif /* UNIXOROSK */
+"   /TYPE:           Select only files of the given type, TEXT or BINARY.",
+#ifdef RECURSIVE
+"   /RECURSIVE       Descend through subdirectories.",
+"   /NORECURSIVE   + Don't descend through subdirectories.",
+" ",
+" Action switches:",
+" ",
+"   /MODTIME:        Modification time for selected files.",
+"   /SIMULATE        List files that would be touched, but don't touch them.",
+"   /LIST            Show which files are being touched.",
+#endif /* RECURSIVE */
+" ",
+"Factory defaults are marked with +.  Use HELP DATE to learn the date-time",
+"formats usable with /MODTIME:.  If a /MODTIME: switch is not given, each",
+"selected file gets a modification time equal to the current clock time.",
+"You can use the /SIMULATE switch in combination with other switches to see",
+"which files will be affected without actually changing their dates.",
+""};
+
+static char *hmxxchange[] = {
+"Syntax: CHANGE [ switches ] filespec string1 string2",
+"  Changes all occurrences of string1 to string2 in the given file or files.",
+"  Works line by line, does not do multiline or across-line substitutions.",
+"  To remove strings from files, specify string2 as \"\" or omit string2.",
+"  Temporary files are created in the directory indicated by \\v(tmpdir)",
+"  (show var tmpdir).  You can select a different temporary directory with",
+"  the SET TEMP-DIRECTORY command.  All temporary files are deleted after use."
+,
+" ",
+"  String1 and String2 should be enclosed in doublequotes \"\" or braces {} if"
+,
+"  if they contain spaces.  In the event that they already contain braces or",
+"  doublequotes, especially if these are not balanced, some quoting may be",
+"  required.  Or you can assign the strings to variables and then use the",
+"  variable names in the CHANGE command; example:",
+" ",
+"    .a = {value=\"./",
+"    .b = {value=\"../",
+"    change *.html \\m(a) \\m(b)",
+" ",
+"  Since the CHANGE command works line by line, only text files can be",
+"  changed; C-Kermit automatically skips over binary files.",
+" ",
+"  File selection switches (factory defaults are marked with +):",
+" ",
+"   /AFTER:         Select files modified after the given date",
+"   /BEFORE:        Select files modified before the given date",
+"   /LARGER:        Select files larger than the given size in bytes",
+"   /SMALLER:       Select files smaller than the given size in bytes",
+"   /EXCEPT:        Exclude the given files (list or pattern)",
+#ifdef UNIXOROSK
+"   /DOTFILES       Include files whose names start with dot (period).",
+"   /NODOTFILES   + Don't include files whose names start with dot.",
+#endif /* UNIXOROSK */
+#ifdef RECURSIVE
+"   /RECURSIVE      Descend through subdirectories.",
+"   /NORECURSIVE  + Don't descend through subdirectories.",
+#endif /* RECURSIVE */
+" ",
+" File disposition switches:",
+" ",
+"   /BACKUP:name       Back up original files to named directory.",
+"   /DESTINATION:name  Store resulting changed files in named directory.",
+"   If neither of these options is given, original files are overwritten.",
+" ",
+" String selection switches:", 
+" ",
+"   /CASE:{ON,OFF}  OFF (default) = ignore case in string1; \
+ON = don't ignore",
+" ",
+" Action switches:",
+" ",
+"   /COUNT:name     Set named variable to number of files that were changed.",
+"   /SIMULATE       List files that would be changed, but don't change them.",
+"   /LIST           Show which files are being changed.",
+"   /MODTIME:       Modification time for change files, PRESERVE or UPDATE.",
+" ",
+"You can use the /SIMULATE switch in combination with other switches to see",
+"which files will be affected without actually changing them.",
 ""};
 
 #ifndef NOSPL
@@ -1865,8 +1994,8 @@ static char *hmxxkcd[] = {
 ,
 " ",
 #ifdef NT
-"    appdata       Your personal Kermit 95 application data directory",
-"    common        Kermit 95's application data directory for all users",
+"    appdata       Your personal C-Kermit Windows application data directory",
+"    common        C-Kermit's application data directory for all users",
 "    desktop       Your Windows desktop",
 #endif /* NT */
 "    download      Your download directory (if any)",
@@ -2142,7 +2271,7 @@ static char *hmxxhttp[] = {
 " ",
 "where <switches> are:",
 "/AGENT:<user-agent>",
-"  Identifies the client to the server; \"C-Kermit\" or \"Kermit-95\"",
+"  Identifies the client to the server; \"C-Kermit\"",
 "  by default.",
 " ",
 "/HEADER:<header-line>",
@@ -4070,7 +4199,8 @@ static char *hmxyf[] = {
 "  an existing file.  The options are:",
 "   BACKUP (default) - Rename the old file to a new, unique name and store",
 "     the incoming file under the name it was sent with.",
-"   OVERWRITE - Overwrite (replace) the existing file.",
+"   OVERWRITE - Overwrite (replace) the existing file; doesn't work for",
+"     a Kermit server unless you also tell it to ENABLE DELETE.",
 "   APPEND - Append the incoming file to the end of the existing file.",
 "   REJECT - Refuse and/or discard the incoming file (= DISCARD).",
 "   RENAME - Give the incoming file a unique name.",
@@ -4362,7 +4492,7 @@ static char *ifhlp[] = { "Syntax: IF [NOT] condition commandlist",
 " ",
 "  MS-KERMIT   - Program is MS-DOS Kermit",
 "  C-KERMIT    - Program is C-Kermit",
-"  K-95        - Program is Kermit 95",
+"  WINDOWS     - Program is C-Kermit for Windows",
 "  GUI         - Program runs in a GUI window",
 " ",
 "  AVAILABLE CRYPTO                  - Encryption is available",
@@ -4379,8 +4509,11 @@ static char *ifhlp[] = { "Syntax: IF [NOT] condition commandlist",
 "  DEFINED variablename or macroname - The named variable or macro is defined",
 "  DECLARED arrayname                - The named array is declared",
 "  NUMERIC variable or constant      - The variable or constant is numeric",
+"  FUNCTION name                     - The name is of a built-in function",
 "  EXIST filename                    - The named file exists",
 "  ABSOLUTE filename                 - The filename is absolute, not relative",
+"  BINARY filename                   - The file is a binary regular file",
+"  TEXT filename                     - The file is a text regular file",
 #ifdef CK_TMPDIR
 "  DIRECTORY string                  - The string is the name of a directory",
 #endif /* CK_TMPDIR */
@@ -4397,25 +4530,29 @@ static char *ifhlp[] = { "Syntax: IF [NOT] condition commandlist",
 "  OPEN CONNECTION                   - A connection is open",
 #endif /* NOLOCAL */
 "  KBHIT                             - A key has been pressed",
+"  TRUE                              - always succeeds",
+"  FALSE                             - always fails",
 " ",
 "  VERSION - equivalent to \"if >= \\v(version) ...\"",
-"  COUNT   - subtract one from COUNT, execute the command if the result is",
-"            greater than zero (see SET COUNT)",
 " ",
 "  EQUAL s1 s2 - s1 and s2 (character strings or variables) are equal",
-"  LLT s1 s2   - s1 is lexically (alphabetically) less than s2",
-"  LGT s1 s1   - s1 is lexically (alphabetically) greater than s2",
+"  LLT   s1 s2 - s1 is lexically (alphabetically) less than s2",
+"  LLE   s1 s2 - s1 is lexically less than or equal to s2",
+"  LGT   s1 s2 - s1 is lexically (alphabetically) greater than s2",
+"  LGE   s1 s2 - s1 is lexically greater than or equal to s2",
+"  NEQ   s1 s2 - s1 is not equal to s2",
 " ",
 "  =  n1 n2 - n1 and n2 (numbers or variables containing numbers) are equal",
 "  <  n1 n2 - n1 is arithmetically less than n2",
 "  <= n1 n2 - n1 is arithmetically less than or equal to n2",
 "  >  n1 n2 - n1 is arithmetically greater than n2",
 "  >= n1 n2 - n1 is arithmetically greater than or equal to n2",
+"  != n1 n2 - n1 is not equal to n2",
 " ",
 "  (number by itself) - fails if the number is 0, succeeds otherwise",
 " ",
-"  TRUE     - always succeeds",
-"  FALSE    - always fails",
+"  (variable name)    - If value numeric: succeeds if nonzero, fails if zero",
+"                       NOTE: variable name must not be the same as keyword",
 " ",
 "The IF command may be followed on the next line by an ELSE command. Example:",
 " ",
@@ -4425,6 +4562,20 @@ static char *ifhlp[] = { "Syntax: IF [NOT] condition commandlist",
 "It can also include an ELSE part on the same line if braces are used:",
 " ",
 "  IF < \\%x 10 { ECHO It's less } ELSE { ECHO It's not less }",
+" ",
+"Multiple commands can be enclosed in braces, separated by commas:",
+" ",
+"  IF > \\%n \\m(max) { echo \\%n > old max \\m(max), .max := \\%n }",
+" ",
+"When braces are used the command may split onto multiple lines:",
+" ",
+"  IF > \\%n \\m(max) {",
+"      echo \"\\%n greater than old max \\m(max)\"",
+"      .max := \\%n",
+"  } else if < \\%n \\m(min) {",
+"      echo \"\\%n less than old min \\m(min)\"",
+"      .min := \\%n",
+"  }",
 " ",
 "Also see HELP WILDCARD (for IF MATCH pattern syntax).",
 "" };
@@ -4523,13 +4674,12 @@ static char *hxxask[] = {
 #ifdef OS2
 " /POPUP",
 "  The prompt and response dialog takes place in a text-mode popup.",
-"  K95 only; in C-Kermit this switch is ignored.",
+"  C-Kermit for Windows only; in other C-Kermit versions /POPUP is ignored.",
 " ",
 #ifdef KUI
 " /GUI",
 "  The prompt and response dialog takes place in a GUI popup.",
-"  K95 GUI version only; in C-Kermit and the K95 console version,", 
-"  this switch is ignored.",
+"  C-Kermit for Windows only; this switch is ignored elsewhere",
 " ",
 #endif /* KUI */
 #endif /* OS2 */
@@ -4546,12 +4696,24 @@ static char *hxxask[] = {
 "  respond within the time limit.",
 ""};
 static char *hxxgetc[] = {
-"Syntax:  GETC variablename [ prompt ]",
+"Syntax:  GETC [ switches] [ variablename [ prompt ] ]",
 "Example: GETC \\%c { Type any character to continue...}",
 "  Issues the prompt and sets the variable to the first character you type.",
 "  Use braces to preserve leading and/or trailing spaces in the prompt.",
 " ",
-"Also see SET ASK-TIMER.",
+"Switches:",
+"  /CHECK",
+"    GETC /CHECK (no variable or prompt is given when /CHECK is used)",
+ "   succeeds if characters are waiting to be read and fails if not.",
+" ",
+"  /QUIET",
+"    In case of errors, no error message is issued.",
+" ",
+"  /TIMEOUT:n",
+"    Gives GETC a time limit of n seconds to wait for a character to appear;",
+"    if no character appears within n seconds, GETC fails and (if a /QUIET",
+"    switch was not given, an error message is printed.",
+/* "Also see SET ASK-TIMER.", */
 ""};
 
 static char *hmxytimer[] = {
@@ -4620,19 +4782,31 @@ static char *hxxass[] = {
 "  This prints 'goodbye hello'.", "" };
 
 static char *hxxdec[] = {
-"Syntax: DECREMENT variablename [ number ]",
+"Syntax: DECREMENT variablename [ amount ]",
 "  Decrement (subtract one from) the value of a variable if the current value",
-"  is numeric.  If the number argument is given, subtract that number",
-"  instead.",
+"  is numeric.  If an optional amount is specified (as a number, a variable,",
+"  \
+or an arithmetic expression that evaluates to a number, or any combination)",
+"  the variable is decremented by that number instead of 1.  The result is",
+"  always an integer.  If floating-point numbers are given, the result is",
+"  truncated.",
 " ",
-"Examples: DECR \\%a, DECR \\%a 7, DECR \\%a \\%n", "" };
+"Examples: DECR \\%a, DECR days 7, DECR x \\%n, DECR sum \\%x+12",
+""
+};
 
 static char *hxxinc[] = {
 "Syntax: INCREMENT variablename [ number ]",
 "  Increment (add one to) the value of a variable if the current value is",
-"  numeric.  If the number argument is given, add that number instead.",
+"  numeric.  If an optional amount is specified (as a number, a variable,",
+"  \
+or an arithmetic expression that evaluates to a number, or any combination)",
+"  the variable is incremented by that number instead of 1.  The result is",
+"  always an integer.  If floating-point numbers are given, the result is",
+"  truncated.",
 " ",
-"Examples: INCR \\%a, INCR \\%a 7, INCR \\%a \\%n", "" };
+"Examples: INCR \\%a, INCR dollars 100, INCR size \\%n, INCR total \\%x/10",
+"" };
 #endif /* NOSPL */
 
 #ifdef ANYX25
@@ -4769,7 +4943,7 @@ in which case it",
 "The next group is for use with printers that print only PostScript:",
 " ",
 "/POSTSCRIPT or /PS",
-"  Indicates that K95 should convert all text to PostScript before sending",
+"  Indicates that Kermit should convert all text to PostScript before sending",
 "  it to the printer.  The fixed-pitch Courier-11 font is used.",
 " ",
 "/WIDTH:number",
@@ -4781,7 +4955,7 @@ in which case it",
 "  66 is used.",
 " ",
 "/NOPOSTSCRIPT or /NOPS",
-"  Indicates that K95 should not convert all text to PostScript before",
+"  Indicates that Kermit should not convert all text to PostScript before",
 "  sending it to the printer.",
 " ",
 "The final switch is for use with AutoPrint mode and Screen Dumps",
@@ -4821,6 +4995,10 @@ static char *hxyexit[] = {
 "  When ON (which is the default), C-Kermit executes an implicit HANGUP and",
 "  CLOSE command on the communications device or connection when it exits.",
 "  When OFF, Kermit skips this sequence.",
+" ",
+"Syntax: SET EXIT MESSAGE { ON, OFF, STDERR }",
+"  Allows the text (if any) from an EXIT command (see HELP EXIT) to be",
+"  supressed (OFF), printed normally (ON, the default), or sent to STDERR.",
 " ",
 "Syntax: SET EXIT ON-DISCONNECT { ON, OFF }",
 "  When ON, C-Kermit EXITs automatically when a network connection",
@@ -4920,10 +5098,10 @@ static char *hxxxla[] = {
 "  is displayed on the screen.  An appropriate intermediate character-set",
 "  is chosen automatically, if necessary.  Synonym: XLATE.  Example:",
 " ",
-"    TRANSLATE lasagna.lat latin1 italian lasagna.nrc",
+"    TRANSLATE lasagna.txt latin1 utf8 lasagna-utf8.txt",
 " ",
 "  Multiple files can be translated if file2 is a directory or device name,",
-"  rather than a filename, or if file2 is omitted.",
+"  rather than a filename, or if file2 is omitted.  Note: CONVERT would",
 "" };
 #endif /* NOCSETS */
 
@@ -5086,7 +5264,7 @@ static char *hxxtapi[] = {
 "TAPI DIALING-PROPERTIES",
 "  Displays the TAPI Dialing Properties (locations) Dialog box.  The",
 "  Dialing rules may be changed and locations created and deleted.",
-"  When the dialog box is closed, K-95 imports the current Dialing",
+"  When the dialog box is closed, C-Kermit imports the current Dialing",
 "  Properties' Location into the Kermit DIAL command settings.",
 ""};
 
@@ -5116,7 +5294,7 @@ static char *hxytapi[] = {
 "  LINE/PORT is a TAPI device and TAPI MODEM-DIALING is ON, OFF otherwise.",
 " ",
 "SET TAPI MODEM-LIGHTS {[ON], OFF}",
-"  Displays a modem lights indicator on the Windows 95 Taskbar.  Does nothing",
+"  Displays a modem lights indicator on the Windows Taskbar.  Does nothing",
 "  in Windows NT 4.0.",
 " ",
 "SET TAPI MANUAL-DIALING {ON, [OFF]}",
@@ -5144,7 +5322,7 @@ static char *hxytapi[] = {
 "SET TAPI USE-WINDOWS-CONFIGURATION {ON, [OFF]}",
 "  Specifies whether the TAPI modem values for speed, parity, stop bits, flow",
 "  control, etc. are used in preference to the current values specified",
-"  within Kermit-95.",
+"  within C-Kermit.",
 " ",
 ""};
 #endif /* CK_TAPI */
@@ -5329,7 +5507,8 @@ static char * hxxdcl[] = {
 " ",
 "ARRAY COPY array1 array2",
 "  Copies array1 to array2.  If array2 has not been declared, it is created",
-"  automatically.  Range specifiers may be given on one or both arrays.",
+"  automatically.  If it array2 does exist, array1 is copied INTO it, as",
+"  much as will fit.  Range specifiers may be given on one or both arrays.",
 " ",
 "ARRAY LINK array1 arra2",
 "  Makes array1 a link to array2.",
@@ -5419,7 +5598,11 @@ static char * hmxxren[] = {
 "  this command is equivalent to REMOTE RENAME (RREN).  Otherwise:",
 " ",
 #endif /* LOCUS */
-"Syntax: RENAME [ switches ] name1 [ name2 ]",
+#ifndef OLDMOVE
+"Syntax: RENAME or MOVE or MV [ switches ] name1 [ name2 ]",
+#else
+"Syntax: RENAME or MV [ switches ] name1 [ name2 ]",
+#endif /* OLDMOVE */
 "  Renames the source file (name1) to the target name2.  If name2 is a",
 "  directory, name1 is allowed to contain wildcards, and the file(s) matching",
 "  name1 are moved to directory name2, subject to rules of the underlying",
@@ -5808,6 +5991,22 @@ static char * hxxf_op[] = {
 "/READ",
 "  Open the file for reading.",
 " ",
+
+#ifdef UNIX
+"/STDIN",
+"  Tells Kermit to read from Standard Input.  In this case you don't specify",
+"  a filename.",
+" ",
+"/STDOUT",
+"  Tells Kermit to write to Standard Output.  In this case you don't specify",
+"  a filename.",
+" ",
+"/STDERR",
+"  Tells Kermit to write to Standard Error.  In this case you don't specify",
+"  a filename.",
+" ",
+#endif  /* UNIX */
+
 "/WRITE",
 "  Open the file for writing.  If /READ was not also specified, this creates",
 "  a new file.  If /READ was specified, the existing file is preserved, but",
@@ -6204,6 +6403,13 @@ case XXMSG:
   to stderr if SET DEBUG MESSAGE is STDERR; doesn't print it at all if SET\n\
   DEBUG MESSAGE is OFF.  Synonym: MSG."));
 
+case XXXMSG:
+    return(hmsg("Syntax: XMESSAGE text-to-print-if-debugging\n\
+  Like MESSAGE, except does not include a line terminator at the end.\n\
+  Prints the given text to stdout if SET DEBUG MESSAGE is ON; prints it\n\
+  to stderr if SET DEBUG MESSAGE is STDERR; doesn't print it at all if SET\n\
+  DEBUG MESSAGE is OFF.  Synonym: XMSG."));
+
 #ifndef NOFRILLS
 case XXLDEL:
     return(hmsg(
@@ -6242,7 +6448,10 @@ case XXDIR:                             /* DIRECTORY */
     return(hmsga(hmxxdir));
 
 case XXTOUC:				/* TOUCH */
-    return(hmsga(hmxxtouc));
+    return(hmsga(hmxxtouch));
+
+case XXCHG:				/* CHANGE */
+    return(hmsga(hmxxchange));
 
 case XXWDIR:				/* WDIRECTORY */
   return(hmsg("  WDIRECTORY is shorthand for DIRECTORY /SORT:DATE /REVERSE;\n\
@@ -6404,11 +6613,7 @@ Trustees of Columbia University in the City of New York.\n\n",
     }
 
 case XXINT:
-#ifdef OS2
-    return(hmsg("The INTRO command gives a brief introduction to Kermit 95."));
-#else
     return(hmsg("The INTRO command gives a brief introduction to C-Kermit."));
-#endif /* OS2 */
 
 #ifndef NOSPL
 case XXIF:
@@ -6477,7 +6682,7 @@ case XXNEW:
 
 case XXUPD:
     return(hmsg(
-"  New features are described in the online Kermit 95 manual,\n\
+"  New features are described in the online manual,\n\
    accessible via the MANUAL command."));
 
 #ifndef NOSPL
@@ -6568,9 +6773,11 @@ case XXRET:
 #ifndef NOXFER
 case XXSEN:
     return(hmsga(hmxxsen));
+#ifdef OLDMOVE
 case XXMOVE:
     return(hmsg("MOVE is exactly like SEND, except each file that is\n\
 sent successfully is deleted after it is sent."));
+#endif /* OLDMOVE */
 #ifndef NORESEND
 case XXRSEN:
     return(hmsg(hmxxrsen));
@@ -6996,7 +7203,8 @@ case XXASSOC:
 #ifndef NOSPL
 case XXSHIFT:
     return(hmsg("Syntax: SHIFT [ n ]\n\
-  Shifts \\%1..9 variables n places to the left; default n = 1."));
+  Shifts script command line or macro or TAKE file argument variables\n\
+  \\%1..9 or \\&_[1..n] n places to the left; default n = 1."));
 #endif /* NOSPL */
 
 #ifndef NOPUSH
@@ -7007,7 +7215,7 @@ case XXMAN:
 #else
 #ifdef OS2
     return(hmsg("Syntax: MANUAL\n\
-  Accesses the Kermit 95 HTML manual using the current browser."));
+  Accesses the HTML manual using the current browser."));
 #else
     return(hmsg("Syntax: MANUAL [ topic ]\n\
   Runs the \"help\" command on the given topic (default \"kermit\")."));
@@ -7259,61 +7467,38 @@ static char * supporttext[] = {
 
 "Live technical support for Kermit software is no longer available",
 "from Columbia University, as it was from mid-1981 until mid-2011 when",
-
-#ifdef OS2
-
-"the Kermit Project was cancelled.  Beginning with version 3.0, Kermit 95",
-
-#else
-
 "the Kermit Project was cancelled.  Beginning with version 9.0, C-Kermit",
-
-#endif	/* OS2 */
-
-"is Open Source software.  The Kermit website is supposed remain open",
-"indefinitely at:",
+"is Open Source software.  The Kermit project has been moved to:",
 " ",
-"  http://kermit.columbia.edu/",
+"  http://www.kermitproject.org/",
 " ",
-
-#ifdef OS2
-
-"The Kermit 95 page is here:",
-" ",
-"  http://kermit.columbia.edu/k95.html",
-" ",
-"The Kermit 95 manual is here:",
-" ",
-"  http://kermit.columbia.edu/k95manual/",
-" ",
-"The Kermit 95 Frequently Asked Questions page is here:",
-" ",
-"  http://kermit.columbia.edu/k95faq.html",
-" ",
-"and many other resources are listed on the Kermit 95 home page.",
-" ",
-
-#else
-
 "The C-Kermit home page is here:",
 " ",
-"  http://kermit.columbia.edu/ckermit.html",
+"  http://www.kermitproject.org/ckermit.html",
 " ",
 "The documentation for C-Kermit is listed here:",
 " ",
-"  http://kermit.columbia.edu/ckermit.html#doc",
+"  http://www.kermitproject.org/ckermit.html#doc",
+" ",
+"Z C-Kermit tutorial is here:",
+" ",
+"  http://www.kermitproject.org/ckututor.html",
 " ",
 "The C-Kermit Frequently Asked Questions page is here:",
 " ",
-"  http://kermit.columbia.edu/ckfaq.html",
+"  http://www.kermitproject.org/ckfaq.html",
 " ",
-"and many other resources are listed on the C-Kermit home page.",
+"and the Kermit Project Technical Support page is here:",
 " ",
-
-#endif	/* OS2 */
-
-"Time will tell what sort of development and support structures arise",
-"in the Open Source community.",
+"  http://www.kermitproject.org/support.html",
+"  ",
+"If you have a problem or question that is not addressed on the website",
+"you can send email to:",
+" ",
+"  support@kermitproject.org",
+" ",
+"and as long as anyone is still at that address, it will be answered",
+"on a best-effort basis.",
 ""
 };
 
@@ -7616,7 +7801,7 @@ static char *hxyterm[] = {
 "  see a complete list.",
 " ",
 "SET TERMINAL ANSWERBACK { OFF, ON }",
-"  Disables/enables the ENQ/Answerback sequence (\"K-95 version term-type\").",
+"  Disables/enables the ENQ/Answerback sequence (Kermit version term-type).",
 " ",
 "SET TERMINAL ANSWERBACK MESSAGE <extension>",
 "  Allows you to specify an extension to the default answerback message.",
@@ -7636,7 +7821,7 @@ static char *hxyterm[] = {
 "SET TERMINAL APC { ON, OFF, NO-INPUT, NO-INPUT-UNCHECKED, UNCHECKED }",
 #ifdef OS2
 "  Controls execution of Application Program Commands sent by the host while",
-"  K-95 is either in CONNECT mode or processing INPUT commands.  ON allows",
+"  Kermit is either in CONNECT mode or processing INPUT commands.  ON allows",
 "  execution of \"safe\" commands and disallows potentially dangerous ones",
 "  such as DELETE, RENAME, OUTPUT, and RUN.  OFF prevents execution of APCs.",
 "  UNCHECKED allows execution of all APCs.  OFF is the default.",
@@ -7655,7 +7840,7 @@ static char *hxyterm[] = {
 "  Sets the mode for the arrow keys during VT terminal emulation.",
 " ",
 "SET TERMINAL ATTRIBUTE { BLINK, DIM, PROTECTED, REVERSE, UNDERLINE }",
-"  Determines how attributes are displayed by Kermit-95.",
+"  Determines how attributes are displayed in the Terminal window.",
 " ",
 "SET TERMINAL ATTRIBUTE { BLINK, DIM, REVERSE, UNDERLINE } { ON, OFF }",
 "  Determines whether real Blinking, Dim, Reverse, and Underline are used in",
@@ -7774,7 +7959,7 @@ static char *hxyterm[] = {
 "  Specifies the character set used by the remote host, <remote-cs>.",
 "  Equivalent to SET TERM REMOTE-CHARACTER-SET <remote-cs> ALL.  For more",
 "  control over the details, use SET TERM REMOTE-CHARACTER-SET and (in",
-"  non-GUI K95 versions) SET TERM LOCAL-CHARACTER-SET; these are explained",
+"  non-GUI Kermit versions) SET TERM LOCAL-CHARACTER-SET; these are explained",
 "  below.  The default TERMINAL CHARACTER-SET is LATIN1 (ISO 8859-1).",
 #else  /* not OS2 */
 "SET TERMINAL CHARACTER-SET <remote-cs> [ <local-cs> ]",
@@ -7882,8 +8067,8 @@ static char *hxyterm[] = {
 #ifdef OS2
 #ifdef KUI
 "SET TERMINAL FONT <facename> <height>",
-"  Specifies the font to be used in the Kermit 95 window.  The font is",
-"  determined by the choice of a facename and a height measured in Points.",
+"  Specifies the font to be used in the C-Kermit terminal window.  The font",
+"  is determined by the choice of a facename and a height measured in Points.",
 "  The available facenames are those installed in the Font Control Panel.",
 " ",
 #else /* KUI */
@@ -8007,7 +8192,7 @@ static char *hxyterm[] = {
 #ifndef NOCSETS
 #ifdef OS2
 "SET TERMINAL LOCAL-CHARACTER-SET <local-cs>",
-"  Specifies the character set used by K-95 locally.  If you don't specify",
+"  Specifies the character set used locally.  If you don't specify",
 #ifdef OS2ONLY
 "  the local character-set, the current TERMINAL FONT is used if you have",
 "  given a SET TERMINAL FONT command; otherwise the current codepage is used.",
@@ -8184,7 +8369,7 @@ static char *hxyterm[] = {
 " ",
 
 "SET TERMINAL TRANSMIT-TIMEOUT <seconds>",
-"  Specifies the maximum amount of time K-95 waits before returning to the",
+"  Specifies the maximum amount of time Kermit waits before returning to the",
 "  prompt if your keystrokes can't be transmitted for some reason, such as a",
 "  flow-control deadlock.",
 " ",
@@ -8201,16 +8386,15 @@ static char *hxyterm[] = {
 
 #ifdef OS2
 "SET TERMINAL URL-HIGHLIGHT { ON <attribute>, OFF }",
-"  Specifies whether K-95 should highlight URLs and which screen attribute",
+"  Specifies whether URLs should be highlighted and which screen attribute",
 "  should be used.  The screen attributes can be one of NORMAL, BLINK, BOLD,",
 "  DIM, INVISIBLE, REVERSE, or UNDERLINE.  The default is ON using the",
 "  BOLD screen attribute.",
 " ",
 "SET TERMINAL VIDEO-CHANGE { DISABLED, ENABLED }",
-"  Specifies whether K-95 should change video modes automatically in response",
+"  Specifies whether video modes should change automatically in response",
 #ifdef NT
-"  to escape sequences from the other computer.  ENABLED by default (except",
-"  on Windows 95).",
+"  to escape sequences from the other computer.  ENABLED by default.",
 #else /* NT */
 "  to escape sequences from the other computer.  ENABLED by default.",
 #endif /* NT */
@@ -9150,15 +9334,11 @@ static char *hxymacr[] = {
 static char *hmxyprm[] = {
 "Syntax: SET PROMPT [ text ]",
 " ",
-#ifdef OS2
-"Prompt text for this program, normally 'K-95>'.  May contain backslash",
-#else
 #ifdef MAC
 "Prompt text for this program, normally 'Mac-Kermit>'.  May contain backslash",
 #else
 "Prompt text for this program, normally 'C-Kermit>'.  May contain backslash",
 #endif /* MAC */
-#endif /* OS2 */
 "codes for special effects.  Surround by { } to preserve leading or trailing",
 #ifdef OS2
 "spaces.  If text omitted, prompt reverts to K-95>.  Prompt can include",
@@ -10342,7 +10522,12 @@ case XYLOGIN:
 #ifndef NOSPL
 case XYTMPDIR:
     return(hmsg("Syntax: SET TEMP-DIRECTORY [ <directory-name> ]\n\
-  Overrides automatic assignment of \\v(tmpdir) variable."));
+  Tells Kermit to use the given directory for creating temporary files.\n\
+  These are used (for example) in FTP downloads and by the CHANGE command.\n\
+  If you don't issue this command, C-Kermit picks a directory automatically\n\
+  based on the operating system and any environment variables you might have\n\
+  set.  Use SHOW TEMP-DIRECTORY or SHOW VARIABLE \\v(tmpdir) to see Kermit's\n\
+  current temporary directory setting.  Synonym: SET TMP-DIRECTORY."));
 #endif /* NOSPL */
 
 #ifdef OS2
@@ -10507,6 +10692,16 @@ case XYTIMER:
   (such as Windows pathnames) that might contain backslashes."));
 #endif	/* NOSPL */
 
+#ifdef HAVE_LOCALE
+  case XYLOCALE:
+    return(hmsg("Syntax: SET LOCALE [ locale-string ]\n\
+  Changes the locale for language and character-set to the one given.  The\n\
+  local-string is in the format required by your computer, such as\n\
+  en_US.US-ASCII or es_VE.ISO8859-1.  C-Kermit's SET LOCALE command affects\n\
+  C-Kermit itself and any subprocesses, but does not affect the environment\n\
+  from which C-Kermit was invoked."));
+#endif /* HAVE_LOCALE */
+
 default:
     printf("Not available - \"%s\"\n",cmdbuf);
     return(0);
@@ -10574,13 +10769,7 @@ int
 dohfunc(xx) int xx; {
     /* int x; */
     if (xx == -3) {
-        printf("\n Type SHOW FUNCTIONS to see a list of available functions.\n"
-               );
-        printf(
-        " Type HELP FUNCTION <name> for help on a particular function.\n");
-        printf(
-        " For function settings use HELP SET FUNCTION and SHOW SCRIPTS.\n\n");
-        return(0);
+        return(hmsga(hmxxfunc));
     }
     if (xx == FN_WORD)                  /* Long help message */
         return(hmsga(hmfword));
@@ -10627,7 +10816,8 @@ dohfunc(xx) int xx; {
                xx == FN_SEARCH ? "left" : "right",
                xx == FN_SEARCH ? "left" : "right"
         );
-        printf("  See HELP WILDCARDS for info about patterns.\n");
+        printf(
+"  s1 is a \"floating pattern\"; see HELP PATTERNS for details.\n");
         break;
       case FN_LEN:                      /* Length (of string) */
         printf("\\flength(s1)\n\
@@ -10773,11 +10963,16 @@ dohfunc(xx) int xx; {
   The numeric code of the first character in string s1, or 0 if s1 empty.\n");
         break;
       case FN_RPL:                      /* Replace */
-        printf("\\freplace(s1,s2,s3[,n1])\n\
+        printf("\\freplace(s1,s2,[s3[,n1[,n2]]])\n\
   s1 = original string.\n\
   s2 = match string.\n\
-  s3 = replacement string.\n\
-  n1 = occurrence.\n");
+  s3 = replacement string (may be empty).\n\
+  n1 = occurrence (if omitted or 0 does all occurrences).\n");
+#ifdef RPLWORDMODE
+        printf("  n2 = word mode \
+(0 = ignore context; 1 = only if target is delimited).\n");
+#endif  /* RPLWORDMODE */
+
         printf("Returns string:\n\
   s1 with occurrence number n1 of s2 replaced by s3.\n\
   If n1 = 0 or omitted, all occurrences are replaced.\n\
@@ -11078,6 +11273,7 @@ Assign string words to an array.\n\
   n1 = 2: dd-mmm-yyyy hh:mm:ss (ditto)\n\
   n1 = 3: yyyymmddhhmmss (all numeric)\n\
   n1 = 4: Day Mon dd hh:mm:ss yyyy (asctime)\n\
+  n1 = 5: yyyy:mm:dd:hh:mm:ss (all numeric with all fields delimited)\n\
   Other:  yyyymmdd hh:mm:dd");
         break;
 
@@ -11128,6 +11324,7 @@ Assign string words to an array.\n\
         printf("\\fday([[date][ time]]) - Day of Week.\n");
         printf("Returns day of week of given date as Mon, Tue, etc.\n");
         printf("HELP DATE for info about date-time formats.\n");
+        printf("Also see HELP FUNCTION DAYNAME.\n");
         break;
 
       case FN_NDAY:
@@ -11750,15 +11947,19 @@ Returns number:\n");
 
       case FN_PICTURE:
         printf("\\fpictureinfo(s[,&a])\n\
-  s  = File specification of a JPG or GIF picture file.\n\
+  s  = File specification of an image file in JPG or GIF format.\n\
   &a = Optional array name.\n\n");
         printf("Returns integer:\n\
   0 if file not found or not recognized;\n\
   1 if orientation is landscape;\n\
-  2 if orientation is portrait.\n\n"); 
-	printf("  If an array name is included, element 1 is filled \
-in with the image width\n\
-  in pixels, and element 2 the image height.\n");
+  2 if orientation is portrait;\n\
+  3 if the image is square.\n"); 
+	printf("\n\
+If an array name is included, and if the function's return value is\n\
+greater than 0, element 1 of the array is filled in with the image\n\
+width in pixels, element 2 the image height, and element 3 is the image's\n\
+'date taken' (if present) in 'yyyy:mm:dd hh:mm:ss' format; for example\n\
+2013:05:17 21:14:12.\n");
 	break;
 
       case FN_PID:
@@ -11833,6 +12034,55 @@ represent.\n");
     -1: s1 is lexically less than s2;\n\
      0: s1 and s2 are lexically equal;\n\
      2: s1 is lexically greater than s2.\n");
+        break;
+
+      case FN_FILEINF:
+        printf("\\ffileinfo(s1,&a)\n\
+  s1 = file specification string\n\
+  &a = array designator for results (required)\n\
+  Returns a number:\n\
+     0: File not found or not accessible or bad arguments;\n\
+    >0: The number of attributes returned in the array, normally 7 or 8:\n");
+        printf(" 1. The file's name\n\
+ 2. The full path of the directory where the file resides\n\
+ 3. The file's modification date-time yyyymmdd hh:mm:ss\n\
+ 4. Platform-specific permissions string, e.g. drwxrwxr-x or RWED,RWE,RE,E\n\
+ 5. Platform-specific permissions code, e.g. an octal number like 40775\n\
+ 6. The file's size in bytes\n\
+ 7. Type: 1=regular file; 2=executable; 3=directory; 4=link; 0=unknown.\n\
+ 8. If link, the name of the file linked to.\n");
+        break;
+
+      case FN_FILECMP:
+        printf("\\ffilecompare(s1,s2)\n\
+  s1 = name of first file\n\
+  s1 = name of second file\n\
+  Returns a number:\n\
+     0: The two files have identical contents and lengths;\n\
+     1: The two files have different content or lengths;\n\
+    -1: Error opening or reading either file.\n");
+        break;
+
+      case FN_DAYNAME:
+        printf("\\fdayname(s1,n)\n\
+  s1 = free-format date OR day-of-week number 1-7 OR leave blank.\n\
+  n  = function code: 0 to return full name; nonzero to return abbreviation.\n\
+  Returns a string: the name of the weekday for the given date or weekday\n\
+    number or, if s1 was omitted, of the current date, in the language and\n\
+    character-set specified by the locale.  If n is nonzero, the result\n\
+    is abbreviated in the locale-appropriate way.  If given inappropriate\n\
+    arguments, the result is empty and an error message is printed.\n");
+        break;
+
+      case FN_MONNAME:
+        printf("\\fmonthname(s1,n)\n\
+  s1 = free-format date OR month-of-year number 1-12 OR leave blank.\n\
+  n  = function code: 0 to return full name; nonzero to return abbreviation.\n\
+  Returns a string: the name of the month for the given date or month\n\
+    number or, if s1 was omitted, of the current date, in the language and\n\
+    character-set specified by the locale.  If n is nonzero, the result\n\
+    is abbreviated in the locale-appropriate way.  If given inappropriate\n\
+    arguments, the result is empty and an error message is printed.\n");
         break;
 
       default:

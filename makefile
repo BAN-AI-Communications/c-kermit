@@ -1,30 +1,27 @@
 # makefile / Makefile / ckuker.mak / CKUKER.MAK
 #
-# Sun Aug 21 10:33:08 2011
-BUILDID=20110821
-CKVER= "9.0.302"
+# Sat Sep 19 11:01:20 2020
+BUILDID=20200918
+CKVER= "9.0.305" # Alpha.02
 #
 # -- Makefile to build C-Kermit for UNIX and UNIX-like platforms --
 #
-# Copyright (C) 1985, 2011,
+# Copyright (C) 1985, 2020,
 #   Trustees of Columbia University in the City of New York.
 #   All rights reserved.  See the C-Kermit COPYING.TXT file or the
 #   copyright text in the ckcmai.c module for disclaimer and permissions.
 #   In case you can't find the COPYING.TXT file, it contains the 
 #   Simplified 3-Clause BSD License, which is an Open Source license.
 #
-# Author: Frank da Cruz, Columbia University
-# 612 West 115th Street, New York NY 10025-7799, USA
-# Email: fdc@columbia.edu
-# Web:   http://kermit.columbia.edu/
-# FTP:   ftp://kermit.columbia.edu/kermit/
+# Author: Frank da Cruz (principal author)
+# Email:  fdc@kermitproject.org
+# Web:    http://www.kermitproject.org
+# FTP:    ftp://ftp.kermitproject.org
 #
 # Note: Author is no longer at Columbia University or at the 115th Street
-# address effective 1 July 2011.  The email address should still work,
-# as well as the website and FTP addresses, for the foreseeable future.
-# For new developments, also check:
-#
-#    http://www.columbia.edu/~fdc/kermit/
+# address effective 1 July 2011.  Even so, C-Kermit remains Copyright
+# Columbia U because that is where it was first written in 1985 and further
+# developed through mid-2011.
 #
 # Contributions from many others.  Special thanks to Jeff Altman for the
 # secure-build targets, Peter Eichhorn, assyst GmbH, for the consolidated
@@ -33,14 +30,14 @@ CKVER= "9.0.302"
 # IRIX 6.x targets, to Seth Theriault for major improvements to the
 # Mac OS X targets, and to Alexey Dokuchaev for FreeBSD 9.0.
 #
-# C-Kermit is written and produced by hand without any automated procedures
-# such as autoconf / automake / configure, although some of the targets below
-# (especially the linux target) inspect the environment and make some
-# decisions in the most portable way possible. The automated tools are not
-# used because (a) C-Kermit predates them, and (b) they are not portable to
-# all the platforms where C-Kermit must be (or once was) built, and (c) to
-# keep C-Kermit as independent as possible from external tools over which
-# we have no control.
+# C-Kermit is written and produced by hand without any external automated
+# procedures such as autoconf / automake / configure, although some of the
+# targets below (especially the linux target) inspect the environment and make
+# some decisions in the most portable way possible. The automated tools are
+# not used because (a) C-Kermit predates them, and (b) they are not portable
+# to all the platforms where C-Kermit must be (or once was) built, and (c) to
+# keep C-Kermit as independent as possible from external tools over which we
+# have no control.
 #
 # Most entries use the "xermit" target, which uses the select()-based CONNECT
 # module, ckucns.c.  The "wermit" target uses the original fork()-based CONNECT
@@ -67,6 +64,7 @@ CKVER= "9.0.302"
 # environment variables.  For that reason, don't use 'make -e'.
 #
 # Certain UNIX variations have their own separate makefiles:
+#  . For Android, use android.mk.
 #  . For 2.10 or 2.11 BSD on the DEC PDP-11, use ckubs2.mak.
 #  . For Plan 9, use ckpker.mk.
 #
@@ -127,10 +125,15 @@ CKVER= "9.0.302"
 # --------------------------
 # Some commonly used targets:
 #
+# + "make -f android.mk" (separate makefile) for Android.
 # + "make linux" should work for any version of Linux on any hardware.
+#     Note: new "make linux" (2016) not yet widely tested.
+#     Use "make linux-2015" (the old "make linux")
+#     if "make linux" causes problems.
 # + "make linux+ssl" ditto, with OpenSSL security added.
 # + "make linux+krb5" ditto, with Kerberos 5 security added.
 # + "make linux+krb5+ssl" Linux with OpenSSL and Kerberos 5.
+#     Note: the Linux targets work for Raspberry Pi with Debian 7.0 (Raspbian)
 # + "make netbsd", NetBSD, any version.
 # + "make netbsd+ssl", NetBSD with OpenSSL 0.9.7 or later.
 # + "make netbsd+krb5", NetBSD with Kerberos 5.
@@ -1782,8 +1785,8 @@ freebsd+ssl freebsd+openssl freebsd50+openssl:
 	   ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) freebsd KTARGET=$${KTARGET:-$(@)} "CC = $(CC)" "CC2 = $(CC2)" \
 	KFLAGS="-DCK_AUTHENTICATION -DCK_SSL $(SSLINC) -DZLIB $$OPENSSLOPTION \
@@ -1805,14 +1808,20 @@ freebsd+ssl freebsd+openssl freebsd50+openssl:
 #disabled on ckcfn2.c ("KFLAGS=-O0") (Letter O Digit Zero).
 #(This could be automated by testing `uname -m` for "sun3".)
 #OK: 2011/06/15 on NetBSD 1.5.2 and 5.1.
+#NetBSD 4.1: have to include <time.h>.
 #OK: 2011/08/21 on 5.1.
+#OK: (many more up through NetBSD 7.2.1)
+#OK: NetBSD 8.x
+#OK: 2020/08/24 NetBSD 9.0
+# `uname -r | grep "[6789].[0-9]" > /dev/null && echo '-DTIMEH'`
+
 netbsd netbsd2 netbsd15 netbsd16 old-netbsd:
-	@echo Making C-Kermit $(CKVER) for NetBSD with curses...
+	@echo Making C-Kermit $(CKVER) for NetBSD `uname -r` with curses...
 	$(MAKE) CC=$(CC) CC2=$(CC2) xermit KTARGET=$${KTARGET:-$(@)} \
 	"CFLAGS=`grep fseeko /usr/include/stdio.h > /dev/null && \
 	echo '-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'` \
-	-DBSD44 -DCK_CURSES -DTCPSOCKET -DUSE_STRERROR -DHAVE_OPENPTY \
-	-funsigned-char -DHERALD=\"\\\" NetBSD `uname -r`\\\"\" \
+	-DTIMEH	-DBSD44 -DCK_CURSES -DTCPSOCKET -DUSE_STRERROR \
+	-funsigned-char -DHERALD=\"\\\" `uname -s -r`\\\"\" \
 	-DCK_DTRCD -DCK_DTRCTS -DTPUTSARGTYPE=int -DFNFLOAT $(KFLAGS) -O" \
 	"LIBS= -lcurses -lcrypt -lm -lutil $(LIBS)"
 
@@ -1833,8 +1842,8 @@ netbsd+ssl netbsd+openssl:
 	   ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) netbsd KTARGET=$${KTARGET:-$(@)} "CC = $(CC)" "CC2 = $(CC2)" \
 	"KFLAGS= -DCK_AUTHENTICATION -DCK_ENCRYPTION -DCK_CAST $$HAVE_DES \
@@ -1861,8 +1870,8 @@ netbsd+krb5:
 	   ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) netbsd KTARGET=$${KTARGET:-$(@)} "CC = $(CC)" "CC2 = $(CC2)" \
 	"KFLAGS= -DCK_AUTHENTICATION -DCK_ENCRYPTION -DCK_KERBEROS -DKRB5 \
@@ -1887,8 +1896,8 @@ netbsd+krb5+ssl netbsd+krb5+openssl+zlib:
 	   ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) netbsd KTARGET=$${KTARGET:-$(@)} "CC = $(CC)" "CC2 = $(CC2)" \
 	"KFLAGS= -DCK_AUTHENTICATION -DCK_ENCRYPTION -DCK_CAST $$HAVE_DES \
@@ -1909,7 +1918,7 @@ netbsd+ssl+srp+zlib:
 	@echo Making C-Kermit $(CKVER) for NetBSD with curses...
 	$(MAKE) CC=$(CC) CC2=$(CC2) xermit KTARGET=$${KTARGET:-$(@)} \
 	"CFLAGS= -DBSD44 -DCK_CURSES -DTCPSOCKET -DUSE_STRERROR -DNETBSD15 \
-	-DCK_DTRCD -DCK_DTRCTS -DTPUTSARGTYPE=int -DHAVE_OPENPTY \
+	-DCK_DTRCD -DCK_DTRCTS -DTPUTSARGTYPE=int \
 	-I/usr/include/openssl -I/usr/pkg/include \
 	-DCK_AUTHENTICATION -DCK_SRP -DPRE_SRP_1_4_5 -DCK_ENCRYPTION \
 	-DCK_CAST -DCK_DES -DLIBDES -DCK_SSL -DZLIB -DFNFLOAT $(KFLAGS) -O" \
@@ -1928,7 +1937,7 @@ netbsdn:
 	$(MAKE) CC=$(CC) CC2=$(CC2) xermit KTARGET=$${KTARGET:-$(@)} \
 	"CFLAGS=`grep fseeko /usr/include/stdio.h > /dev/null && \
 	echo '-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'` \
-	-DBSD44 -DCK_CURSES -DTCPSOCKET -DUSE_STRERROR -DHAVE_OPENPTY \
+	-DBSD44 -DCK_CURSES -DTCPSOCKET -DUSE_STRERROR \
 	-DHERALD=\"\\\" NetBSD `uname -r`\\\"\" \
 	-DCK_DTRCD -DCK_DTRCTS -DTPUTSARGTYPE=int -DFNFLOAT $(KFLAGS) -O" \
 	"LIBS= -L/usr/pkg/lib -lncurses -lcrypt -lm -lutil $(LIBS)"
@@ -2078,7 +2087,7 @@ oldmacosx103+secure:
 # on both Power and Intel architectures.  This one uses utmp.h on 10.4 and
 # earlier and utmpx.h on 10.5 onwards.
 # Note: Mac OS X 10.5 and earlier are 32-bit; 10.6 and later 64-bit.
-# Note 2: As of C-Kermit 9.0 -NOUUCP is included by default because
+# Note 2: As of C-Kermit 9.0 -DNOUUCP is included by default because
 # Mac OS X doesn't support UUCP.  To undo this, use KFLAGS=-UNOUUCP.
 #OK: 2011/06/14 (for 10.4.11, 10.5.8, 10.6.7)
 macosx macosx10 macosx10.3.9 macosx10.4 macosx10.5 macosx10.6:
@@ -3884,16 +3893,16 @@ solaris9g+krb5+ssl solaris10g+krb5+ssl solaris11g+krb5+ssl:
 	if ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes425'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	GSSAPILIB=''; \
 	K5DIR=`echo $(K5LIB) | sed 's|-L||'`; \
 	echo K5DIR=$$K5DIR; \
 	if ls $$K5DIR/libgssapi_krb5* > /dev/null 2> /dev/null; then \
-              GSSAPILIB='-lgssapi_krb5'; \
-          else GSSAPILIB='-lgssapi'; \
-        fi; \
+		GSSAPILIB='-lgssapi_krb5'; \
+		else GSSAPILIB='-lgssapi'; \
+	fi; \
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} CC=gcc CC2=gcc \
 	"CFLAGS = -O -Usun -DSVR4 -DSOLARIS9 -DSTERMIOX -DSELECT -DFNFLOAT \
 	-DCK_CURSES -DCK_NEWTERM -DDIRENT -DHDBUUCP -DTCPSOCKET  -DBIGBUFOK \
@@ -3972,8 +3981,8 @@ solaris9+openssl solaris10+openssl solaris11+openssl:
 	if ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes425'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) "MAKE=$(MAKE)" solaris9 KTARGET=$${KTARGET:-$(@)} \
 	"KFLAGS=-DCK_AUTHENTICATION -DCK_SSL -DZLIB $$HAVE_DES \
@@ -4000,8 +4009,8 @@ solaris9g+openssl solaris10g+openssl solaris11g+openssl:
 	if ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes425'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+		echo "HAVE DES"; \
+	      else echo "NO DES"; \
 	fi; \
 	$(MAKE) "MAKE=$(MAKE)" solaris9g KTARGET=$${KTARGET:-$(@)} \
 	"KFLAGS=-DCK_AUTHENTICATION -DCK_SSL -DZLIB $$HAVE_DES \
@@ -6004,6 +6013,10 @@ cie:
 	$(MAKE) wermit KTARGET=$${KTARGET:-$(@)} \
 	"CFLAGS = -DATTSV -DNOFILEH -DCIE -DNOLEARN $(KFLAGS) -O" "LNKFLAGS ="
 
+# Android.
+android:
+	@echo Please use \"make -f android.mk\" to build C-Kermit for Android.
+
 # Linux 1.2 or later with gcc, dynamic libraries, ncurses, TCP/IP.
 #
 # If your Linux system has curses rather than ncurses, use the linuxc
@@ -6062,14 +6075,120 @@ linuxp:
 	$(MAKE) linuxa KTARGET=$${KTARGET:-$(@)} "KFLAGS=$(KFLAGS) -pg" \
 	"LIBS=-pg -lcrypt -lresolv"
 
-#Linux.  This entry should work for any Linux distribution on any platform,
+#Linux.  Completely new target: 18 January 2016.
+#No more looking in 100 different places for libraries, let ld do it,
+#since it knows what libraries it's going to use.
+#If this target fails to work somewhere, use the 'linux-2015' target just 
+#below this one. 
+#
+#This entry should work for any Linux distribution on any platform,
 #32-bit or 64-bit, except for extremely ancient ones.  Automatically detects:
 # . curses, ncurses, or no curses
 # . Old versus new pty handling (new == glibc 2.1++)
-# . Presence or absence of libcrypt.a and <crypt.h>
-# . Presence or absence of libresolv.a
+# . Presence or absence of libcrypt and <crypt.h>
+# . Presence or absence of libresolv
+# . Presence of various serial port locking schemes
 # . Transitional Long File API for 32-bit platforms (SUS V2 UNIX 98 LFS).
-#Note: The HAVE_PTMX test was previously "if test -c /dev/ptmx" but this was
+#
+#Long file support for 32-bit builds added in 8.0.212 - if features.h contains
+#__USE_LARGEFILE64 then we set the flags that must be set before reading any
+#header files; on 32-bit platforms such as i386, this produces a 32-bit build
+#capable of accessing, sending, receiving, and managing long (> 2GB) files.
+#On 64-bit platforms, it does no harm.
+#
+linux gnu-linux:
+	@echo "Making C-Kermit for Linux..."; \
+	# Dummy comment \
+	if test \
+	`grep grantpt /usr/include/*.h /usr/include/*.h | wc -l` -gt 0; \
+	  then if test -c /dev/ptmx; \
+	    then HAVE_PTMX='-DHAVE_PTMX'; \
+	    else HAVE_PTMX=''; \
+	  fi; \
+	fi ; \
+        HAVE_OPENPTY=''; \
+	if test `grep openpty /usr/include/*.h | wc -l` -gt 0; then \
+          HAVE_OPENPTY='-DHAVE_OPENPTY';  \
+        fi; \
+	if test -n '$$HAVE_OPENPTY'; \
+	  then if ld -lutil > /dev/null 2> /dev/null; then \
+	    LIB_UTIL='-lutil'; \
+	  else \
+	    LIB_UTIL=''; \
+	  fi; \
+	fi; \
+	HAVE_LIBCURSES=''; \
+	HAVE_CURSES=''; \
+	if ld -lncurses > /dev/null 2> /dev/null; then \
+	  HAVE_LIBCURSES='-lncurses'; \
+	  if test -f /usr/include/ncurses.h; then \
+	    HAVE_CURSES='-DCK_NCURSES  -I/usr/include/ncurses'; \
+	  else \
+	    HAVE_LIBCURSES=''; \
+	  fi; \
+	fi; \
+	if test -z '$$HAVE_LIBCURSES'; then \
+	  if ld -lcurses > /dev/null 2> /dev/null; then \
+	    HAVE_LIBCURSES='-lcurses'; \
+	    if test -f /usr/include/curses.h; then \
+	      HAVE_CURSES='-DCK_CURSES  -I/usr/include/curses'; \
+	    else \
+	      HAVE_LIBCURSES=''; \
+	    fi; \
+	  fi; \
+	fi; \
+	HAVE_RESOLV=''; \
+	if ld -lresolv > /dev/null 2> /dev/null; then \
+	  HAVE_RESOLV='-lresolv'; \
+	fi; \
+	HAVE_CRYPT=''; \
+	HAVE_CRYPT_H=''; \
+	if ld -lcrypt > /dev/null 2> /dev/null; then \
+	  if test -f /usr/include/crypt.h; then \
+	    HAVE_CRYPT_H='-DHAVE_CRYPT_H'; \
+	    HAVE_CRYPT='-lcrypt'; \
+	  fi; \
+	fi; \
+	if test -f /usr/include/baudboy.h ; \
+	  then HAVE_BAUDBOY='-DHAVE_BAUDBOY' ; \
+	  else HAVE_BAUDBOY=''; \
+	fi; \
+	if test -n '$$HAVE_BAUDBOY' || test -f /usr/include/ttylock.h; \
+	  then HAVE_LOCKDEV='-DHAVE_LOCKDEV' ; \
+	  else HAVE_LOCKDEV='' ; \
+	fi ; \
+	if test -n '$$HAVE_LOCKDEV'; then \
+	  if ld -llockdev > /dev/null 2> /dev/null; then \
+	    HAVE_LIBLOCKDEV='-llockdev'; \
+	  else \
+	    HAVE_LOCKDEV=''; \
+	  fi; \
+	fi; \
+        NEEDCURSESPROTOTYPES=''; \
+        if -f /etc/issue; then \
+          if egrep "(Ubuntu|Debian)" /etc/issue > /dev/null; then \
+            NEEDCURSESPROTOTYPES='-DNEEDCURSESPROTOTYPES'; \
+          fi; \
+        fi; \
+	if grep __USE_LARGEFILE64 /usr/include/features.h > /dev/null; \
+	  then HAVE_LARGEFILES='-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'; \
+	  else HAVE_LARGEFILES=''; \
+	fi; \
+	$(MAKE) KTARGET=$${KTARGET:-$(@)} \
+	"KFLAGS=$$HAVE_CURSES $$HAVE_PTMX $$HAVE_LOCKDEV $$HAVE_CRYPT_H \
+	$$HAVE_BAUDBOY $$HAVE_OPENPTY $$HAVE_LARGEFILES $(KFLAGS)" \
+	"LIBS=$(LIBS) $$LIB_UTIL \
+	  $$HAVE_LIBCURSES $$HAVE_RESOLV $$HAVE_CRYPT $$HAVE_LOCKDEV" \
+	linuxa
+
+#PREVIOUS LINUX TARGET
+#Use this target if you have trouble with the one just above.
+#This is the previous target for Linux, retired at the end of 2015.
+#As you can see the tests for curses/ncurses and other libraries and
+#header files were getting ridiculous and were only going to get worse
+#as Linux versions proliferated.
+#
+#The HAVE_PTMX test was previously "if test -c /dev/ptmx" but this was
 #not sufficient for Debian 2.1, because although it had /dev/ptmx, it did not
 #have grantpt(), unlockpt(), or ptsname(), so has been changed to look for a
 #grantpt() prototype in the header files.  Modified in 8.0.206 to allow for
@@ -6077,17 +6196,10 @@ linuxp:
 #HAVE_BAUDBOY added in 8.0.210 for Red Hat -- it's like AIX ttylock().
 #Modified 17 Aug 2005 to use openpty() if available because the other stuff
 #dumps core in 64-bit ia64 and x86_64 builds.
-#Long file support for 32-bit builds added in 8.0.212 - if features.h contains
-#__USE_LARGEFILE64 then we set the flags that must be set before reading any
-#header files; on 32-bit platforms such as i386, this produces a 32-bit build
-#capable of accessing, sending, receiving, and managing long (> 2GB) files.
-#On 64-bit platforms, it does no harm.
-#As of 3 March 2009 we detect automatically if we have curses, ncurses,
-#or no curses at all.
-#Added HAVE_LOCKDEV as openSuSE >= 11.3 uses ttylock directly instead of
-#baudboy 2010/08/23
-#OK: 2011/06/18
-linux:
+#
+#Added HAVE_LOCKDEV on openSuSE >= 11.3, which uses ttylock directly instead 
+#of baudboy 2010/08/23
+linux-2015:
 	@if test \
 	`grep grantpt /usr/include/*.h /usr/include/sys/*.h | wc -l` -gt 0; \
 	then if test -c /dev/ptmx; then HAVE_PTMX='-DHAVE_PTMX'; \
@@ -6096,20 +6208,30 @@ linux:
 	then HAVE_OPENPTY='-DHAVE_OPENPTY'; \
 	else HAVE_OPENPTY=''; fi ; \
 	HAVE_LIBCURSES=''; \
-	if test -f /usr/lib64/libncurses.so || \
+	if test -f /lib64/libncurses.so.5 || \
+	   test -f /lib64/libncurses.so || \
+	   test -f /lib64/libncurses.a; then \
+	   HAVE_LIBCURSES='-lncurses'; \
+	else if test -f /usr/lib64/libncurses.so || \
 	   test -f /usr/lib/libncurses.a  || \
+	   test -f /usr/lib64/libncurses.so.5 || \
 	   test -f /usr/lib/libncurses.so; then \
-	  HAVE_LIBCURSES='-lncurses'; \
+	   HAVE_LIBCURSES='-lncurses'; \
+	else if test -f /usr/lib/$(MULTIARCH)/libncurses.so || \
+	   test -f /usr/lib/$(MULTIARCH)/libncurses.a  || \
+	   test -f /usr/lib/$(MULTIARCH)/libncurses.so; then \
+	   HAVE_LIBCURSES='-lncurses'; \
 	else if test -f /usr/lib64/libcurses.so || \
 	   test -f /usr/lib/libcurses.a || \
 	   test -f /usr/lib/libcurses.so; then \
-	     HAVE_LIBCURSES='-lcurses'; fi; fi; \
+	   HAVE_LIBCURSES='-lcurses'; fi; fi; fi; fi; \
 	HAVE_CURSES=''; \
 	if test -n '$$HAVE_LIBCURSES'; then \
 	  if test -f /usr/include/ncurses.h; then \
 	    HAVE_CURSES='-DCK_NCURSES  -I/usr/include/ncurses'; \
 	  else if test -f /usr/include/curses.h; then \
 	    HAVE_CURSES='-DCK_CURSES'; \
+	  else HAVE_LIBCURSES=''; \
 	fi; fi; fi; \
 	if test -f /usr/include/baudboy.h || test -f /usr/include/ttylock.h; \
 	then HAVE_LOCKDEV='-DHAVE_LOCKDEV' ; \
@@ -6130,16 +6252,19 @@ linux:
 	|| test -f /usr/lib/libresolv.a || test -f /usr/lib/libresolv.so \
 	|| test -f /usr/lib/i386-linux-gnu/libresolv.a \
 	|| test -f /usr/lib/i386-linux-gnu/libresolv.so \
+	|| ls /lib/$(MULTIARCH)/libresolv.* > /dev/null 2> /dev/null \
 	|| ls /lib/x86_64-linux-gnu/libresolv.* > /dev/null 2> /dev/null; \
 	then echo -lresolv; fi` \
 	`if test -f /usr/lib64/libcrypt.a || test -f /usr/lib64/libcrypt.so \
 	|| test -f /usr/lib/libcrypt.a || test -f /usr/lib/libcrypt.so \
+	|| ls /lib/$(MULTIARCH)/libcrypt.* > /dev/null 2> /dev/null \
 	|| ls /lib/x86_64-linux-gnu/libcrypt.* > /dev/null 2> /dev/null; \
 	then echo -lcrypt; fi` \
-	`if test -f /usr/lib64/liblockdev.a || \
-	test -f /usr/lib64/liblockdev.so || \
-	test -f /usr/lib/liblockdev.a || \
-	test -f /usr/lib/liblockdev.so; \
+	`if test -f /usr/lib64/liblockdev.a \
+	|| test -f /usr/lib64/liblockdev.so \
+	|| test -f /usr/lib/liblockdev.a \
+	|| test -f /usr/lib/liblockdev.so \
+	|| ls /usr/lib/$(MULTIARCH)/liblockdev.* > /dev/null 2> /dev/null; \
 	then echo -llockdev; fi`" \
 	linuxa
 
@@ -6177,7 +6302,8 @@ linuxso:
 # Use "make linux+krb5 KFLAGS=-DNO_KRB5_INIT_ETS" if necessary.
 #OK 2011/06/16 on Fedora 14 with:
 # make linux+krb5 "LIBS=$LIBS /lib/libk5crypto.so.3 /lib/libcom_err.so.2"
-# On RHEL5: make linux+krb5 -UCK_DES
+# On RHEL5.x: make linux+krb5 -UCK_DES
+# On RHEL6.6: make linux+krb5 "K5LIB=-L /lib64"
 linux+krb5:
 	@echo 'Making C-Kermit $(CKVER) for Linux with Kerberos 5...'
 	@case `openssl version` in \
@@ -6192,17 +6318,17 @@ linux+krb5:
 	   ls $(SSLLIB)/libdes* > /dev/null 2> /dev/null; then \
 	      DES_LIB='-ldes425'; \
 	      HAVE_DES='-DCK_DES -DLIBDES'; \
-              echo "HAVE DES"; \
-           else echo "NO DES"; \
+	      echo "HAVE DES"; \
+	else echo "NO DES"; \
 	fi; \
 	K5CRYPTO=''; \
-        if ls /lib/libk5crypto* > /dev/null 2> /dev/null; then \
-                K5CRYPTO='-lk5crypto'; \
+	if ls /lib/libk5crypto* > /dev/null 2> /dev/null; then \
+		K5CRYPTO='-lk5crypto'; \
 	else if ls /usr/lib/libk5crypto* > /dev/null 2> /dev/null; then \
 		K5CRYPTO='-lk5crypto'; \
-        else if ls /usr/lib64/libk5crypto* > /dev/null 2> /dev/null; then \
-                K5CRYPTO='-lk5crypto'; \
-        fi; fi; fi; \
+	else if ls /usr/lib64/libk5crypto* > /dev/null 2> /dev/null; then \
+	K5CRYPTO='-lk5crypto'; \
+	fi; fi; fi; \
 	COM_ERR=''; \
 	if ls /lib/libcom_err* > /dev/null 2> /dev/null; then \
 		COM_ERR='-lcom_err'; \
@@ -6221,14 +6347,7 @@ linux+krb5:
 	-DCK_ENCRYPTION $$HAVE_DES $(K5INC) $(K5INC)/krb5 \
 	-I/usr/include/et $(KFLAGS)" "LNKFLAGS = $(LNKFLAGS)" \
 	"LIBS = $(K5LIB) $$DES_LIB -lcrypto $$GSSAPILIB -lkrb5 \
-	$$K5CRYPTO $$COM_ERR $(LIBS)" ; \
-	if [ ! -f ./wermit ] || [ ./ckcmai.o -nt ./wermit ] ; then \
-		echo ""; \
-		echo "If build failed try:"; \
-		echo ""; \
-		echo "  make clean ; make $${KTARGET:-$(@)} KFLAGS=-UCK_DES"; \
-		echo ""; \
-	fi
+	$$K5CRYPTO $$COM_ERR $(LIBS)"
 
 # Linux with Kerberos 5 and Kerberos 4.
 # Use "make linux+krb5 KFLAGS=-DNO_KRB5_INIT_ETS" if necessary.
@@ -6272,19 +6391,14 @@ linux+ssl linux+openssl linux+openssl+zlib+shadow+pam linux+openssl+shadow:
 	"KFLAGS= -DCK_AUTHENTICATION -DCK_ENCRYPTION -DCK_CAST $$HAVE_DES \
 	-DCK_SSL -DCK_PAM -DZLIB -DCK_SHADOW $$OPENSSLOPTION $(SSLINC) \
 	$(KFLAGS)" "LNKFLAGS = $(LNKFLAGS)" \
-	"LIBS = $(SSLLIB) -lssl $$DES_LIB -lcrypto -lpam -ldl -lz $(LIBS)" ; \
-	if [ ! -f ./wermit ] || [ ./ckcmai.o -nt ./wermit ] ; then \
-		echo ""; \
-		echo "If build failed try:"; \
-		echo ""; \
-		echo "  make clean ; make $${KTARGET:-$(@)} KFLAGS=-UCK_DES"; \
-		echo ""; \
-	fi
+	"LIBS = $(SSLLIB) -lssl $$DES_LIB -lcrypto -lpam -ldl -lz $(LIBS)"
 
 # Linux with Kerberos 5 and OpenSSL
 # OK 2011/05/16
 # Add -UCK_DES if functions like des_ecb3_encrypt, es_random_seed,
 # come up missing at link time.
+# NOTE: MULTIARCH is defined externally, e.g. in DEB_HOST_MULTIARCH
+# On RHEL6.6: make linux+krb5+ssl "K5LIB=-L /lib64"
 linux+krb5+ssl linux+krb5+openssl:
 	@echo 'Making C-Kermit $(CKVER) for Linux with Krb5 and OpenSSL...'
 	@case `openssl version` in \
@@ -6303,21 +6417,25 @@ linux+krb5+ssl linux+krb5+openssl:
 	   else echo "NO DES"; \
 	fi; \
 	K5CRYPTO=''; \
-        if ls /lib/libk5crypto* > /dev/null 2> /dev/null; then \
-                K5CRYPTO='-lk5crypto'; \
+	if ls /lib/libk5crypto* > /dev/null 2> /dev/null; then \
+		K5CRYPTO='-lk5crypto'; \
 	else if ls /usr/lib/libk5crypto* > /dev/null 2> /dev/null; then \
 		K5CRYPTO='-lk5crypto'; \
-        else if ls /usr/lib64/libk5crypto* > /dev/null 2> /dev/null; then \
-                K5CRYPTO='-lk5crypto'; \
-	fi; fi; fi; \
+	else if ls /usr/lib64/libk5crypto* > /dev/null 2> /dev/null; then \
+		K5CRYPTO='-lk5crypto'; \
+	else if ls /usr/lib/$(MULTIARCH)/libk5crypto* > /dev/null 2> /dev/null; then \
+		K5CRYPTO='-lk5crypto'; \
+	fi; fi; fi; fi; \
 	COM_ERR=''; \
 	if ls /lib/libcom_err* > /dev/null 2> /dev/null; then \
 		COM_ERR='-lcom_err'; \
-	fi; \
+	else if ls /lib/$(MULTIARCH)/libcom_err* > /dev/null 2> /dev/null; then \
+		COM_ERR='-lcom_err'; \
+	fi; fi; \
 	GSSAPILIB='-lgssapi'; \
 	if ls /lib/libgssapi_krb5* > /dev/null 2> /dev/null; then \
 		GSSAPILIB='-lgssapi_krb5'; \
-	else if ls /usr/lib/libgssapi_krb5* > /dev/null 2> /dev/null; then \
+	else if ls /usr/lib/$(MULTIARCH)/libgssapi_krb5* > /dev/null 2> /dev/null; then \
 		GSSAPILIB='-lgssapi_krb5'; \
 	else K5DIR=`echo $(K5LIB) | sed 's|-L||'`; \
 		if ls $$K5DIR/libgssapi_krb5* > /dev/null 2> /dev/null; then \
@@ -6329,14 +6447,7 @@ linux+krb5+ssl linux+krb5+openssl:
 	-DCK_ENCRYPTION $$HAVE_DES $(K5INC) $(K5INC)/krb5 \
 	-I/usr/include/et $(KFLAGS)" "LNKFLAGS = $(LNKFLAGS)" \
 	"LIBS = $(K5LIB) $(SSLLIB) -lssl $$DES_LIB -lpam -lz \
-	-lcrypto $$GSSAPILIB -lkrb5 $$K5CRYPTO $$COM_ERR $(LIBS)" ; \
-	if [ ! -f ./wermit ] || [ ./ckcmai.o -nt ./wermit ] ; then \
-		echo ""; \
-		echo "If build failed try:"; \
-		echo ""; \
-		echo "  make clean ; make $${KTARGET:-$(@)} KFLAGS=-UCK_DES"; \
-		echo ""; \
-	fi
+	-lcrypto $$GSSAPILIB -lkrb5 $$K5CRYPTO $$COM_ERR $(LIBS)"
 
 # ::BEGIN_OLD_LINUX_TARGETS::
 

@@ -1,4 +1,4 @@
-char * cklibv = "C-Kermit library, 9.0.052, 29 Jun 2011";
+char * cklibv = "C-Kermit library, 9.0.058, 18 Sep 2020";
 
 #define CKCLIB_C
 
@@ -8,7 +8,7 @@ char * cklibv = "C-Kermit library, 9.0.052, 29 Jun 2011";
   Author: Frank da Cruz <fdc@columbia.edu>,
   Columbia University Academic Information Systems, New York City.
 
-  Copyright (C) 1999, 2011,
+  Copyright (C) 1999, 2020,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -113,14 +113,14 @@ static char rxresult[RXRESULT+1];
   NOTE: This is NOT a replacement for strncpy():
    . strncpy() does not require its source string to be NUL-terminated.
    . strncpy() does not necessarily NUL-terminate its result.
-   . strncpy() right-pads dest with NULs if it is longer than src.
    . strncpy() treats the length argument as the number of bytes to copy.
    . ckstrncpy() treats the length argument as the size of the dest buffer.
    . ckstrncpy() doesn't dump core if given NULL string pointers.
    . ckstrncpy() returns a number.
 
   Use ckstrncpy() when you want to:
-   . Copy an entire string into a buffer without overrun.
+   . Copy a NUL-terminated string into a buffer without overrun, truncating 
+      it if necessary to fit in the buffer, and null-terminating it.
    . Get the length of the string back.
 
   Use strncpy() when you want to:
@@ -732,9 +732,10 @@ ckindex(s1,s2,t,r,icase) char *s1, *s2; int t, r, icase; {
     if (r == 0) {			/* Index */
 	s = s2 + t;			/* Point to beginning of target */
 	for (i = 0; i <= (j - t); i++) { /* Now compare */
-	    x = ckstrcmp(s1,s++,len1,icase);
+	    x = ckstrcmp(s1,s,len1,icase);
 	    if (!x)
 	      return(i+1+t);
+	    s++;
 	}
     } else {				/* Reverse Index */
         i = len2 - len1;		/* Where to start looking */
@@ -1260,10 +1261,18 @@ ckmemcpy(p,s,n) char *p, *s; int n; {
     0 if s1 = s2
    -1 if s1 < s2
   Note: case handling is only as good as isupper() and tolower().
+  Modifed 2013-12-06 to be somewhat locale-aware.
 */
 int
 ckstrcmp(s1,s2,n,c) char *s1, *s2; register int n, c; {
     register CHAR t1, t2;
+#ifdef HAVE_LOCALE
+    int rc;
+    char t1buf[2], t2buf[2];
+    t1buf[1] = NUL;
+    t2buf[1] = NUL;
+#endif /* HAVE_LOCALE */
+
     if (n == 0) return(0);
     if (!s1) s1 = "";			/* Watch out for null pointers. */
     if (!s2) s2 = "";
@@ -1278,8 +1287,18 @@ ckstrcmp(s1,s2,n,c) char *s1, *s2; register int n, c; {
 	    if (isupper(t1)) t1 = tolower(t1); /* Convert case. */
 	    if (isupper(t2)) t2 = tolower(t2);
 	}
+#ifdef HAVE_LOCALE
+/*
+  This only works for single-byte character sets but it's better than
+  nothing, because previously this routine worked right only for ASCII.
+*/
+        t1buf[0] = t1; 			/* Convert chars to strings */
+        t2buf[0] = t2;
+	if ((rc = strcoll(t1buf,t2buf))) return(rc);
+#else
 	if (t1 < t2) return(-1);	/* s1 < s2 */
 	if (t1 > t2) return(1);		/* s1 > s2 */
+#endif /* HAVE_LOCALE */
     }
     return(0);				/* They're equal */
 }
@@ -2082,12 +2101,15 @@ ckround(fpnum,places,obuf,obuflen)
     int i, p, len, x, n, digits;
     int carry = 0;
     int minus = 0;
-    char buf[200];
+    char buf[400];
     char * number;
     CKFLOAT value;
     extern int fp_digits;
 
-    sprintf(buf,"%200.100f",fpnum);	/* Make string version to work with */
+    /* Should use snprintf() here but it's not portable */
+
+    sprintf(buf,"%200.100f",fpnum);	/* Make string version to work with. */
+    debug(F110,"ckround buf",buf,0);
     number = (char *) buf;		/* Make pointer to it */
 
     p = places;				/* Precision */
@@ -2159,6 +2181,7 @@ ckround(fpnum,places,obuf,obuflen)
             s--;			/* and back up to next digit */
 	}
     }
+    if (minus) number--;                /* Back up to minus sign, if any. */
 #ifdef __alpha
     sscanf(number,"%f",&value);		/* Convert back to floating point */
 #else
@@ -2592,7 +2615,7 @@ hhmmss(long x)
 hhmmss(x) long x;
 #endif /* CK_ANSIC */
 /* hhmmss(x) */ {
-    static char buf[10];
+    static char buf[60];
     long s, h, m;
     h = x / 3600L;			/* Hours */
     x = x % 3600L;
@@ -2753,10 +2776,11 @@ hextoulong(s,n) char *s; int n; {
          1 = doublequotes,  2 = braces,    4 = apostrophes,
          8 = parens,       16 = brackets, 32 = angle brackets,
         -1 = 63 = all of these.
-    n3 = group quote character, ASCII value, used and tested only for
-         LISP quote, e.g. (a 'b c '(d e f)).
+    n3 = if positive: group quote character, ASCII value,
+         used and tested only for LISP quote, e.g. (a 'b c '(d e f)).
     n4 = 0 to collapse adjacent separators;
          nonzero not to collapse them.
+    n5 - nonzero means '\' is not a quoting character.
 
   Returns:
     Pointer to struct stringarray, with size:
@@ -2876,9 +2900,9 @@ static int nsplitbuf = 0;
 
 /* n4 = 1 to NOT collapse adjacent separators */
 
-
 struct stringarray *
-cksplit(fc,n1,s1,s2,s3,n2,n3,n4) int fc,n1,n2,n3,n4; char *s1, *s2, *s3; {
+cksplit(fc,n1,s1,s2,s3,n2,n3,n4,n5)
+    int fc,n1,n2,n3,n4,n5; char *s1, *s2, *s3; {
     int splitting = 0;			/* What I was asked to do */
     int i, k, ko = 0, n, x, max = MAXWORDS; /* Workers */
     char * s = NULL, * ss, * p;		/* Workers */
@@ -2925,40 +2949,16 @@ cksplit(fc,n1,s1,s2,s3,n2,n3,n4) int fc,n1,n2,n3,n4; char *s1, *s2, *s3; {
     if (splitting) {			/* If splitting n = word count */
 	n = 0;				/* Initialize it */
     } else {				/* Otherwise */
-#ifdef COMMENT
-	if (n1 < 1) {			/* If 0 (or less) */
-	    ck_sval.a_size = 0;		/* nothing to do. */
-	    return(&ck_sval);
-	}
-#else
 	if (n1 == 0) {			/* If 0 */
 	    ck_sval.a_size = 0;		/* nothing to do. */
 	    return(&ck_sval);
 	}
-#endif	/* COMMENT */
 	n = n1;				/* n = desired word number. */
     }
     slen = 0;				/* Get length of s1 */
     debug(F111,"cksplit",s1,n);
 
     p = s1;
-
-#ifdef COMMENT
-    while (*p++) slen++;		/* Make pokeable copy of s1 */
-    if (!splitbuf || slen > nsplitbuf) { /* Allocate buffer if needed */
-	int xx;
-	if (splitbuf)
-	  free(splitbuf);
-	xx = (slen < 255) ? 255 : xx + (xx / 4);
-	debug(F101,"cksplit splitbuf","",xx);
-	splitbuf = (char *)malloc(xx+1);
-	if (!splitbuf) {		/* Memory allocation failure... */
-	    ck_sval.a_size = -1;
-	    return(&ck_sval);
-	}
-	nsplitbuf = xx;			/* Remember size of buffer */
-    }
-#else
 /*
   The idea is to just copy the string into splitbuf (if it exists).  This
   gives us both the copy and the length so we only need to grovel through the
@@ -2988,12 +2988,12 @@ cksplit(fc,n1,s1,s2,s3,n2,n3,n4) int fc,n1,n2,n3,n4; char *s1, *s2, *s3; {
 	p = s1;
 	while ((*s++ = *p++)) ;
     }
-
-#endif /* COMMENT */
     s = splitbuf;
     sep = s2;				/* s2 = break set */
     if (!sep) sep = "";
+    debug(F110,"cksplit sep",sep,0);
     notsep = s3;			/* s3 = include set */
+    debug(F110,"cksplit notsep",notsep,0);
     if (!notsep) {
 	notsep = "";
     } else if ((all = !ckstrcmp(notsep,"ALL",3,1)) ||
@@ -3006,20 +3006,23 @@ cksplit(fc,n1,s1,s2,s3,n2,n3,n4) int fc,n1,n2,n3,n4; char *s1, *s2, *s3; {
 	    all = 1;
 	    collapse = 0;
 	}
-	if (csv || tsv) {
-	    all = 1;
-	    collapse = 0;
-	}
+        debug(F101,"cksplit csv","",csv);
+        debug(F101,"cksplit tsv","",tsv);
+        debug(F101,"cksplit all","",all);
+        debug(F110,"cksplit ss sep",ss,0);
 	for (i = 1; i < 256; i++) {
 	    flag = 0;
 	    ss = sep;
-	    while (c = *ss++ && !flag) {
-		if (c == i) flag++;
+	    while ((c = *ss++) && !flag) {
+		if (c == (CHAR)i) flag++;
 	    }
-	    if (!flag) notsepbuf[n++] = c;
+	    if (!flag) {
+                notsepbuf[n++] = (CHAR)i;
+            }
 	}
 	notsepbuf[n] = NUL;
 	notsep = (char *)notsepbuf;
+	debug(F110,"CKMATCH SEPBUF ALL",sep,0);
 	debug(F110,"CKMATCH NOTSEPBUF ALL",notsep,0);
     }
     if (*s && csv) {			/* For CSV skip leading whitespace */
@@ -3031,16 +3034,47 @@ cksplit(fc,n1,s1,s2,s3,n2,n3,n4) int fc,n1,n2,n3,n4; char *s1, *s2, *s3; {
     if (n2 < 0) n2 = 63;		/* n2 = grouping mask */
     grouping = n2;
     p = "";				/* Pointer to current word */
+
+    /* TSV is a special case - no quoting or grouping or recursion */
+    if (tsv) {				/* Tab-separated values list */
+	/* This block: 2014/01/31 - fdc */
+        if (!*sep) sep = "\011";	/* Default separator is Tab */
+	p = s;				/* Point to first element */
+    }
     while (c) {				/* Loop through string */
-	c = *s;
+	c = *s;			  	/* Get next char */
+	if (tsv) {			/* Tab-separated-value list? */
+	    /* This block: 2014/01/31 - fdc */
+	    ss = sep;			/* Get break set */
+	    while (*ss && *ss != c) ss++; /* See if c is in it */
+	    if (*ss == c) {		/* Is this the/a break character? */
+		*s = NUL;		/* Yes, terminate this word */
+		wordnum++;		/* Count it */
+		if (splitting) {	/* fsplit().... */
+		    setword(wordnum,p,len); /* Add a new element */
+		    p = s+1;		/* Point to beginning of next */
+		    len = 0;		/* and reset the length */
+		} else if (wordnum == n) { /* fword() counting from left... */
+		    setword(1,p+1,len);
+		    ck_sval.a_size = 1;
+		    return(&ck_sval);
+		} else 	if (n < 0 && (wordnum + n > -1)) { /* or from right */
+		    char * s = wordarray[wordnum + n + 1];
+		    if (!s) s = "";
+		    setword(1,s,strlen(s));
+		    ck_sval.a_size = 1;
+		    return(&ck_sval);
+		}
+	    } else len++;
+	    goto nextc;
+	}
 	class = 0;
-	if (!csv && !tsv) {		/* fdc 2010-12-30 */
+	if (!csv && !tsv && !n5) {      /* fdc 2010-12-30..2017-04-26 */
 	    /* In CSV and TSV splitting, backslash is not special */
 	    if (!cquote && c == CMDQ) {	/* If CMDQ */
 		cquote++;		/* next one is quoted */
 		goto nextc;		/* go get it */
 	    }
-
 	}
 	if (cquote && c == CMDQ) {	/* Quoted CMDQ is special */
 	    if (state != ST_BW) {	/* because it can still separate */

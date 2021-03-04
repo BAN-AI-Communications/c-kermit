@@ -9,11 +9,11 @@
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2016,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -119,6 +119,7 @@ _PROTOTYP(int setrename, (void));
 
 /* Variables */
 
+int exitmsg = 1;
 int cmd_quoting = 1;
 int cmd_err = 1;
 extern int hints, xcmdsrc;
@@ -350,7 +351,7 @@ extern int slogts;                      /* Session-log timestamps on/off */
 extern int slognul;			/* Lines null-terminated */
 #endif /* NOLOCAL */
 
-char * tempdir = NULL;
+char * tempdir = NULL;                  /* Temporary directory */
 
 #ifdef VMS
 int vms_msgs = 1;                       /* SET MESSAGES */
@@ -431,7 +432,7 @@ struct keytab ooatab[] = {              /* On/Off/Auto table */
 
 struct keytab ooetab[] = {              /* On/Off/Stderr table 2010/03/12 */
     "off",       SET_OFF, 0,		/* for SET DEBUG MESSAGES */
-    "on",        SET_ON,  0,
+    "on",        SET_ON,  0,		/* 2013-03-13 and SET EXIT MESSAGE */
     "s",         2,       CM_ABR|CM_INV,
     "st",        2,       CM_ABR|CM_INV,
     "std",       2,       CM_ABR|CM_INV,
@@ -1144,6 +1145,7 @@ int ncdmsg = (sizeof(cdmsg) / sizeof(struct keytab));
 static
 struct keytab xittab[] = {              /* SET EXIT */
     "hangup",        3, 0,              /* ...HANGUP */
+    "message",       4, 0,		/* ...MESSAGE */
     "on-disconnect", 2, 0,              /* ...ON-DISCONNECT */
     "status",        0, 0,              /* ...STATUS */
     "warning",       1, 0               /* ...WARNING */
@@ -2007,10 +2009,16 @@ struct keytab ftrtab[] = {              /* Feature table */
 #endif /* LATIN2 */
 
 #ifdef CKLEARN
-"learned-scripts",       0, 0,
+"learned-scripts",      0, 0,
 #else
-"learned-scripts",       1, 0,
+"learned-scripts",      1, 0,
 #endif /* CKLEARN */
+
+#ifdef HAVE_LOCALE
+"locale",               0, 0,
+#else
+"locale",               1, 0,
+#endif /* HAVE_LOCALE */
 
 #ifndef NOLOCAL
 "making-connections",   0, 0,
@@ -2505,7 +2513,8 @@ getyesno(msg, flags) char * msg; int flags; {
 
 #ifndef NOLOCAL
 #ifdef OS2
-    extern int vmode, win95_popup, startflags;
+    extern BYTE vmode;
+    extern int win95_popup, startflags;
     int vmode_sav = vmode;
 #endif /* OS2 */
 #endif /* NOLOCAL */
@@ -2726,7 +2735,7 @@ uq_txt(preface,prompt,echo,help,buf,buflen,dflt,timer)
 {
 #ifndef NOLOCAL
 #ifdef OS2
-    extern int vmode;
+    extern BYTE vmode;
     extern int startflags;
     extern int win95_popup;
 #endif /* OS2 */
@@ -2793,7 +2802,7 @@ uq_mtxt(preface,help,n,field)
 {
 #ifndef NOLOCAL
 #ifdef OS2
-    extern int vmode;
+    extern BYTE vmode;
     extern int startflags;
     extern int win95_popup;
 #endif /* OS2 */
@@ -3325,6 +3334,8 @@ static int sexpmaxdep = 1000;           /* Maximum depth */
 #define SX_DEC 41
 #define SX_QUO 42
 #define SX_STR 43
+#define SX_ECH 44
+#define SX_UNQ 45
 
 /* Operator flags */
 
@@ -3383,8 +3394,9 @@ static struct keytab sexpops[] = {      /* Built-in operators */
     "||",      SX_LOR, 0,
     "&&",      SX_AND, 0,
 
-    "quote",   SX_QUO, SXF_ONE,
+    "quote",   SX_QUO, SXF_ONE,         /* String operators */
     "string",  SX_STR, SXF_ONE,
+    "unquote", SX_UNQ, SXF_ONE,
 
     "eval",    SX_EVA, 0,               /* Assorted commands */
     "abs",     SX_ABS, SXF_ONE,
@@ -3393,6 +3405,7 @@ static struct keytab sexpops[] = {      /* Built-in operators */
     "ceiling", SX_CEI, SXF_ONE|SXF_FLO,
     "floor",   SX_FLR, SXF_ONE|SXF_FLO,
     "float",   SX_FLO, SXF_ONE|SXF_FLO,
+    "echo",    SX_ECH, 0,
 
 #ifdef FNFLOAT
     "sqrt",    SX_SQR, SXF_ONE|SXF_FLO, /* Floating point functions */
@@ -3579,10 +3592,11 @@ dosexp(s) char *s; {                    /* s = S-Expression */
         }
     } else {
 	nosplit = 0;
-        q = cksplit(1,SEXPMAX,s,NULL,"\\%[]&$+-/=*^_@!{}/<>|.#~'`:;?",8,39,0);
+       q = cksplit(1,SEXPMAX,s,NULL,"\\%[]&$+-/=*^_@!{}/<>|.#~'`:;?",8,39,0,0);
         if (!q)
           goto xdosexp;
         n = q->a_size;                  /* Number of items */
+//        printf("XXX cksplit=%d\n",n);
         debug(F101,sexpdebug("split"),"",n);
         if (n < 0 || n > SEXPMAX) {     /* Check for too many */
             printf("?Too many operands: max = %d\n",SEXPMAX);
@@ -3592,9 +3606,23 @@ dosexp(s) char *s; {                    /* s = S-Expression */
         if (n == 0)                     /* None, result is NULL, done. */
           goto xdosexp;
         if (n == 1 && s[0] == '(') {    /* One but it's another SEXP */
+//            printf("XXX s.00=[%s]\n",s);
             s2 = dosexp(s);
+//            printf("XXX s2.00=[%s]\n",s2);
             goto xdosexp;
         }
+        if (n == 1 && s[0] == '\047') { /* One but it's a string constant */
+            int x = (int) strlen(s);
+            s2 = s;
+            if (s2[1] == '(' && s2[x-1] == ')') { /* '(string) */
+                s2[x-1] = NUL;
+                s2 += 2;
+//                printf("XXX s2.2=[%s]\n",s2);
+            }
+            goto xdosexp;
+        }
+        /* More than one */
+
         p2 = q->a_head;                 /* Point to result array. */
         for (i = 1; i <= n; i++) {      /* We must copy it because */
             p[i] = NULL;                /* recursive calls to dosexp() */
@@ -3602,7 +3630,17 @@ dosexp(s) char *s; {                    /* s = S-Expression */
               makestr(&(p[i]),p2[i]);
         }
         if (s[0] == '(') {              /* Operator is an S-Expression */
+//            printf("XXX p[1]=[%s] s=[%s]\n",p[1],s);
             s2 = dosexp(p[1]);          /* Replace it by its value */
+//            printf("XXX s2.1=[%s]\n",s2);
+            if (s2[0] == '\047') {      /* LISP string literal */
+                int x = (int) strlen(s2);
+                if (s2[1] == '(' && s2[x-1] == ')') { /* '(string) */
+                    s2[x-1] = NUL;
+                    s2 += 2;
+                    printf("XXX s2.2=[%s]\n",s2);
+                }
+            }
             makestr(&(p[1]),s2);
         }
         mustfree++;                     /* Remember to free it */
@@ -3784,7 +3822,7 @@ dosexp(s) char *s; {                    /* s = S-Expression */
                         goto xdosexp;
                     }
                     macro++;            /* Not an S-Expression */
-                } else {                /* Not found in macro table */
+                } else {
                     printf("?Not defined - \"%s\"\n", p[1]);
                     sexprc++;
                     goto xdosexp;
@@ -3797,6 +3835,7 @@ dosexp(s) char *s; {                    /* s = S-Expression */
         if (x < 0) {
             printf("?Invalid operand - \"%s\"\n",p[1]);
             sexprc++;
+            s2 = NULL;			/* Bad operator, no result */
             goto xdosexp;
         }
         mx = x;
@@ -3873,7 +3912,6 @@ dosexp(s) char *s; {                    /* s = S-Expression */
 		if (!*q1) q1 = "0";
 		ckstrncpy(buf2,q1,32);
 		q1 = buf2;
-
 		r = ckround(atof(q0),(int)(atof(q1)),sxroundbuf,31);
 		s2 = sxroundbuf;
 		sexprc = 0;
@@ -4059,17 +4097,53 @@ dosexp(s) char *s; {                    /* s = S-Expression */
             }
             goto xdosexp;
         } else if (x == SX_QUO) {
-#ifndef COMMENT
-            int xx;
+            int k, xx;
             xx = strlen(p[2]);
             p[3] = (char *)malloc(xx+4);
             s2 = p[3];
             ckmakmsg(p[3],xx+4,"'(",p[2],")",NULL);
             n++;
-#else
-            s2 = p[2];
-#endif /* COMMENT */
             goto xdosexp;
+        } else if (x == SX_UNQ) {       /* UNQUOTE */
+            int k, xx = 0;
+            s2 = p[2];
+            if (!s2) s2 = "";
+            xx = strlen(s2);
+//            printf("XXX ENTRY: %s, len=%d\n",s2,xx);
+            if (xx = 0)                 /* Null or empty arg */
+              goto xdosexp;
+
+            /* Case 0 - number */
+            if (isfloat(s2,0))
+              goto xdosexp;
+
+            /* Case 2 - S-expression that evaluates to a quoted string */
+            if (s2[0] == '(' && s2[xx-1] == ')') {
+//                printf("XXX SEXP: %s\n",p[2]);
+                s2 = dosexp(s2);
+//                printf("XXX SEXP EVALUATED: %s\n",p[2]);
+            } else if (s2[0] != '\047') {
+            /* Case 3 - Variable */
+//                printf("XXX MACRO NAME: %s\n",p[2]);
+                if ((k = mxlook(mactab,p[2],nmac)) >= 0) {
+                    s2 = mactab[k].mval;
+//                    printf("XXX MACRO VALUE: %s\n",s2);
+                } else {
+//                    printf("XXX UNDEFINED MACRO: %s\n",p[2]);
+                    s2 = "";
+                }
+            }
+            /* If result is a quoted string, unquote it */
+//            printf("XXX BEFORE UNQUOTING: %s\n",s2);
+            xx = strlen(s2);
+            if (s2[0] == '\047' && s2[1] == '(' && s2[xx-1] == ')') {
+//                printf("XXX HAVE QUOTED STRING: %s\n",s2);
+                s2[xx-1] = NUL;
+                s2 += 2;
+            }
+//            printf("XXX RESULT: %s\n",s2);
+            goto xdosexp;
+
         } else if (x == SX_STR) {
             int xx;
             s2 = dosexp(p[2]);
@@ -4129,12 +4203,25 @@ dosexp(s) char *s; {                    /* s = S-Expression */
               continue;
         }
 #else
-        if (*s2 != '\047') {            /* Is it quoted? */
-            s2 = dosexp(p[i+1]);        /* No, evaluate it */
-            if (sexprc) goto xdosexp;
+        if (*s2 != '\047') {            /* Not quoted */
+//            printf("XXX UNQUOTED ARG %s\n",s2);
+            if (x == SX_ECH && (k = mxlook(mactab,s2,nmac)) > -1) {
+                s2 = mactab[k].mval;
+//                printf("XXX MACRO DEF %s\n",s2);                
+            } else {
+              s2 = dosexp(s2);      /* No, evaluate it */
+//              printf("XXX SEXP VALUE %s\n",s2);                
+            }
+            if (sexprc && x != SX_ECH)
+                goto xdosexp;
             if (!s2) s2 = "";
             if (!macro && x == SX_EVA)
               continue;
+            if (x == SX_ECH) {          /* ECHO */
+                printf("%s ",s2);
+                if (i == n-1) printf("\n");
+                continue;
+            }
         }
         if (*s2 == '\047') {            /* Is result quoted? */
             debug(F110,sexpdebug("'B"),s2,0);
@@ -4151,6 +4238,11 @@ dosexp(s) char *s; {                    /* s = S-Expression */
                 }
             }
             debug(F110,sexpdebug("'C"),s2,0);
+            if (x == SX_ECH) {          /* ECHO */
+                printf("%s ",s2);
+                if (i == n-1) printf("\n");
+                continue;
+            }
         }
 #endif /* COMMENT */
         if (macro) {
@@ -4614,8 +4706,13 @@ dosexp(s) char *s; {                    /* s = S-Expression */
   xdosexp:
 
     if (!s2) s2 = "";
-    if (!sexprc && s2) {                /* Have a result */
-        char * sx;
+    debug(F111,"xdosexp s2",s2,sexprc);
+//    printf("XXX xdosexp s2=[%s]\n",s2);
+    if (x == SX_ECH) s2 = "";
+    debug(F111,"xdosexp s2 ECHO",s2,sexprc);
+
+    if (!sexprc /* && *s2 */) {	    /* Have a result */
+        char * sx;                  /* Note -- do this even if result empty */
         char * q2 = s2; int xx = 0;
         if (*s2) {
             while (*q2++) xx++;         /* Get length */
@@ -4651,6 +4748,7 @@ dosexp(s) char *s; {                    /* s = S-Expression */
             }
         }
     }
+  xxdosexp:
     if (line)                           /* If macro arg buffer allocated */
       free(line);                       /* free it. */
     if (mustfree) {                     /* And free local copy of split list */
@@ -4659,7 +4757,9 @@ dosexp(s) char *s; {                    /* s = S-Expression */
         }
     }
     debug(F111,sexpdebug("exit"),sxresult[sexpdep],sexprc);
-    return(sxresult[sexpdep--]);
+    s = sxresult[sexpdep--];
+    if (!s) s = "";
+    return(s);
 }
 #endif /* NOSEXP */
 #endif /* NOSPL */
@@ -4672,6 +4772,18 @@ dochk() {
     ckstrncpy(line,atmbuf,LINBUFSIZ);
     if ((y = cmcfm()) < 0)
       return(y);
+#ifdef HAVE_LOCALE
+    if (!ckstrcmp(line,"locale",(int)strlen(line),0)) {
+	extern int nolocale;
+	int ok = 0;
+        ok = (nolocale ? 0 : 1);
+	if (msgflg) 
+          printf(" locale%s available\n", ok ? "" : " not");
+        else if (nolocale && !backgrd)
+          printf(" CHECK: locale not available\n");
+        return(success = ok);
+    }    
+#endif /* HAVE_LOCALE */
 #ifndef NOPUSH
     if (!ckstrcmp(line,"push",(int)strlen(line),0)) {
         if (msgflg)                     /* If at top level... */
@@ -10918,13 +11030,19 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
               extern int exithangup;
               return((success = seton(&exithangup)));
           }
+          case 4: {			/* MESSAGE 2013-03-13 */
+            if ((z = cmkey(ooetab,nooetab,"","on",xxstring)) < 0)
+              return(z);
+            if ((y = cmcfm()) < 0) return(y);
+	    exitmsg = z;
+            return(success = 1);
+          }
           default:
             return(-2);
         } /* End of SET EXIT switch() */
       default:
         break;
     }
-
     switch (xx) {
 
       case XYFILE:                      /* SET FILE */
@@ -12022,7 +12140,7 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
         x = cmdgquo();
         if (z == LOGI_PSW)
           cmdsquo(0);
-        if ((y = cmtxt("text","", &s, NULL)) < 0) {
+        if ((y = cmtxt("text","",&s, (z == LOGI_PSW) ? NULL : xxstring)) < 0) {
             cmdsquo(x);
             return(y);
         }
@@ -12073,8 +12191,24 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
           s = "";
         else if (x < 0)
           return(x);
+        ckstrncpy(tmpbuf,s,TMPBUFSIZ);
         if ((x = cmcfm()) < 0) return(x);
-        makestr(&tempdir,s);
+#ifdef UNIX
+        if (tmpbuf[0]) {
+            extern int zchkod;
+            char tmpname[MAXPATHLEN+1];
+            char * p = tmpname;
+            int x;
+            zchkod = 1;                 /* Hack for asking zchko() if */
+            x = zchko(tmpbuf);          /* a directory is writeable */
+            zchkod = 0;
+            if (x < 0) printf("WARNING: %s does not appear to be writable\n");
+            zfnqfp(tmpbuf,MAXPATHLEN,p); /* Get and store full pathname */
+            makestr(&tempdir,tmpname);
+        }
+#else  /* No API for getting full pathname in other OS's */
+        makestr(&tempdir,tmpbuf);
+#endif /* UNIX */
         return(tempdir ? 1 : 0);
 
 #ifndef NOXFER
@@ -12268,32 +12402,6 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
           return(success = 1);
       }
 #endif /* CK_CTRLZ */
-
-#ifdef SESLIMIT
-      case XYLIMIT: {  /* Session-Limit (length of session in seconds) */
-          extern int seslimit;
-#ifdef OS2
-          extern int downloaded;
-#endif /* OS2 */
-          y = cmnum("Maximum length of session, seconds","0",10,&x,xxstring);
-          if (inserver &&
-#ifdef IKSDCONF
-              iksdcf
-#else
-              1
-#endif /* IKSDCONF */
-#ifdef OS2
-               || downloaded
-#endif /* OS2 */
-              ) {
-              if ((z = cmcfm()) < 0)
-                return(z);
-              printf("?Sorry, command disabled.\r\n");
-              return(success = 0);
-          }
-          return(setnum(&seslimit,x,y,86400));
-      }
-#endif /* SESLIMIT */
 
       case XYRELY: {                    /* SET RELIABLE */
           if ((x = cmkey(ooatab,3,"","automatic",xxstring)) < 0)
@@ -13396,7 +13504,28 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
 #ifndef NOSPL
       case XYVAREV:			/* SET VARIABLE-EVALUATION */
 	return(setvareval());
-#endif	/* NOSPL */
+#endif /* NOSPL */
+
+#ifdef HAVE_LOCALE
+      case XYLOCALE:
+	if ((x = cmtxt("Locale string","C",&s,xxstring)) < 0)
+	  return(x);
+	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, s);
+	if (!setlocale(LC_ALL,NULL)) {
+	    printf("Warning: setlocale(%s) error: %s\n", s, ck_errstr());
+	}
+
+#ifdef COMMENT
+	if (!setlocale(LC_COLLATE, s))  {perror("COLLATE");return(success=0);}
+	if (!setlocale(LC_CTYPE, s))    {perror("CTYPE");return(success=0);}
+	if (!setlocale(LC_MESSAGES, s)) {perror("MESSAGES");return(success=0);}
+	if (!setlocale(LC_MONETARY, s)) {perror("MONETARY");return(success=0);}
+	if (!setlocale(LC_NUMERIC, s))  {perror("NUMERIC");return(success=0);}
+	if (!setlocale(LC_TIME, s))     {perror("TIME");return(success=0);}
+#endif /* COMMENT */
+	return(success=1); 
+#endif /* HAVE_LOCALE */
 
       default:
          if ((x = cmcfm()) < 0) return(x);

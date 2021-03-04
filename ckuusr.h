@@ -4,7 +4,7 @@
   Author: Frank da Cruz <fdc@columbia.edu>,
   Columbia University Academic Information Systems, New York City.
 
-  Copyright (C) 1985, 2010,
+  Copyright (C) 1985, 2017,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -30,7 +30,8 @@
 #define LOCUS
 #endif /* NOLOCUS */
 
-/* Sizes of things - FNVALL and MAXARGLEN increased from 8K 20050912 */
+/* Sizes of things - FNVALL and MAXARGLEN increased from 8K 2005/09/12 */
+/* Other things increased even more for 64-bit builds 2016/02/03 */
 
 #ifdef BIGBUFOK
 #define FNVALL CMDBL			/* Function return value length */
@@ -255,6 +256,10 @@ struct stringint {			/* String and (wide) integer */
 
 /* User interface features */
 
+#ifndef NORPLWORDMODE                   /* \freplace() word mode */
+#define RPLWORDMODE
+#endif  /* NORPLWORDMODE */
+
 #ifdef CK_CURSES			/* Thermometer */
 #ifndef NO_PCT_BAR
 #ifndef CK_PCT_BAR
@@ -367,7 +372,8 @@ struct stringint {			/* String and (wide) integer */
 #define XA_CHGD  47                     /* GUI Change Dimensions */
 #define XA_NOCLOSE 48                   /* GUI Disable Close Window */
 #define XA_UNBUF 49			/* UNIX unbuffered console */
-#define XA_MAX  49			/* Highest extended option number */
+#define XA_NOLOCALE 50			/* Don't access or use locale */
+#define XA_MAX  50			/* Highest extended option number */
 #endif /* NOCMDL */
 
 #ifndef NOICP
@@ -428,6 +434,10 @@ struct stringint {			/* String and (wide) integer */
 #define DIR_TOP 41	/* Top n lines */
 #define DIR_COU 42	/* COUNT:var */
 #define DIR_NOL 43	/* NOLINKS (don't show symlinks at at all) */
+#define DIR_MOD 44	/* Set modification time (used only by TOUCH) */
+#define DIR_SIM 45	/* /SIMULATE (for TOUCH) */
+#define DIR_DES 46      /* /DESTINATION: (for CHANGE) */
+#define DIR_BAK 47      /* /BACKUP: (for CHANGE) */
 
 #define DIRS_NM 0       /* Sort directory by NAME */
 #define DIRS_DT 1       /* Sort directory by DATE */
@@ -767,6 +777,7 @@ struct stringint {			/* String and (wide) integer */
 #define XXLOCU  267	/* LOCUS (for HELP) */
 #define XXPUTE  268     /* PUTENV */
 #define XXXMSG  269     /* XMESSAGE */
+#define XXCHG   270     /* CHANGE */
 
 /* End of Top-Level Commands */
 
@@ -1749,6 +1760,7 @@ struct stringint {			/* String and (wide) integer */
 #define XY_REN   134    /* SET RENAME */
 #define XYEXTRN  135    /* SET EXTERNAL-PROTOCOL */
 #define XYVAREV  136    /* SET VARIABLE-EVALUATION */
+#define XYLOCALE 137    /* SET LOCALE */
 
 /* End of SET commands */
 
@@ -1998,6 +2010,8 @@ struct stringint {			/* String and (wide) integer */
 #define SHOIKS    70                    /* SHOW IKS */
 #define SHOGUI    71			/* SHOW GUI (K95) */
 #define SHOREN    72			/* SHOW RENAME */
+#define SHOLOC    73			/* SHOW LOCALE */
+#define SHOTMPDIR 74			/* SHOW TEMP-DIRECTORY */
 
 /* REMOTE command symbols */
 
@@ -2220,9 +2234,12 @@ struct stringint {			/* String and (wide) integer */
 #define VN_P_RPT  103			/* Repeat count prefix */
 #define VN_D_LCP  104			/* DIAL LOCAL-PREFIX */
 #define VN_URL    105			/* Last URL selected */
+#ifdef COMMENT
+/* Not used in Open Source version but should not be recycled */
 #define VN_REGN   106			/* Registration Name */
 #define VN_REGO   107			/* Registration Organization */
 #define VN_REGS   108			/* Registration Serial number */
+#endif /* COMMENT */
 #define VN_XPROG  109			/* xprogram (like xversion) */
 #define VN_EDITOR 110			/* Editor */
 #define VN_EDOPT  111			/* Editor options */
@@ -2398,6 +2415,9 @@ struct stringint {			/* String and (wide) integer */
 #define VN_INPMSG   252			/* Msg corresponding to instatus */
 #define VN_VAREVAL  253			/* SET VARIABLE-EVALUATION setting */
 #define VN_PREVCMD  254			/* Previous command */
+#define VN_YEAR     255			/* This year */
+#define VN_MONTH    256			/* This month (name) */
+#define VN_NMONTH   257			/* This month (numeric) */
 #endif /* NOSPL */
 
 /* INPUT status values */
@@ -2597,6 +2617,10 @@ struct stringint {			/* String and (wide) integer */
 #define FN_UNPCT   165			/* \fdecodehex() */
 #define FN_STRINGT 166			/* \fstringtype() */
 #define FN_STRCMP  167			/* \fstrcmp() */
+#define FN_FILEINF 168			/* File information */
+#define FN_FILECMP 169			/* File compare */
+#define FN_DAYNAME 170			/* Day name according to locale */
+#define FN_MONNAME 171			/* Month name according to locale */
 
 #endif /* NOSPL */
 
@@ -2749,11 +2773,16 @@ struct stringint {			/* String and (wide) integer */
 
 /* ANSI-C prototypes for user interface functions */
 
+_PROTOTYP( VOID newerrmsg, (char *) );
+_PROTOTYP( int isinternalmacro, ( int ) );
+
 #ifdef UNIX
 _PROTOTYP( int doputenv, ( char *, char * ) );
 #endif	/* UNIX */
 
+#ifndef OS2
 _PROTOTYP( int chkaes, ( char, int ) );
+#endif /* OS2 */
 
 #ifndef NOICP
 _PROTOTYP( int matchname, ( char *, int, int ) );
@@ -2856,7 +2885,10 @@ _PROTOTYP( int setmodem, (void) );
 _PROTOTYP( int setfil, (int) );
 _PROTOTYP( char * homepath, (void) );
 #ifdef OS2
+#ifdef COMMENT
+/* [jt] 2013/11/21 - static/non-static issue */
 _PROTOTYP( int settapi, (void) ) ;
+#endif /* COMMENT */
 #ifdef OS2MOUSE
 _PROTOTYP( int setmou, (void) );
 #endif /* OS2MOUSE */

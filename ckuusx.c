@@ -5,11 +5,11 @@
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2020,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -60,8 +60,19 @@
 #else  /* !BSD44 */
 #ifdef linux
 #include <term.h>
+#else  /* !BSD44 */
 #endif /* linux */
 #endif /* NOTERMCAP */
+/*
+  Note, none of the above works on Ubuntu: not curses.h, term.h, termcap.h
+  so...
+*/
+#ifdef __linux__
+int tgetent (char *, const char *);
+int tputs (const char *, int, int (*)(int));
+char * tgetstr (const char *, char **);
+char * tgoto (const char *, int, int);
+#endif /* __linux__ */
 
 #ifdef OS2
 #include <string.h>
@@ -247,6 +258,8 @@ int fspeclen = CMDBL;
 char fspec[CKMAXPATH+4];
 int fspeclen = CKMAXPATH;
 #endif /* NOMSEND */
+
+_PROTOTYP( int getslot, () );
 
 char * rfspec = NULL;			/* Received filespec: local */
 char * prfspec = NULL;			/* Preliminary rfspec */
@@ -1386,11 +1399,11 @@ matchname(filename, local, os) char * filename; int local; int os; {
 
   Returns:
     -1 on failure (to open file or to read from it).
-    Integer, 0..4, on success indicating file type:
+    Integer, 0..5, on success indicating file type:
      0 = 7-bit text (flag = -1)
-     1 = UTF-8 text (flag = -1)
-     2 = UCS-2 text (flag =  0: big-endian; flag = 1: little-endian)
-     3 = 8-bit text (flag =  0: no C1 bytes; flag = 1: includes C1 bytes)
+     1 = 8-bit text (flag =  0: no C1 bytes; flag = 1: includes C1 bytes)
+     2 = UTF-8 text (flag = -1)
+     3 = UCS-2 text (flag =  0: big-endian; flag = 1: little-endian)
      4 = Text       (type unknown)
      5 = binary     (flag = -1)
 
@@ -2361,7 +2374,8 @@ VOID
 setflow() {
     extern int flow, autoflow, mdmtyp, cxtype, cxflow[];
 #ifndef NODIAL
-    extern int dialcapas, dialfc;
+    extern int dialfc;
+    extern long dialcapas;
     extern MDMINF * modemp[];
     MDMINF * p = NULL;
     long bits = 0;
@@ -4889,7 +4903,6 @@ VOID
 doexit(exitstat,code) int exitstat, code; {
     extern int x_logged, quitting;
 #ifdef OS2
-    extern int display_demo;
     extern int SysInited;
 #endif /* OS2 */
 #ifdef CK_KERBEROS
@@ -4981,13 +4994,8 @@ doexit(exitstat,code) int exitstat, code; {
         extern struct cmdptr cmdstk[];
 #endif /* DCMDBUF */
         extern int tt_status[];
-        extern int vmode;
+        extern BYTE vmode;
 
-        /* If there is a demo screen to be displayed, display it */
-        if (display_demo) {
-            demoscrn(VCMD);
-            display_demo = 0;
-        }
 #ifndef KUI
         /* This is going to be hideous.  If we have a status line */
         /* in the command window turn it off before we exit.      */
@@ -5877,12 +5885,12 @@ extern int isvt52;                      /* From CKVTIO.C */
 #endif /* MYCURSES */
 #endif /* VMS */
 
-#ifdef BUG999
+#ifdef NEEDCURSESPROTOTYPES
 _PROTOTYP(int tgetent,(char *, char *));
 _PROTOTYP(char *tgetstr,(char *, char **));
 _PROTOTYP(int tputs,(char *, int, int (*)()));
 _PROTOTYP(char *tgoto,(const char *, int, int));
-#endif	/* BUG999 */
+#endif /* NEEDCURSESPROTOTYPES */
 
 #endif /* CK_CURSES */
 
@@ -6479,21 +6487,21 @@ ck_termset(x) int x; {
         *bp = NUL;
         debug(F110,"ck_termset calling tgetstr","cl",0);
         if (tgetstr("cl", &bp)) {       /* Get clear-screen code */
-            debug(F110,"ck_termset tgetstr cl",tgsbuf,"");
+            debug(F110,"ck_termset tgetstr cl",tgsbuf,0);
             if ((int)strlen(tgsbuf) < 32)
               ckstrncpy(cur_cls,tgsbuf,32);
         } else
           return;
         bp = tgsbuf;
         if (tgetstr("ce", &bp)) {       /* Get clear-to-end-of-line code */
-            debug(F110,"ck_termset tgetstr ce",tgsbuf,"");
+            debug(F110,"ck_termset tgetstr ce",tgsbuf,0);
             if ((int)strlen(tgsbuf) < 32)
               ckstrncpy(cur_cleol,tgsbuf,32);
         } else
           return;
         bp = tgsbuf;
         if (tgetstr("cm", &bp)) {       /* Get cursor-movement code */
-            debug(F110,"ck_termset tgetstr cm",tgsbuf,"");
+            debug(F110,"ck_termset tgetstr cm",tgsbuf,0);
             if ((int)strlen(tgsbuf) < 64)
               ckstrncpy(cur_cm,tgsbuf,64);
         } else
@@ -9502,6 +9510,7 @@ getslot() {                             /* Find a free slot for us */
     char pidbuf[64], * s;
     int j, k, n, x, rc = -1;
     int lockfd, tries, haveslot = 0;
+    int dummy;
     long lockpid;
     CK_OFF_T i;
     /* char ipbuf[17]; */
@@ -9527,7 +9536,7 @@ getslot() {                             /* Find a free slot for us */
     }
     /* Write my (decimal) PID into the temp file */
 
-    write(lockfd,idstring,(int)strlen(idstring));
+    dummy = write(lockfd,idstring,(int)strlen(idstring));
     if (close(lockfd) < 0) {            /* Close lockfile */
         debug(F101,"getslot error closing temp lockfile", "", errno);
         return(-1);
@@ -9621,7 +9630,7 @@ getslot() {                             /* Find a free slot for us */
 #ifdef COHERENT
             chsize(fileno(dbfp),i);
 #else
-            ftruncate(fileno(dbfp),(CK_OFF_T)i);
+            dummy = ftruncate(fileno(dbfp),(CK_OFF_T)i);
 #endif /* COHERENT */
             x = 0;
             CKFSEEK(dbfp,i,0);

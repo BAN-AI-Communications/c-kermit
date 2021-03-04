@@ -8,14 +8,17 @@
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2009,
+  Copyright (C) 1985, 2014,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
+
+  Most recent update:
+    Sun Feb 23 09:39:28 2014
 */
 #include "ckcdeb.h"
 
@@ -106,7 +109,7 @@ extern int action, cflg, xargc, cnflg, local, quiet, escape, network, mdmtyp,
 
 extern long speed;
 extern char ttname[];
-extern char * pipedata, * cmdfil;
+extern char * pipedata, cmdfil[];
 
 #ifndef NOXFER
 extern char *cmarg, *cmarg2;
@@ -1695,9 +1698,10 @@ struct keytab xargtab[] = {
 #endif /* KUI */
     { "noescape",    XA_NOESCAPE, CM_PRE },
 #endif /* OS2 */
-    { "nointerrupts",XA_NOIN, CM_PRE },
+    { "nointerrupts",XA_NOIN,     CM_PRE },
+    { "nolocale",    XA_NOLOCALE, CM_PRE },
 #ifdef KUI
-    { "nomenubar",   XA_NOMN, CM_PRE },
+    { "nomenubar",   XA_NOMN,     CM_PRE },
 #endif /* KUI */
     { "noperms",     XA_NPRM, 0 },
 #ifndef NOPUSH
@@ -2050,6 +2054,12 @@ inixopthlp() {
 	    xarghlp[j] = "Username.";
 #endif /* NETCONN */
 	    break;
+#ifdef HAVE_LOCALE
+          case XA_NOLOCALE:
+	    xopthlp[j] = "--nolocale";
+	    xarghlp[j] = "Disable use of locale for messages and strings.";
+	    break;
+#endif /* HAVE_LOCALE */
        }
     }
 }
@@ -2888,6 +2898,11 @@ doxarg(s,pre) char ** s; int pre; {
 #endif /* NOSPL */
 #endif /* NOLOCAL */
 
+      case XA_NOLOCALE: {		/* Don't do locale */
+	  extern int nolocale;
+	  nolocale = 1;
+	  break;
+      }
       default:
         return(-1);
     }

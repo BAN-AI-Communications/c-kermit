@@ -1,6 +1,6 @@
 #include "ckcsym.h"
 
-char *cmdv = "Command package 9.0.168, 12 March 2010";
+char *cmdv = "Command package 9.0.176, 18 September 2020";
 
 /*  C K U C M D  --  Interactive command package for Unix  */
 
@@ -8,14 +8,16 @@ char *cmdv = "Command package 9.0.168, 12 March 2010";
 
 /*
   Author: Frank da Cruz (fdc@columbia.edu),
-  Columbia University Academic Information Systems, New York City.
+  Formerly of Columbia University Academic Information Systems, New York City.
+  Since 1 July 2011, Open Source Kermit Project.
 
-  Copyright (C) 1985, 2010,
+  Copyright (C) 1985, 2020,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
 */
 
+#define FUNCTIONTEST
 #define TOKPRECHECK
 
 #define DOCHKVAR
@@ -64,6 +66,11 @@ _PROTOTYP( VOID learncmd, (char *) );
 static char *moname[] = {
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+};
+
+static char *fullmonthname[] = {
+    "January", "February", "March",     "April",   "May",      "June",
+    "July",    "August",   "September", "October", "November", "December"
 };
 
 struct keytab cmonths[] = {
@@ -438,6 +445,7 @@ test(x,m) int x, m; { /*  Returns 1 if any bits from m are on in x, else 0  */
     xhlp  - 1 to print any CM_INV keywords that are not also abbreviations.
             2 to print CM_INV keywords if CM_HLP also set
             4 if it's a switch table (to show ':' if CM_ARG)
+            8 print any keywords that CONTAIN the pattern
 
   Arranges keywords in columns with width based on longest keyword.
   Does "more?" prompting at end of screen.
@@ -471,7 +479,10 @@ kwdhelp(s,n,pat,pre,post,off,xhlp)
     if ((s2 = (char **) malloc(n * sizeof(char *)))) {
 	for (i = 0; i < n; i++) {	/* Find longest keyword */
 	    s2[i] = NULL;
-	    if (ckstrcmp(s[i].kwd,pat,cc,0))
+            if (xhlp & 8) {
+                if (ckindex(pat,s[i].kwd,0,0,0) < 1) /* for SHOW FUNCTIONS */
+                  continue;
+            } else if (ckstrcmp(s[i].kwd,pat,cc,0)) /* for regular keywords */
 	      continue;
 
 	    if (s[i].flgs & CM_PSH	/* NOPUSH or nopush screening */
@@ -840,15 +851,6 @@ prompt(f) xx_strp f; {
 #ifdef CK_SSL
     extern int ssl_active_flag, tls_active_flag;
 #endif /* CK_SSL */
-#ifdef OS2
-    extern int display_demo;
-
-    /* If there is a demo screen to be displayed, display it */
-    if (display_demo && xcmdsrc == 0) {
-        demoscrn(VCMD);
-        display_demo = 0;
-    }
-#endif /* OS2 */
 
     if (psetf == 0)			/* If no prompt set, set default. */
       cmsetp(dfprom);
@@ -1976,6 +1978,7 @@ cmifi2(xhlp,xdef,xp,wild,d,path,f,dirflg)
 #endif /* VMS */
 
 	    debug(F101,"cmifi dirflg","",dirflg);
+	    debug(F101,"cmifi diractive","",diractive);
 	    if (dirflg) {		/* Parsing a directory name? */
 		/* Yes, does it contain wildcards? */
 		if (iswild(*xp) ||
@@ -2868,7 +2871,7 @@ cmifi2(xhlp,xdef,xp,wild,d,path,f,dirflg)
 */
 int
 cmfld(xhlp,xdef,xp,f) char *xhlp, *xdef, **xp; xx_strp f; {
-    int x, xc;
+    int x, xc, isavar = 0;
     char *zq;
 
     inword = 0;				/* Initialize counts & pointers */
@@ -2926,6 +2929,12 @@ cmfld(xhlp,xdef,xp,f) char *xhlp, *xdef, **xp; xx_strp f; {
 		if ((*f)(*xp,&zq,&atxn) < 0)
 		  return(-2);
 		debug(F111,"cmfld 3",atxbuf,xc);
+		/*
+		  fdc 2013/12/06 - allow a field to be empty if it is
+                  the name of a variable that has no value.
+		*/    
+                isavar = (atmbuf[0] == '\\'); /* Remember if it was a var */
+
 		/* Replace by new value -- for MINPUT only keep all chars */
 		if (setatm(atxbuf,keepallchars ? 3:1) < 0) { /* 16 Mar 2003 */
 		    printf("Value too long\n");
@@ -2939,7 +2948,8 @@ cmfld(xhlp,xdef,xp,f) char *xhlp, *xdef, **xp; xx_strp f; {
 		    printf("?Default too long\n");
 		    return(-9);
 		}
-		if (**xp == NUL) x = -3; /* If still empty, return -3. */
+		/* If still empty, return -3 unless it was a variable */
+		if (**xp == NUL) x = (isavar ? 0 : -3);	/* fdc 2013/12/06 */
 	    }
 	    debug(F111,"cmfld returns",*xp,x);
 	    return(x);
@@ -3690,6 +3700,7 @@ chktok(tlist) char *tlist; {
 char cmdatebuf[CMDATEBUF+4] = { NUL, NUL };
 static char * cmdatebp = cmdatebuf;
 char * cmdatemsg = NULL;
+char * cmdatestr = NULL;
 
 static struct keytab timeunits[] = {
     { "days",   TU_DAYS,   0 },
@@ -3766,7 +3777,7 @@ static char * atp1 = "[A-Z][a-z][a-z] [A-Z][a-z][a-z] [ 0-9][0-9] [0-9][0-9]:[0-
 static char * atp2 = "[A-Z][a-z][a-z] [A-Z][a-z][a-z] [ 0-9][0-9] [0-9][0-9]:[0-9][0-9]:[0-9][0-9] [A-Z][A-Z][A-Z] [0-9][0-9][0-9][0-9]";
 
 #define DATEBUFLEN 127
-#define YYYYMMDD 12
+#define YYYYMMDD 24                     /* Year-month-day buffer */
 
 #define isleap(y) (((y) % 4 == 0 && (y) % 100 != 0) || (y) % 400 == 0)
 static int mdays[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
@@ -3818,10 +3829,14 @@ cmdelta(yy, mo, dd, hh, mm, ss, sign, dyy, dmo, ddd, dhh, dmm, dss)
 	debug(F111,"cmdelta",cmdatemsg,-1);
 	return(NULL);
     }
-    if (dd < 1 || dd > mdays[mo]) {
-	makestr(&cmdatemsg,"Base day out of range");
-	debug(F111,"cmdelta",cmdatemsg,-1);
-	return(NULL);
+    {
+        int i = mdays[mo];
+        if (mo == 2) if (isleap(yy)) i++;
+        if (dd < 1 || dd > i) {
+            makestr(&cmdatemsg,"Base day out of range");
+            debug(F111,"cmdelta",cmdatemsg,-1);
+            return(NULL);
+        }
     }
     if (hh < 0 || hh > 23) {
 	makestr(&cmdatemsg,"Base hour out of range");
@@ -4078,7 +4093,7 @@ cmcvtdate(s,t) char * s; int t; {
     char * year = NULL, * month = NULL, * day = NULL;
     char * hour = "00", * min = "00", * sec = "00";
     char datesep = 0;
-    char tmpbuf[8];
+    char tmpbuf[16];
     char xbuf[DATEBUFLEN+1];
     char ybuf[DATEBUFLEN+1];
     char zbuf[DATEBUFLEN+1];
@@ -4089,15 +4104,26 @@ cmcvtdate(s,t) char * s; int t; {
     char yearbuf[5];
     char timbuf[16], *tb, cc;
     char * dp = NULL;			/* Result pointer */
+    char * newdate = NULL;
+    char * datepat = "[12][0-9][0-9][0-9]:[0-9][0-9]:[0-9][0-9]";
 
     if (!s) s = "";
     tmpbuf[0] = NUL;
+    len = strlen(s);
 
     while (*s == SP) s++;		/* Gobble any leading blanks */
+    if (ckmatch(datepat,s,0,4)) {       /* Check for Apache web log format */
+        int i, j = 0;
+	newdate = (char *)malloc((len + 1) * sizeof(char *));
+        for (i = 0; i <= len; i++) {    /* Loop to remove colons */
+            if (s[i] != ':') newdate[j++] = s[i];
+            if (s[i] == NUL) break;
+        }
+        s = newdate;                    /* Replace arg with result */
+    }
     if (isalpha(*s))			/* Remember if 1st char is a letter */
       isletter = 1;
 
-    len = strlen(s);
     debug(F110,"cmcvtdate",s,len);
     if (len == 0) {			/* No arg - return current date-time */
 	dp = ckdate();
@@ -4645,7 +4671,6 @@ cmcvtdate(s,t) char * s; int t; {
    state = 3 = seconds
    state = 4 = fractions of seconds
 */
-
   dotime:
     if (isletter && (s == p)) {
 	makestr(&cmdatemsg,"Unknown date-time word");
@@ -5411,6 +5436,7 @@ cmdiffdate(d1,d2) char * d1, * d2; {
       2: Reformat date to dd-mmm-yyyy (mmm = English month abbreviation).
       3: Reformat as numeric yyyymmddhhmmss.
       4: Reformat in asctime() format Sat Nov 26 11:10:34 2005
+      5: Reformat as delimited numeric yyyy:mm:dd:hh:mm:ss.
     Returns:
       Pointer to result if args valid, otherwise original arg pointer.
 */
@@ -5419,13 +5445,20 @@ shuffledate(p,opt) char * p; int opt; {
     extern char * wkdays[];
     int len;
     char ibuf[32];
-    static char obuf[48];
+    static char obuf[128];
     char c;
     int yy, dd, mm;
+#define MONTHBUFLEN 32
+    char monthbuf[MONTHBUFLEN];
+    char * monthstring = NULL;
+#ifdef HAVE_LOCALE
+    _PROTOTYP( char * locale_monthname, (int, int) );
+    extern int nolocale;
+#endif /* HAVE_LOCALE */
 
     if (!p) p = "";
     if (!*p) p = ckdate();
-    if (opt < 1 || opt > 4)
+    if (opt < 1 || opt > 6)
       return(p);
     len = strlen(p);
     if (len < 8 || len > 31) return(p);
@@ -5477,6 +5510,35 @@ shuffledate(p,opt) char * p; int opt; {
 	obuf[24] = NUL;
 	return((char *)obuf);
     }
+    if (opt == 5) {			/* 20130722 All fields delimited */
+	/* yyyymmdd hh:mm:ss */
+	/* 0123456789012345678 */
+	/* yyyy:mm:dd:hh:mm:ss */
+	char sep = ':';
+	int i = 0;
+
+	obuf[i++] = p[0];		/* y */
+	obuf[i++] = p[1];		/* y */
+	obuf[i++] = p[2];		/* y */
+	obuf[i++] = p[3];		/* y */
+	obuf[i++] = sep;		/*  */
+	obuf[i++] = p[4];		/* m */
+	obuf[i++] = p[5];		/* m */
+	obuf[i++] = sep;		/*  */
+	obuf[i++] = p[6];		/* d */
+	obuf[i++] = p[7];		/* d */
+	obuf[i++] = sep;		/*  */
+	obuf[i++] = p[9];		/* h */
+	obuf[i++] = p[10];		/* h */
+	obuf[i++] = sep;		/*  */
+	obuf[i++] = p[12];		/* m */
+	obuf[i++] = p[13];		/* m */
+	obuf[i++] = sep;		/*  */
+	obuf[i++] = p[15];		/* s */
+	obuf[i++] = p[16];		/* s */
+	obuf[i++] = NUL;		/* end */
+	return((char *)obuf);
+    }
     if (opt == 3) {
 	ckstrncpy(obuf,p,48);
 	/* yyyymmdd hh:mm:ss */
@@ -5492,7 +5554,7 @@ shuffledate(p,opt) char * p; int opt; {
 	return((char *)obuf);
     }
     ckstrncpy(ibuf,p,32);
-    c = ibuf[4];			/* Warning: not Y10K compliant */
+    c = ibuf[4];			/* Warning: not "Y10K compliant" */
     ibuf[4] = NUL;
     if (!rdigits(ibuf))
       return(p);
@@ -5516,13 +5578,43 @@ shuffledate(p,opt) char * p; int opt; {
     ibuf[8] = c;
     if (dd < 1 || mm > 31)
       return(p);
-    /* IGNORE WARNINGS ABOUT moname[] REFS OUT OF RANGE - it's prechecked. */
+
+#ifdef HAVE_LOCALE
+/*
+  We truncate the month name to 3 characters even though some
+  some locales use longer "short month names".  Fixing this will
+  require some redesign which can be done if ever anybody complains.
+*/
+    if (!nolocale) {                        /* If user didn't do --nolocale */
+        char *s = NULL;
+        if (opt == 1 || opt == 2) {             /* Short month name */
+            s = locale_monthname(mm-1,1);       /* Get short month name */
+            if (!s) s = moname[mm-1];           /* Allow for error */
+            ckstrncpy(monthbuf,s,MONTHBUFLEN);  /* Copy it to this buffer */
+            monthbuf[3] = NUL;                  /* Truncate it at 3 */
+        } else {
+            s = locale_monthname(mm-1,0);       /* Get full month name */
+            if (!s) s = fullmonthname[mm-1];    /* Allow for error */
+            ckstrncpy(monthbuf,s,MONTHBUFLEN);
+        }
+        monthstring = monthbuf;             /* Point to it */
+    } else
+#endif /* HAVE_LOCALE */
+      /* Otherwise use old month name table */
+      monthstring = (opt == 6) ? fullmonthname[mm-1] : moname[mm-1];
+
     switch (opt) {
       case 1:
-	sprintf(obuf,"%04d-%s-%02d%s",yy,moname[mm-1],dd,&ibuf[8]);
-	break;
+        sprintf(obuf,"%04d-%s-%02d%s",yy,monthstring,dd,&ibuf[8]);
+        break;
       case 2:
-	sprintf(obuf,"%02d-%s-%04d%s",dd,moname[mm-1],yy,&ibuf[8]);
+        sprintf(obuf,"%02d-%s-%04d%s",dd,monthstring,yy,&ibuf[8]);
+        break;
+      case 6:
+        sprintf(obuf,"%d %s %d%s", dd, monthstring, yy, &ibuf[8]);
+        break;
+      default:
+        return(p);
     }
     return((char *)obuf);
 }
@@ -6150,6 +6242,7 @@ unungw() {
 static int
 gtword(brk) int brk; {
     int c;                              /* Current char */
+    int cq = 0;                         /* Next char */
     int quote = 0;                      /* Flag for quote character */
     int echof = 0;                      /* Flag for whether to echo */
     int comment = 0;			/* Flag for in comment */
@@ -6165,6 +6258,16 @@ gtword(brk) int brk; {
     int dq = 0;				/* Doublequote flag */
     int dqn = 0;			/* and count */
     int isesc = 0;
+#ifdef FUNCTIONTEST
+    /*
+      September 2018 - Code to prevent spaces in function argument
+      list to cause a word break during command parsing.  Matching
+      code also added to setatm().
+    */
+    int fndebug = 0;
+    int fnstate = 0;                    /* Function-parsing state */
+    int fnparens = 0;                   /* Parens counter */
+#endif /* FUNCTIONTEST */
 
 #ifdef RTU
     extern int rtu_bug;
@@ -6271,7 +6374,7 @@ gtword(brk) int brk; {
     }
     pp = np;                            /* Start of current field */
 
-#ifdef COMMENT
+#ifdef FUNCTIONTEST
 #ifdef DEBUG
     if (deblog) {
 	debug(F110,"gtword cmdbuf",cmdbuf,0);
@@ -6279,7 +6382,7 @@ gtword(brk) int brk; {
 	debug(F110,"gtword pp",pp,0);
     }
 #endif /* DEBUG */
-#endif /* COMMENT */
+#endif /* FUNCTIONTEST */
     {
 	/* If we are reparsing we have to recount any braces or doublequotes */
 	char * p = pp;
@@ -6302,6 +6405,8 @@ CMDIRPARSE:
 #endif /* BS_DIRSEP */
 
 	c = *bp;
+        cq = *(bp+1);
+        debug(F000,"CHAR C","",c);      /* FUNCTIONTEST */
         if (!c) {			/* If no char waiting in reparse buf */
 	    if ((dpx
 #ifndef NOSPL
@@ -6428,6 +6533,36 @@ CMDIRPARSE:
 	if (c == '"')			/* Count doublequotes */
 	  dqn++;
 
+#ifdef FUNCTIONTEST                     /* gtword() */
+        if (fnstate == 0 && c == '\\') {
+            fnstate = 1;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 1 && c == '\\') {
+            /* because gtword doubles the backslash */
+            fnstate = 1;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 1) {
+            fnstate = (c == 'f' || c == 'F') ? 2 : 0;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 2 && isalpha(c)) {
+            fnstate = 3;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 3 && isalpha(c)) {
+            fnstate = 4;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 4 && c == '(') {
+            fnstate = 5;
+            fnparens++;
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        } else if (fnstate == 5 && c == ')') {
+            fnparens--;
+            if (fnparens == 0) {
+                fnstate = 0;
+            }
+            if (fndebug) printf("g%d%c/",fnstate,c);
+        }
+#endif /* FUNCTIONTEST */
+
 	if (quote && (c == CR || c == LF)) { /* Enter key following quote */
 	    *bp++ = CMDQ;		/* Double it */
 	    *bp = NUL;
@@ -6462,7 +6597,8 @@ CMDIRPARSE:
 	    if (!kstartactive &&	/* Not in possible Kermit packet */
 		!comment && c == SP) {	/* Space not in comment */
                 *bp++ = (char) c;	/* deposit in buffer if not already */
-		/* debug(F101,"gtword echof 2","",echof); */
+		debug(F101,"gtword SPACE fnstate","",fnstate);
+		debug(F101,"gtword SPACE inword","",inword);
 #ifdef BEBOX
                 if (echof) {
 		    cmdecho((char) c, 0); /* Echo what was typed. */
@@ -6476,13 +6612,23 @@ CMDIRPARSE:
 		      fflush(stdout);
 		}
 #endif /* BEBOX */
-                if (inword == 0) {      /* If leading, gobble it. */
+                if (inword == 0
+#ifdef FUNCTIONTEST
+                    && !fnstate
+#endif  /* FUNCTIONTEST */
+                    ) {      /* If leading, gobble it. */
                     pp++;
                     continue;
-                } else {                /* If terminating, return. */
+                } else {
+#ifdef FUNCTIONTEST
+                    if (fnstate == 5) { /* Space inside function arg list */
+                        debug(F101,"SP in fn arglist fnstate","",fnstate);
+                        continue;
+                    }
+#endif  /* FUNCTIONTEST */
 		    if ((!dq && ((*pp != lbrace) || (bracelvl == 0))) ||
 			(dq && dqn > 1 && *(bp-2) == '"')) {
-			np = bp;
+			np = bp;     /* If field-terminating space, return. */
 			cmbptr = np;
 			if (setatm(pp,0) < 0) {
 			    printf("?Field too long error 1\n");
@@ -6490,6 +6636,11 @@ CMDIRPARSE:
 			    return(-9);
 			}
 			brkchar = c;
+#ifdef FUNCTIONTEST
+                        debug(F110,"XXX atmbuf",atmbuf,0);
+                        debug(F110,"XXX pp",pp,0);
+                        debug(F101,"XXX brkchar","",c);                    
+#endif  /* FUNCTIONTEST */
 			inword = cmflgs = 0;
 			return(0);
 		    }
@@ -6905,6 +7056,7 @@ CMDIRPARSE:
         } else {			/* This character was quoted. */
 	    int qf = 1;
 	    quote = 0;			/* Unset the quote flag. */
+
 	    /* debug(F000,"gtword quote 0","",c); */
 	    /* Quote character at this level is only for SP, ?, and controls */
             /* If anything else was quoted, leave quote in, and let */
@@ -6995,9 +7147,29 @@ static int
 setatm(cp,fcode) char *cp; int fcode; {
     char *ap, *xp, *dqp = NULL, lbrace, rbrace;
     int bracelvl = 0, dq = 0;
+    int c;                              /* current char */
+
+#ifdef FUNCTIONTEST
+    /*
+      September 2018 - Code to prevent spaces in function argument
+      list to cause a word break during command parsing.  Matching
+      code also added to setatm().
+    */
+    int fnstate = 0;                    /* Function-parsing state */
+    int fnparens = 0;                   /* Parens counter */
+    int fndebug = 0;
+#endif /* FUNCTIONTEST */
 
     register char * s;
     register int n = 0;
+
+#ifdef FUNCTIONTEST
+/*
+    printf("---------------------------------\n");
+    printf("SETATM...\n");
+    printf("CP=[%s]\n",cp);
+*/
+#endif /* FUNCTIONTEST */
 
     if (cmfldflgs & 1) {		/* Handle grouping */
 	lbrace = '(';
@@ -7044,6 +7216,32 @@ setatm(cp,fcode) char *cp; int fcode; {
 	dqp = cp;
     }
     while (*cp) {
+        c = *cp;
+#ifdef FUNCTIONTEST                     /* setatm() */
+        if (fnstate == 0 && c == '\\') {
+            fnstate = 1;
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        } else if (fnstate == 1) {
+            fnstate = (c == 'f' || c == 'F') ? 2 : 0;
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        } else if (fnstate == 2 && isalpha(c)) {
+            fnstate = 3;
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        } else if (fnstate == 3 && isalpha(c)) {
+            fnstate = 4;
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        } else if (fnstate == 4 && c == '(') {
+            fnstate = 5;
+            fnparens++;
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        } else if (fnstate == 5 && c == ')') {
+            fnparens--;
+            if (fnparens == 0) {
+                fnstate = 0;
+            }
+            if (fndebug) printf("s%d%c/",fnstate,c);
+        }
+#endif /* FUNCTIONTEST */
         if (*cp == lbrace)
 	  bracelvl++;
         else if (*cp == rbrace)
@@ -7059,8 +7257,12 @@ setatm(cp,fcode) char *cp; int fcode; {
 			}
 		    }
 		}
-	    } else if ((*cp == SP || *cp == HT) && fcode != 1 && fcode != 3)
-	      break;
+	    } else if ((*cp == SP || *cp == HT) && fcode != 1 && fcode != 3) {
+#ifdef FUNCTIONTEST
+                if (fnstate == 0)
+#endif /* FUNCTIONTEST */
+                break;
+            }
 	    if ((fcode == 2) && (*cp == '=' || *cp == ':')) break;
 	    if ((fcode != 3) && (*cp == LF || *cp == CR)) break;
 	}
@@ -7068,6 +7270,9 @@ setatm(cp,fcode) char *cp; int fcode; {
         cc++;
     }
     *ap = NUL;				/* Terminate the string. */
+#ifdef FUNCTIONTEST
+    /* printf("ATMBUF=[%s]\n", atmbuf); */
+#endif /* FUNCTIONTEST */
     /* debug(F111,"setatm result",atmbuf,cc); */
     return(cc);                         /* Return length. */
 }
@@ -7370,7 +7575,11 @@ cmdconchk() {
 
 /* Here we must look inside the stdin buffer - highly platform dependent */
 
-#ifdef _IO_file_flags			/* Linux */
+#ifdef __FILE_defined                   /* glibc 2.28 1 Aug 2018 */
+    x = (int) ((stdin->_IO_read_end) - (stdin->_IO_read_ptr));
+    debug(F101,"cmdconchk __FILE_defined","",x);
+#else /* __FILE_defined */ 
+#ifdef _IO_file_flags              /* Linux (glibc 2.28 removed this symbol */
     x = (int) ((stdin->_IO_read_end) - (stdin->_IO_read_ptr));
     debug(F101,"cmdconchk _IO_file_flags","",x);
 #else  /* _IO_file_flags */
@@ -7407,12 +7616,12 @@ cmdconchk() {
 #endif /* USE_FILE__CNT */
 #endif /* USE_FILE_CNT */
 #endif /* _IO_file_flags */
+#endif /* __FILE_defined */
 #endif /* CMD_CONINC */
 #endif /* OS2 */
     return(x + y);
 }
 /* #endif */ /* USE_ARROWKEYS */
-
 
 static VOID
 cmdclrscn() {				/* Clear the screen */

@@ -3,24 +3,22 @@
 #define CK_NONBLOCK                     /* See zoutdump() */
 
 #ifdef aegis
-char *ckzv = "Aegis File support, 9.0.216, 20 Aug 2011";
+char *ckzv = "Aegis File support, 9.0.224, 28 Sep 2020";
 #else
 #ifdef Plan9
-char *ckzv = "Plan 9 File support, 9.0.216, 20 Aug 2011";
+char *ckzv = "Plan 9 File support, 9.0.224, 28 Sep 2020";
 #else
-char *ckzv = "UNIX File support, 9.0.216, 20 Aug 2011";
+char *ckzv = "UNIX File support, 9.0.224, 28 Sep 2020";
 #endif /* Plan9 */
 #endif /* aegis */
 /*
   Author: Frank da Cruz <fdc@columbia.edu>,
-  Columbia University Academic Information Systems, New York City,
-  and others noted in the comments below.  Note: CUCCA = Previous name of
-  Columbia University Academic Information Systems.  Note: AcIS = Previous
-  of Columbia University Information Technology.
+  Columbia University 1974-2011; The Kermit Project 2011-????.
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2020,
     Trustees of Columbia University in the City of New York.
-    All rights reserved.  See the C-Kermit COPYING.TXT file or the
+
+    1767All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
 */
 
@@ -104,8 +102,7 @@ _PROTOTYP( int parser, ( int ) );
   Directory Separator macros, to allow this module to work with both UNIX and
   OS/2: Because of ambiguity with the command line editor escape \ character,
   the directory separator is currently left as / for OS/2 too, because the
-  OS/2 kernel also accepts / as directory separator.  But this is subject to
-  change in future versions to conform to the normal OS/2 style.
+  OS/2 kernel also accepts / as directory separator.
 */
 #ifndef DIRSEP
 #define DIRSEP       '/'
@@ -139,6 +136,10 @@ _PROTOTYP( int parser, ( int ) );
 #endif /* RTU */
 #endif /* NDIR */
 #endif /* XNDIR */
+
+#ifdef __NetBSD__
+#include <sys/wait.h>
+#endif  /* __NetBSD__ */
 
 #ifdef UNIX                             /* Pointer arg to wait() allowed */
 #define CK_CHILD                        /* Assume this is safe in all UNIX */
@@ -1139,6 +1140,7 @@ logwtmp(line, name, host) char *line, *name, *host;
 /* logwtmp */ {
     struct UTMPSTRUCT ut;
     struct stat buf;
+    int dummy;
     /* time_t time(); */
 
     if (!ckxwtmp)
@@ -1201,7 +1203,8 @@ logwtmp(line, name, host) char *line, *name, *host;
             sizeof(struct UTMPSTRUCT)) {
 #ifndef NOFTRUNCATE
 #ifndef COHERENT
-            ftruncate(wtmpfd, buf.st_size); /* Error, undo any partial write */
+            dummy =
+             ftruncate(wtmpfd, buf.st_size); /* Error, undo partial write */
 #else
             chsize(wtmpfd, buf.st_size); /* Error, undo any partial write */
 #endif /* COHERENT */
@@ -1565,21 +1568,23 @@ zopeno(n,name,zz,fcb)
     }
     {
     /* Allow tty devices to opened as output files 2009/10/20 */
-	int fd, mode = 0;
+	int fd, flags = 0;
 	debug(F110,"zopeno attempting to open",name,0);
+        if (!ckstrcmp(name,"/dev/",5,1)) { /* If it's a tty... */
 #ifdef O_NONBLOCK
-	mode = O_NONBLOCK;
+            flags = O_NONBLOCK;
 #else
 #ifdef O_NDELAY
-	mode = O_NDELAY;
+            flags = O_NDELAY;
 #else
 #ifdef FNDELAY
-	mode = FNDELAY;
+            flags = FNDELAY;
 #endif /* FNDELAY */
 #endif	/* O_NDELAY */
 #endif	/* O_NONBLOCK */
-	debug(F111,"zopeno open mode",name,mode);
-	fd = open(name,O_WRONLY,mode);
+        }
+	debug(F111,"zopeno open flags",name,flags);
+	fd = open(name,O_WRONLY|flags,0600);
 	debug(F111,"zopeno open",name,fd); 
 	if (fd > -1) {
 	    if (isatty(fd)) {
@@ -1668,6 +1673,7 @@ zopeno(n,name,zz,fcb)
 int
 zclose(n) int n; {
     int x = 0, x2 = 0;
+    int dummy;
     extern CK_OFF_T ffc;
 
     debug(F101,"zclose file number","",n);
@@ -1763,7 +1769,7 @@ zclose(n) int n; {
                         "*"             /* Ditto */
                         );
                 debug(F110,"zclose iksdmsg",iksdmsg,0);
-                write(xferlog, iksdmsg, (int)strlen(iksdmsg));
+                dummy = write(xferlog, iksdmsg, (int)strlen(iksdmsg));
             }
         }
         debug(F101,"zclose returns","",1);
@@ -2247,7 +2253,7 @@ chkfn(n) int n; {
     -1 if the file size can not be obtained.
   Also (and this is a hack just for UNIX):
     If the argument is the name of a symbolic link,
-    the global variable issymlink is set to 1,
+    the global variable zgfs_link is set to 1,
     and the global buffer linkname[] gets the link value.
     And it sets zgfs_dir to 1 if it's a directory, otherwise 0.
   This lets us avoid numerous redundant calls to stat().
@@ -2396,7 +2402,6 @@ zgetfs(name) char *name; {
     debug(F111,"zgetfs st_size",s,buf.st_size);
     return((size < 0L) ? buf.st_size : size); /* Return the size */
 }
-
 
 /*  Z C H K I  --  Check if input file exists and is readable  */
 
@@ -2568,22 +2573,25 @@ zchko(name) char *name; {
 #ifdef NOUUCP
     {					/* 2009/10/20 */
     /* Allow tty devices to opened as output files */
-	int fd, istty = 0, mode = 0;
+	int fd, istty = 0, flags = 0;
 	debug(F110,"zchko attempting to open",name,0);
+        if (!ckstrcmp(name,"/dev/",5,1)) { /* If tty (2016/02/16) */
 	/* Don't block on lack of Carrier or other modem signals */
 #ifdef O_NONBLOCK
-	mode = O_NONBLOCK;
+            flags = O_NONBLOCK;
 #else
 #ifdef O_NDELAY
-	mode = O_NDELAY;
+            flags = O_NDELAY;
 #else
 #ifdef FNDELAY
-	mode = FNDELAY;
+            flags = FNDELAY;
 #endif /* FNDELAY */
 #endif	/* O_NDELAY */
 #endif	/* O_NONBLOCK */
-	debug(F111,"zchko open mode",name,mode);
-	fd = open(name,O_WRONLY,mode);	/* Must attempt to open it */
+        }
+	debug(F111,"zchko open mode",name,flags);
+	/* Must attempt to open it */
+        fd = open(name,O_WRONLY|O_CREAT|flags,0600);
 	debug(F111,"zchko open",name,fd); 
 	if (fd > -1) {			/* to get a file descriptor */
 	    if (isatty(fd))		/* for isatty() */
@@ -2596,10 +2604,19 @@ zchko(name) char *name; {
 	} else {
 	    debug(F101,"zchko open errno","",errno); 
 	    x = -1;
+            goto xzchko;                /* fdc 2015/01/12 */
+            /* previously control fell through causing core dumps */
+            /* on builds with -DNOUUCP */
 	}
     }
 #endif	/* NOUUCP */
 #endif	/* UNIX */
+
+    if (zchkod) goto doaccess;          /* fdc 20160129 */
+/*
+  The following code gets the name of the containing directory so we
+  can use access() to check if we are allowed to create files in it.
+*/
     for (i = x; i > 0; i--) {           /* Strip filename from right. */
         if (ISDIRSEP(s[i-1])) {
             itsadir = 1;
@@ -2656,17 +2673,19 @@ zchko(name) char *name; {
   doaccess:
 
 #ifdef SW_ACC_ID
-    debug(F100,"zchko swapping ids for access()","",0);
+    debug(F110,"zchko swapping ids for access()",s,0);
     priv_on();
 #endif /* SW_ACC_ID */
 
     x = access(s,W_OK);                 /* Check access of path. */
+    debug(F110,"zchko access",s,x);
 
 #ifdef SW_ACC_ID
     priv_off();
     debug(F100,"zchko swapped ids restored","",0);
 #endif /* SW_ACC_ID */
 
+  xzchko:                               /* Exit point */
     if (x < 0)
       debug(F111,"zchko access failed:",s,errno);
     else
@@ -4395,6 +4414,12 @@ zgperm(f) char *f; {
     if (!f) return("----------");
     if (!*f) return("----------");
 
+#ifdef DTILDE                           /* Built with tilde-expansion? */
+    if (*f == '~') {			/* Starts with tilde? */
+        f = tilde_expand(f);		/* Try to expand it. */
+    }
+#endif /* DTILDE */
+
 #ifdef CKROOT
     debug(F111,"zgperm setroot",ckroot,ckrootset);
     if (ckrootset) if (!zinroot(f)) {
@@ -4432,6 +4457,12 @@ ziperm(f) char * f; {
 
     if (!f) return(NULL);
     if (!*f) return(NULL);
+
+#ifdef DTILDE                           /* Built with tilde-expansion? */
+    if (*f == '~') {			/* Starts with tilde? */
+        f = tilde_expand(f);		/* Try to expand it. */
+    }
+#endif /* DTILDE */
 
     if (diractive && zgfs_mode != 0) {
 	perms = zgfs_mode;		/* zgetfs() already got them */
@@ -5302,6 +5333,9 @@ zlocaltime(gmtstring) char * gmtstring; {
       yy->lprotect.val & yy->gprotect.val are permission/protection values.
  x  = is a function code: 0 means to set the file's attributes as given.
       1 means compare the date in struct yy with the file creation date.
+    IMPORTANT: if you are calling this routine only to set a certain attribute
+      but not others, you MUST set yy->blah.len to 0 for each blah not
+      being set.
  Returns:
  -1 on any kind of error.
   0 if x is 0 and the attributes were set successfully.
@@ -5368,7 +5402,7 @@ zstime(f,yy,x)
 #endif /* CKROOT */
 
     if (yy->date.len == 0) {            /* No date in struct */
-        if (yy->lprotect.len != 0) {    /* So go do permissions */
+        if (yy->lprotect.len > 0) {     /* So go do permissions */
             goto zsperms;
         } else {
             debug(F100,"zstime: nothing to do","",0);
@@ -5395,8 +5429,9 @@ zstime(f,yy,x)
     {
         int i, x = 0, xx, flag = 0;
         char * s;
-#ifdef DEBUG
         char obuf[24];
+#ifdef COMMENT
+#ifdef DEBUG
         if (deblog) {
             debug(F111,"zstime lperms",yy->lprotect.val,yy->lprotect.len);
             debug(F111,"zstime gperms",yy->gprotect.val,yy->gprotect.len);
@@ -5405,6 +5440,7 @@ zstime(f,yy,x)
             debug(F110,"zstime file perms before",obuf,0);
         }
 #endif /* DEBUG */
+#endif /* COMMENT */
 
 #ifdef CK_LOGIN
         debug(F101,"zstime isguest","",isguest);
@@ -5464,7 +5500,14 @@ zstime(f,yy,x)
             umask(mask);                /* Put it back */
             mask ^= 0777;               /* Flip the bits */
             debug(F101,"zstime mask 2","",mask);
-            g = xunchar(*(yy->gprotect.val)); /* Decode generic protection */
+            debug(F101,"zstime yy->gprotect.len","",yy->gprotect.len);
+            /* Decode generic protection */
+            if (yy->gprotect.len < 1 || yy->gprotect.len > 99) {
+                g = 0;                  /* protect against bogus value */
+            } else {
+                debug(F110,"zstime yy->gprotect.val",yy->gprotect.val,0);
+                g = xunchar(*(yy->gprotect.val));
+            }
             debug(F101,"zstime gprotect","",g);
 #ifdef S_IRUSR
             debug(F100,"zstime S_IRUSR","",0);
@@ -7392,6 +7435,9 @@ zfseek(pos) CK_OFF_T pos;
   returns the fully qualified filespec for the same file, returning a struct
   that contains the length (len) of the result, a pointer (fpath) to the
   whole result, and a pointer (fname) to where the filename starts.
+  Hint: how to get just the directory path, without the filename, into buf[]:
+    fp = zfnqfp(filename,MAXPATHLEN,buf);
+    if (fp) buf[fp->fname - fp->fpath] = '\0';
 */
 static struct zfnfp fnfp = { 0, NULL, NULL };
 
@@ -7807,7 +7853,9 @@ sgetpwnam(name) char *name; {
     if (save.pw_name) {
         free(save.pw_name);
         free(save.pw_passwd);
+#ifndef ANDROID
         free(save.pw_gecos);
+#endif
         free(save.pw_dir);
         free(save.pw_shell);
     }
@@ -7825,7 +7873,9 @@ sgetpwnam(name) char *name; {
     save.pw_passwd = sgetsave(p->pw_passwd);
 #endif /* HPUX10_TRUSTED */
 #endif /* CK_SHADOW */
+#ifndef ANDROID
     save.pw_gecos = sgetsave(p->pw_gecos);
+#endif	/* ANDROID */
     save.pw_dir = sgetsave(p->pw_dir);
     save.pw_shell = sgetsave(p->pw_shell);
     return(&save);
@@ -8225,6 +8275,7 @@ _PROTOTYP(int initgroups, (const char *, gid_t) );
     int pam_status;
     const char * reply = NULL;
 #endif /* CK_PAM */
+    int dummy;
 
     if (logged_in || askpasswd == 0) {
         return(0);
@@ -8351,10 +8402,10 @@ _PROTOTYP(int initgroups, (const char *, gid_t) );
 #endif /* CK_PAM */
     }
 
-    (VOID) setgid((GID_T)pw->pw_gid);   /* Set group ID */
+    dummy = setgid((GID_T)pw->pw_gid);   /* Set group ID */
 
 #ifndef NOINITGROUPS
-    (VOID) initgroups(pw->pw_name, pw->pw_gid);
+    dummy = initgroups(pw->pw_name, pw->pw_gid);
 #endif /* NOINITGROUPS */
 
     logged_in = 1;

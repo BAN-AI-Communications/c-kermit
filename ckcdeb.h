@@ -1,7 +1,7 @@
 /*  C K C D E B . H  */
 
 /*
-Mon Aug 23 09:22:05 2010
+Sat Sep 19 15:22:06 2020
 
   NOTE TO CONTRIBUTORS: This file, and all the other C-Kermit files, must be
   compatible with C preprocessors that support only #ifdef, #else, #endif,
@@ -26,7 +26,7 @@ Mon Aug 23 09:22:05 2010
   Author: Frank da Cruz <fdc@columbia.edu>,
   Columbia University Academic Information Systems, New York City.
 
-  Copyright (C) 1985, 2010,
+  Copyright (C) 1985, 2020,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -1818,7 +1818,7 @@ int mac_fclose();
 #endif /* NOICP */
 #endif /* CK_TMPDIR */
 
-/* Whether to include <sys/time.h> */
+/* Whether to include <time.h> or <sys/time.h> */
 
 #ifndef NOTIMEH				/* <time.h> */
 #ifndef TIMEH
@@ -2016,6 +2016,11 @@ _PROTOTYP( void bleep, (short) );
 #ifndef LINUX
 #define LINUX
 #endif /* LINUX */
+#ifdef __ANDROID__
+#ifndef ANDROID
+#define ANDROID
+#endif /* ANDROID */
+#endif /* __ANDROID__ */
 #endif /* __linux__ */
 
 /* Platforms where small size is needed */
@@ -2168,29 +2173,12 @@ _PROTOTYP( void bleep, (short) );
 #endif /* USETTYLOCK */
 #endif /* NOTTYLOCK */
 
-#ifndef NO_OPENPTY			/* Can use openpty() */
-#ifndef HAVE_OPENPTY
-#ifdef __linux__
-#define HAVE_OPENPTY
-#else
-#ifdef __FreeBSD__
-#define HAVE_OPENPTY
-#else
-#ifdef __OpenBSD__
-#define HAVE_OPENPTY
-#else
-#ifdef __NetBSD__
-#define HAVE_OPENPTY
-#else
-#ifdef MACOSX10
-#define HAVE_OPENPTY
-#endif	/* MACOSX10 */
-#endif	/* __NetBSD__ */
-#endif	/* __OpenBSD__ */
-#endif	/* __FreeBSD__ */
-#endif	/* __linux__ */
-#endif	/* HAVE_OPENPTY */
-#endif	/* NO_OPENPTY */
+/* This could become more inclusive.. Solaris 10, HP-UX 11, AIX 5.3... */
+#ifndef HAVE_SNPRINTF                   /* Safe to use snprintf() */
+#ifdef HAVE_OPENPTY
+#define HAVE_SNPRINTF
+#endif  /* HAVE_OPENPTY */
+#endif  /* HAVE_SNPRINTF */
 
 /* Kermit feature selection */
 
@@ -2374,6 +2362,62 @@ _PROTOTYP( void bleep, (short) );
 #ifndef NETCMD
 #define NETCMD
 #endif /* NETCMD */
+
+#ifndef NO_OPENPTY			/* Can use openpty() */
+#ifndef HAVE_OPENPTY
+#ifdef __linux__
+#define HAVE_OPENPTY
+#else
+#ifdef __FreeBSD__
+#define HAVE_OPENPTY
+#else
+#ifdef __OpenBSD__
+#define HAVE_OPENPTY
+#else
+#ifdef __NetBSD__
+#define HAVE_OPENPTY
+#include <util.h>
+#else
+#ifdef MACOSX10
+#define HAVE_OPENPTY
+#endif	/* MACOSX10 */
+#endif	/* __NetBSD__ */
+#endif	/* __OpenBSD__ */
+#endif	/* __FreeBSD__ */
+#endif	/* __linux__ */
+#endif	/* HAVE_OPENPTY */
+#endif	/* NO_OPENPTY */
+/*
+  This needs to be expanded and checked.
+  The makefile assumes the library (at least for all linuxes)
+  is always libutil but I've only verified it for a few.
+  If a build fails because
+*/
+#ifdef HAVE_OPENPTY
+#ifdef __linux__
+#include <pty.h>
+#else
+#ifdef __NetBSD__
+#include <util.h>
+#else
+#ifdef __OpenBSD__
+#include <util.h>
+#else
+#ifdef __FreeBSD__
+#include <libutil.h>
+#else
+#ifdef MACOSX
+#include <util.h>
+#else
+#ifdef QNX
+#include <unix.h>
+#endif  /* QNX */
+#endif  /* MACOSX */
+#endif  /* __FreeBSD__ */
+#endif  /* __OpenBSD__ */
+#endif  /* __NetBSD__ */
+#endif  /* __linux__ */
+#endif  /* HAVE_OPENPTY */
 #endif /* NETPTY */
 
 #ifndef CK_UTSNAME			/* Can we call uname()? */
@@ -2804,7 +2848,7 @@ extern long ztmsec, ztusec;		/* Fraction of sec of current time */
 #else /* _M_PPC */
 #ifndef NO_SSL
 #define CK_SSL
-#define SSLDLL
+/* #define SSLDLL */ /* OpenSSL included at link time now - [jt] 2013/11/21 */
 #endif /* NO_SSL */
 #endif /* _M_PPC */
 #ifndef NO_KERBEROS
@@ -4596,7 +4640,7 @@ extern int errno;
 #endif /* mc68000 */
 #endif /* NEXT */
 
-#ifdef LINUX				/* Linux in 1998 should be OK */
+#ifdef LINUX				/* Linux from 1998 on should be OK */
 #ifndef BIGBUFOK
 #define BIGBUFOK
 #endif /* BIGBUFOK */
@@ -5074,7 +5118,10 @@ typedef unsigned int u_int;
 #ifdef __alpha				/* Alpha decc (or __ALPHA) */
 #define CK_64BIT
 #else
-#ifdef __amd64				/* AMD x86_64 (or __x86_64) */
+#ifdef __amd64				/* AMD x86_64 */
+#define CK_64BIT
+#else
+#ifdef __x86_64				/* AMD/Intel x86_64 */
 #define CK_64BIT
 #else
 #ifdef __ia64				/* Intel IA64 */
@@ -5082,6 +5129,7 @@ typedef unsigned int u_int;
 #define CK_64BIT
 #endif	/* HPUX */
 #endif	/* __ia64 */
+#endif	/* __x86_64 */
 #endif	/* __amd64 */
 #endif	/* __alpha */
 #endif	/* __arch64__ */
@@ -5366,7 +5414,12 @@ _PROTOTYP( int zxcmd, (int, char *) );
 _PROTOTYP( int zclosf, (int) );
 #endif /* MAC */
 #ifdef NZXPAND
+#ifdef OS2
+/* [jt] 2013/11/21 - CHAR/char conflict between K95 and others */
+_PROTOTYP( int nzxpand, (CHAR *, int) );
+#else
 _PROTOTYP( int nzxpand, (char *, int) );
+#endif /* OS2 */
 #else /* NZXPAND */
 _PROTOTYP( int zxpand, (char *) );
 #endif /* NZXPAND */
@@ -6070,14 +6123,17 @@ _PROTOTYP( long atol, (char *) );
 #ifndef DIRSEP
 #ifdef UNIX
 #define DIRSEP '/'
+#define STRDIRSEP "/"
 #define ISDIRSEP(c) ((c)=='/')
 #else
 #ifdef OS2
 #define DIRSEP '/'
+#define STRDIRSEP "/"
 #define ISDIRSEP(c) ((c)=='/'||(c)=='\\')
 #else
 #ifdef datageneral
 #define DIRSEP ':'
+#define STRDIRSEP ":"
 #define ISDIRSEP(c) (((c)==':')||((c)=='^')||((c)=='='))
 #else
 #ifdef STRATUS
@@ -6093,14 +6149,16 @@ _PROTOTYP( long atol, (char *) );
 #define ISDIRSEP(c) ((c)==':')
 #else
 #ifdef AMIGA
-#define DIRSEP '/'
+#define STRDIRSEP "/"
 #define ISDIRSEP(c) ((c)=='/'||(c)==':')
 #else
 #ifdef GEMDOS
 #define DIRSEP '\\'
+#define STRDIRSEP "\\"
 #define ISDIRSEP(c) ((c)=='\\'||(c)==':')
 #else
 #define DIRSEP '/'
+#define STRDIRSEP "/"
 #define ISDIRSEP(c) ((c)=='/')
 #endif /* GEMDOS */
 #endif /* AMIGA */
@@ -6543,6 +6601,17 @@ _PROTOTYP( int le_getchar, (CHAR *));
 #endif /* VMS */
 #endif /* CMDATE2TM */
 #endif /* NOCMDATE2TM */
+
+#ifndef NOLOCALE
+#ifdef BSD44ORPOSIX
+#ifndef NO_NL_LANGINFO
+#ifndef HAVE_LOCALE
+#define HAVE_LOCALE
+#include <locale.h>
+#endif /* HAVE_LOCALE */
+#endif /* NO_NL_LANGINFO */
+#endif /* BSD44ORPOSIX */
+#endif /* NOLOCALE */
 
 #ifdef CMDATE2TM
 _PROTOTYP( struct tm * cmdate2tm, (char *,int));

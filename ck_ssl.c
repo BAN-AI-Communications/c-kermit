@@ -1,8 +1,8 @@
-char *cksslv = "SSL/TLS support, 9.0.227, 04 Aug 2010";
+char *cksslv = "SSL/TLS support, 9.0.233, 24 Dec 2015";
 /*
   C K _ S S L . C --  OpenSSL Interface for C-Kermit
 
-  Copyright (C) 1985, 2010,
+  Copyright (C) 1985, 2017,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -19,9 +19,11 @@ char *cksslv = "SSL/TLS support, 9.0.227, 04 Aug 2010";
   . Client certificate to user id routine
 
   Note: This code is written to be compatible with OpenSSL 0.9.6[abcdefgh]
-  and 0.9.7 beta 5 (and, presumably, later).
+  and 0.9.7 beta 5 and later, and (since July 2012) 1.0.x.
   It will also compile with version 0.9.5 although that is discouraged
   due to security weaknesses in that release.
+
+  Adapted for LibreSSL by Bernard Spil, December 2015 (search "Spil")
 */
 
 #include "ckcsym.h"
@@ -1054,11 +1056,16 @@ ssl_display_comp(SSL * ssl)
     if (ssl == NULL)
         return;
 
+#ifndef OPENSSL_NO_COMP                  /* ifdefs Bernard Spil 12/2015 */
     if (ssl->expand == NULL || ssl->expand->meth == NULL)
+#endif /* OPENSSL_NO_COMP */
         printf("Compression: None\r\n");
+
+#ifndef OPENSSL_NO_COMP                  /* ifdefs Bernard Spil 12/2015 */
     else {
         printf("Compression: %s\r\n",ssl->expand->meth->name);
     }
+#endif /* OPENSSL_NO_COMP */
 }
 
 int
@@ -1363,6 +1370,7 @@ ssl_once_init()
     if ( !ck_ssleay_is_installed() )
         return;
 /*
+  Pre-OpenSSL 1.0.0 comment:
   OpenSSL does not provide for ABI compatibility between releases prior
   to version 1.0.0.  If the version does not match, it is not safe to
   assume that any function you call takes the same parameters or does
@@ -1370,6 +1378,20 @@ ssl_once_init()
   release will result in an increase in unexplained or incorrect behaviors.
   The test should be revised once OpenSSL 1.0.0 is released and we see what
   its claims are as to ABI compatibility.
+*/
+/*
+  Post-OpenSSL 1.0.0 comment:
+  OpenSSL does not provide for ABI compatibility between releases prior
+  to version 1.0.0.  After 1.0, the following holds:
+
+  Changes to last letter: security and bugfix only, no new features.
+  E.g.  1.0.0->1.0.0a
+  Changes to last number: new ABI compatible features.
+  E.g. 1.0.0->1.0.1
+  Changes to middle number: major release, ABI compatibility not guaranteed.
+  E.g. 1.0.0->1.1.0
+
+  (per Dr. Stephen Henson)
 */
     debug(F111,"Kermit built for OpenSSL",OPENSSL_VERSION_TEXT,SSLEAY_VERSION_NUMBER);
 #ifndef OS2ONLY
@@ -1380,7 +1402,10 @@ ssl_once_init()
     debug(F110,"OpenSSL Library",SSLeay_version(SSLEAY_PLATFORM),0);
 
     /* The following test is suggested by Richard Levitte */
-    if (((OPENSSL_VERSION_NUMBER ^ SSLeay()) & 0xffffff0f) 
+    /* if (((OPENSSL_VERSION_NUMBER ^ SSLeay()) & 0xffffff0f) */
+    /* Modified by Adam Friedlander for OpenSSL >= 1.0.0 */
+    if (OPENSSL_VERSION_NUMBER > SSLeay()
+         || ((OPENSSL_VERSION_NUMBER ^ SSLeay()) & COMPAT_VERSION_MASK)
 #ifdef OS2
          || ckstrcmp(OPENSSL_VERSION_TEXT,(char *)SSLeay_version(SSLEAY_VERSION),-1,1)
 #endif /* OS2 */
@@ -1391,7 +1416,14 @@ ssl_once_init()
         printf("?OpenSSL libraries do not match required version:\r\n");
         printf("  . C-Kermit built with %s\r\n",OPENSSL_VERSION_TEXT);
         printf("  . Version found  %s\r\n",SSLeay_version(SSLEAY_VERSION));
-        printf("  OpenSSL versions prior to 1.0.0 must be the same.\r\n");    
+#ifdef OPENSSL_100
+	printf("  OpenSSL versions 1.0.0 or newer must be the same\r\n");
+	printf("  major and minor version number, and Kermit may not\r\n");
+	printf("  be used with a version of OpenSSL older than the one\r\n");
+	printf("  supplied at compile time.\r\n");
+#else
+        printf("  OpenSSL versions prior to 1.0.0 must be the same.\r\n");
+#endif /* OPENSSL_100 */
 
 	s = "R";
 #ifdef SOLARIS
@@ -1483,12 +1515,14 @@ the build.\r\n\r\n");
         }
         debug(F110,"ssl_rnd_file",ssl_rnd_file,0);
 
+#ifndef OPENSSL_NO_EGD                    /* ifdef Bernard Spil 12/2015 */
         rc1 = RAND_egd(ssl_rnd_file);
         debug(F111,"ssl_once_init","RAND_egd()",rc1);
         if ( rc1 <= 0 ) {
             rc2 = RAND_load_file(ssl_rnd_file, -1);
             debug(F111,"ssl_once_init","RAND_load_file()",rc1);
         }
+#endif /* OPENSSL_NO_EGD */
 
         if ( rc1 <= 0 && !rc2 )
         {
@@ -1579,27 +1613,46 @@ ssl_tn_init(mode) int mode;
             /* This can fail because we do not have RSA available */
             if ( !ssl_ctx ) {
                 debug(F110,"ssl_tn_init","SSLv23_client_method failed",0);
+#ifndef OPENSSL_NO_SSL3                  /* ifdef Bernard Spil 12/2015 */
                 ssl_ctx=(SSL_CTX *)SSL_CTX_new(SSLv3_client_method());
+#endif /* OPENSSL_NO_SSL3 */
             }
             if ( !ssl_ctx ) {
                 debug(F110,"ssl_tn_init","SSLv3_client_method failed",0);
                 last_ssl_mode = -1;
                 return(0);
             }
-#ifndef COMMENT
+            /*
+              TLS 1.0 is the new default as of 5 Feb 2015.
+              Previously this was commented out because 
+              "too many web servers still do not support TLSv1".
+              Now we try TLS 1.0 first, falling back to SSL 2.3
+              and SSL 3.0 in that order.  Maybe there should be
+              an option not to fall back.
+            */ 
             tls_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_client_method());
-#else /* COMMENT */
-            tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv23_client_method());
-            /* This can fail because we do not have RSA available */
-            if ( !tls_ctx ) {
-                debug(F110,"ssl_tn_init","SSLv23_client_method failed",0);
-                tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv3_client_method());
-            }
-#endif /* COMMENT */
-            if ( !tls_ctx ) {
+            if ( tls_ctx ) {
+                debug(F110,"ssl_tn_init","TLSv1_client_method OK",0);
+            } else {
                 debug(F110,"ssl_tn_init","TLSv1_client_method failed",0);
-                last_ssl_mode = -1;
-                return(0);
+                /* This can fail because we do not have RSA available */
+                tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv23_client_method());
+                if ( !tls_ctx ) {
+                    debug(F110,"ssl_tn_init","SSLv23_client_method OK",0);
+                } else {
+                    debug(F110,"ssl_tn_init","SSLv23_client_method failed",0);
+#ifndef OPENSSL_NO_SSL3           /* ifdef Bernard Spil 12/2015 */
+                    tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv3_client_method());
+#endif /* OPENSSL_NO_SSL3 */
+                    if ( !tls_ctx ) {
+                        debug(F110,
+                              "ssl_tn_init","TLSv1_client_method failed",0);
+                        debug(F110,
+                              "ssl_tn_init","All SSL client methods failed",0);
+                        last_ssl_mode = -1;
+                        return(0);
+                    }
+                }
             }
 #ifdef USE_CERT_CB
             SSL_CTX_set_client_cert_cb(ssl_ctx,ssl_client_cert_callback);
@@ -1611,7 +1664,9 @@ ssl_tn_init(mode) int mode;
             /* This can fail because we do not have RSA available */
             if ( !ssl_ctx ) {
                 debug(F110,"ssl_tn_init","SSLv23_server_method failed",0);
+#ifndef OPENSSL_NO_SSL3           /* ifdef Bernard Spil 12/2015 */
                 ssl_ctx=(SSL_CTX *)SSL_CTX_new(SSLv3_server_method());
+#endif /* OPENSSL_NO_SSL3 */
             }
             if ( !ssl_ctx ) {
                 debug(F110,"ssl_tn_init","SSLv3_server_method failed",0);
@@ -2153,32 +2208,25 @@ ssl_http_init(hostname) char * hostname;
         printf("SSL_DEBUG_FLAG on\r\n");
 
     if (!tls_http_ctx ) {
-#ifdef COMMENT
-        /* too many web servers still do not support TLSv1 */
+        /*
+          TLS 1.0 is the new default as of 5 Feb 2015.
+          Previously this was commented out because 
+          "too many web servers still do not support TLSv1".
+          Now we try TLS 1.0 first, falling back to SSL 2.3
+          and SSL 3.0 in that order.  Maybe there should be
+          an option not to fall back.
+        */ 
         tls_http_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_client_method());
-#else /* COMMENT */
-        tls_http_ctx=(SSL_CTX *)SSL_CTX_new(SSLv23_client_method());
-        /* This can fail because we do not have RSA available */
-        if ( !tls_http_ctx ) {
-            debug(F110,"ssl_http_init","SSLv23_client_method failed",0);
-            tls_http_ctx=(SSL_CTX *)SSL_CTX_new(SSLv3_client_method());
+        if ( tls_http_ctx ) {
+            debug(F110,"ssl_http_init","TLSv1_client_method OK",0);
         }
-#endif /* COMMENT */
-        if ( !tls_http_ctx ) {
-            debug(F110,"ssl_http_init","TLSv1_client_method failed",0);
-            return(0);
-        }
-#ifdef USE_CERT_CB
-        SSL_CTX_set_client_cert_cb(tls_http_ctx,ssl_client_cert_callback);
-#endif /* USE_CERT_CB */
     }
-
     SSL_CTX_set_default_passwd_cb(tls_http_ctx,
                                   (pem_password_cb *)ssl_passwd_callback);
 
     /* for SSL switch on all the interoperability and bug
      * workarounds so that we will communicate with people
-     * that cannot read poorly written specs :-)
+     * who cannot read poorly written specs :-)
      * for TLS be sure to prevent use of SSLv2
      */
     SSL_CTX_set_options(tls_http_ctx,
@@ -2718,6 +2766,7 @@ ssl_verify_crl(int ok, X509_STORE_CTX *ctx)
 char *
 tls_userid_from_client_cert(ssl) SSL * ssl;
 {
+#ifndef OS2		/* [jt] 2013/11/21 - K-95 doesn't have X509_to_user */
     static char cn[256];
     static char *r = cn;
     int err;
@@ -2734,6 +2783,9 @@ tls_userid_from_client_cert(ssl) SSL * ssl;
     }
     else
         return r = NULL;
+#else
+    return NULL;
+#endif /* OS2 */
 }
 
 unsigned char **
@@ -2898,7 +2950,7 @@ inet_aton(char * ipaddress, struct in_addr * ia) {
         unsigned char b[4];
     } dummy;
 
-    q = cksplit(1,0,ipaddress,".","0123456789abcdefACDEF",8,0,0);
+    q = cksplit(1,0,ipaddress,".","0123456789abcdefACDEF",8,0,0,0);
     if (q->a_size == 4) {
         dummy.b[0] = atoi(q->a_head[1]);
         dummy.b[1] = atoi(q->a_head[2]);
@@ -3037,6 +3089,7 @@ ssl_check_server_name(SSL * ssl, char * hostname)
 int
 tls_is_user_valid(SSL * ssl, const char *user)
 {
+#ifndef OS2		 /* [jt] 2013/11/21 - K-95 doesn't have X509_userok */
     X509 *client_cert;
     int r = 0;
 
@@ -3051,6 +3104,9 @@ tls_is_user_valid(SSL * ssl, const char *user)
 
     X509_free(client_cert);
     return r;
+#else
+    return 0;
+#endif /* OS2 */
 }
 
 int

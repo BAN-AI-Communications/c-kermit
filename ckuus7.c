@@ -5,11 +5,11 @@
 /*
   Authors:
     Frank da Cruz <fdc@columbia.edu>,
-      The Kermit Project, Columbia University, New York City
+      The Kermit Project, New York City
     Jeffrey E Altman <jaltman@secure-endpoints.com>
       Secure Endpoints Inc., New York City
 
-  Copyright (C) 1985, 2011,
+  Copyright (C) 1985, 2017,
     Trustees of Columbia University in the City of New York.
     All rights reserved.  See the C-Kermit COPYING.TXT file or the
     copyright text in the ckcmai.c module for disclaimer and permissions.
@@ -2227,7 +2227,7 @@ setcc(dflt,var) char *dflt; int *var; {
                 return(-9);
             }
         } else {                        /* Something illegal was typed */
-            printf("?Invalid - %s\n", atmbuf);
+            printf("?Not valid here - '%s'\n", atmbuf);
             return(-9);
         }
     }
@@ -7154,19 +7154,19 @@ static int xzcmd = 0;                   /* Global copy of REMOTE cmd index */
 */
 static int
 remcfm() {
-    int x;
+    int x = 0;
     char *s;
+    char *helptxt = "> filename, | command,\n\
+or type carriage return to confirm the command";
     char c;
 
     remfile = 0;
     rempipe = 0;
     remappd = 0;
 
-    if ((x = cmtxt(
-             "> filename, | command,\n\
-or type carriage return to confirm the command",
-                   "",&s,xxstring)) < 0)
-      return(x);
+    if ((x = cmtxt(helptxt,"",&s,xxstring)) < 0) {
+        return(x);
+    }
     if (remdest) {
         free(remdest);
         remdest = NULL;
@@ -7203,6 +7203,10 @@ or type carriage return to confirm the command",
           return(1);
     }
 #endif	/* COMMENT */
+
+    if (!s) s = "";                     /* 2014-11-03 */
+    if (!*s) return(1);                 /* 2014-11-03 */
+
     c = *s;                             /* We have something */
     if (c != '>' && c != '|') {         /* Is it > or | ? */
         printf("?Not confirmed\n");     /* No */
@@ -7547,6 +7551,8 @@ dormt(xx) int xx;
     remfile = 0;                        /* Clear these */
     rempipe = 0;
     remappd = 0;
+
+    debug(F101,"XXX xxdormt xx","",xx);
 
     if (xx < 0) return(xx);             /* REMOTE what? */
 
@@ -10034,7 +10040,7 @@ cx_serial(device, cx, sx, shr, flag, gui, special)
 	  "or the UNIX appendix of the manual, \"Using C-Kermit\"\n"
                              );
 		      printf(
-          "or visit http://www.columbia.edu/kermit/ckuins.html \n"
+          "or visit http://www.kermitproject.org/ckuins.html \n"
                              );
 		      printf("*************************\n\n");
 		  }
@@ -11537,13 +11543,20 @@ z_open(name, flags) char * name; int flags; {
     if (flags & FM_CMD)                 /* Opening pipes not implemented yet */
       return(z_error = FX_NYI);         /* (and not portable either) */
     debug(F101,"z_open nfopnargs","",nfopnargs);
-    if (flags < 0 || flags >= nfopnargs) /* Range check flags */
-      return(z_error = FX_RNG);
-    mode = fopnargs[flags];             /* Get fopen() arg */
-    debug(F111,"z_open fopen args",mode,flags);
-    if (!mode[0])                       /* Check for illegal combinations */
-      return(z_error = FX_BOM);
-    if (!z_inited) {                    /* If file structs not inited */
+
+    if (flags & FM_STDIN) {             /* Read from standard input */
+        mode = "r";
+    } else if (flags & (FM_STDOUT|FM_STDERR)) {
+        mode = "w";
+    } else {                            /* If regular file, not stdin.. */
+        if (flags < 0 || flags >= nfopnargs) /* Range check flags */
+          return(z_error = FX_RNG);
+        mode = fopnargs[flags];         /* Get fopen() arg */
+        debug(F111,"z_open fopen args",mode,flags);
+        if (!mode[0])                   /* Check for illegal combinations */
+          return(z_error = FX_BOM);
+    }
+    if (!z_inited) {                /* If file structs not inited */
         debug(F101,"z_open z_maxchan 1","",z_maxchan);
 #ifdef UNIX
         debug(F101,"z_open ckmaxfiles","",ckmaxfiles);
@@ -11575,14 +11588,20 @@ z_open(name, flags) char * name; int flags; {
 #else
 	/* New economical way, allocate storage for each channel as needed */
 	if (!z_file) {
+            debug(F100,"z_file[] is NULL","",0);
+            debug(F101,"sizeof(struct ckz_file *)","",
+                  sizeof(struct ckz_file *));
 	    z_file = (struct ckz_file **)malloc((z_maxchan + 1) *
 						sizeof(struct ckz_file *));
+            debug(F101,"z_open z_maxchan 4","",z_maxchan);
 	    if (!z_file)
 	      return(z_error = FX_NMF);
 	    for (i = 0; i < z_maxchan; i++)
 	      z_file[i] = NULL;
+            debug(F101,"z_open z_maxchan 5","",z_maxchan);
 	}
 #endif	/* COMMENT */
+        debug(F101,"z_open z_maxchan 6","",z_maxchan);
         z_inited = 1;                   /* Remember we initialized */
     }
     for (n = -1, i = 0; i < z_maxchan; i++) { /* Find a free channel */
@@ -11592,6 +11611,7 @@ z_open(name, flags) char * name; int flags; {
             break;
         }
 #else
+        debug(F101,"z_open find-free-channel loop","",i);
         if (!z_file[i]) {
 	    z_file[i] = (struct ckz_file *) malloc(sizeof(struct ckz_file));
 	    if (!z_file[i])
@@ -11602,13 +11622,49 @@ z_open(name, flags) char * name; int flags; {
 #endif	/* COMMENT */
 
     }
+    debug(F101,"z_open found free channel","",n);
     if (n < 0 || n >= z_maxchan)        /* Any free channels? */
       return(z_error = FX_NMF);         /* No, fail. */
+    debug(F100,"z_open check n ok","",0);
     errno = 0;
-
+    debug(F100,"z_open errno ok","",0);
     z_file[n]->z_flags = 0;		/* In case of failure... */
+    debug(F100,"z_open z_file[n] flags ok","",0);
     z_file[n]->z_fp = NULL;		/* Set file pointer to NULL */
+    debug(F100,"z_open z_file[n] fps ok","",0);
 
+#ifdef UNIX
+    if (flags & FM_STDIN) {             /* Standard input */
+        t = (FILE *)stdin;              /* We just use the ready-made stream */
+        z_nopen++;                      /* Count it. */
+        z_file[n]->z_fp = t;		/* Stash the file pointer */
+        z_file[n]->z_flags = flags;     /* and the flags */
+        z_file[n]->z_nline = 0;		/* Current line number is 0 */
+        ckstrncpy(z_file[n]->z_name,name,CKMAXPATH); /* "filename" */
+        z_error = 0;                    /* No error so far */
+        return(n);                      /* Return the channel number */
+    }
+    if (flags & FM_STDOUT) {            /* Standard output */
+        t = (FILE *)stdout;             /* Same deal */
+        z_nopen++;
+        z_file[n]->z_fp = t;
+        z_file[n]->z_flags = flags;
+        z_file[n]->z_nline = 0;
+        ckstrncpy(z_file[n]->z_name,name,CKMAXPATH);
+        z_error = 0;
+        return(n);
+    }
+    if (flags & FM_STDERR) {            /* Standard error */
+        t = (FILE *)stderr;
+        z_nopen++;
+        z_file[n]->z_fp = t;
+        z_file[n]->z_flags = flags;
+        z_file[n]->z_nline = 0;
+        ckstrncpy(z_file[n]->z_name,name,CKMAXPATH);
+        z_error = 0;
+        return(n);
+    }
+#endif /* UNIX */
     t = fopen(name, mode);              /* Try to open the file. */
     if (!t) {                           /* Failed... */
         debug(F111,"z_open error",name,errno);
@@ -11626,6 +11682,7 @@ z_open(name, flags) char * name; int flags; {
       _setmode(_fileno(t),O_SEQUENTIAL);
 #endif /* O_SEQUENTIAL */
 #endif /* NT */
+
     z_nopen++;                          /* Open, count it. */
     z_file[n]->z_fp = t;		/* Stash the file pointer */
     z_file[n]->z_flags = flags;		/* and the flags */
@@ -11648,7 +11705,8 @@ z_close(channel) int channel; {         /* Close file on given channel */
     if (!(t = z_file[channel]->z_fp))    /* Channel wasn't open? */
       return(z_error = FX_NOP);
     errno = 0;                          /* Set errno 0 to get a good reading */
-    x = fclose(t);                      /* Try to close */
+    if (!(z_file[channel]->z_flags & FM_STDM)) /* If not stdin/out/err... */
+      x = fclose(t);                    /* Try to close */
     if (x == EOF)                       /* On failure */
       return(z_error = FX_SYS);         /* indicate system error. */
     z_nopen--;                          /* Closed OK, decrement open count */
@@ -12192,6 +12250,11 @@ static struct keytab fcswtab[] = {      /* OPEN modes */
     { "/command",   FM_CMD,  0 },       /* Not implemented */
 #endif /* COMMENT */
     { "/read",      FM_REA,  0 },
+#ifdef UNIX                             /* Could be expanded to VMS etc.. */
+    { "/stderr",    FM_STDERR,0 },
+    { "/stdin",     FM_STDIN,0 },
+    { "/stdout",    FM_STDOUT,0 },
+#endif  /* UNIX */
     { "/write",     FM_WRI,  0 }
 };
 static int nfcswtab = (sizeof (fcswtab) / sizeof (struct keytab));
@@ -12346,13 +12409,24 @@ dofile(op) int op; {                    /* Do the FILE command */
                     return(-9);
                 }
 #ifdef COMMENT
-                /* Uncomment if we add any switches here that take args */
+                /* Uncomment if we add any FOPEN switches that take args */
                 if (!getval && (cmgkwflgs() & CM_ARG)) {
                     printf("?This switch requires an argument\n");
                     return(-9);         /* (none do...) */
                 }
 #endif /* COMMENT */
+                debug(F101,"filmode A","",filmode);
                 filmode |= cmresult.nresult; /* OR in the file mode */
+                debug(F101,"filmode B","",filmode);
+                debug(F101,"filmode & (FM_REA|FM_STDIN)","",
+                      filmode & (FM_REA|FM_STDIN));
+                debug(F101,"filmode & (FM_WRI|FM_STDOUT|FM_STDERR)","",
+                      filmode & (FM_WRI|FM_STDOUT|FM_STDERR));
+                if ((filmode & (FM_REA|FM_STDIN)) &&
+                    (filmode & (FM_WRI|FM_STDOUT|FM_STDERR))) {
+                    printf("?Conflicting file modes\n");
+                    return(-9);
+                }
             } else
               return(-2);
         }
@@ -12379,6 +12453,26 @@ dofile(op) int op; {                    /* Do the FILE command */
         if (!(filmode & FM_RWA))        /* If no access mode specified */
           filmode |= FM_REA;            /* default to /READ. */
 
+#ifdef UNIX
+        if (filmode & FM_STDIN) {       /* If STDIN specified */
+            filmode |= FM_REA;          /* it implies /READ */
+            /* We don't need to parse anything further */
+            s = "(stdin)";
+            goto xdofile;               /* Skip around the following */
+        }
+        if (filmode & FM_STDOUT) {      /* If STDIN specified */
+            filmode |= FM_WRI;          /* it implies /WRITE */
+            /* We don't need to parse anything further */
+            s = "(stdout)";
+            goto xdofile;               /* Skip around the following */
+        }
+        if (filmode & FM_STDIN) {       /* If STDIN specified */
+            filmode |= FM_WRI;          /* it implies /WRITE */
+            /* We don't need to parse anything further */
+            s = "(stderr)";
+            goto xdofile;               /* Skip around the following */
+        }
+#endif /* UNIX */
         y = 0;                          /* Now parse the filename */
         if ((filmode & FM_RWA) == FM_WRI) {
 	    x = cmofi("Name of new file","",&s,xxstring);
@@ -12408,6 +12502,8 @@ dofile(op) int op; {                    /* Do the FILE command */
             }
 #endif /* VMS */
         }
+
+      xdofile:
         ckstrncpy(zfilnam,s,CKMAXPATH); /* Is OK - make safe copy */
         if ((x = cmcfm()) < 0)          /* Get confirmation of command */
           return(x);
@@ -13679,7 +13775,7 @@ readtext(prmpt, buffer, bufsiz) char * prmpt; char * buffer; int bufsiz; {
     int rc;
 #ifndef NOLOCAL
 #ifdef OS2
-    extern int vmode;
+    extern BYTE vmode;
     extern int startflags;
     int vmode_sav = vmode;
 
@@ -13764,7 +13860,7 @@ readpass(prmpt, buffer, bufsiz) char * prmpt; char * buffer; int bufsiz; {
     int rc;
 #ifndef NOLOCAL
 #ifdef OS2
-    extern int vmode;
+    extern BYTE vmode;
     extern int startflags;
     int vmode_sav = vmode;
 #endif /* OS2 */
