@@ -6165,7 +6165,7 @@ linux gnu-linux:
 	  fi; \
 	fi; \
         NEEDCURSESPROTOTYPES=''; \
-        if -f /etc/issue; then \
+        if test -f /etc/issue; then \
           if egrep "(Ubuntu|Debian)" /etc/issue > /dev/null; then \
             NEEDCURSESPROTOTYPES='-DNEEDCURSESPROTOTYPES'; \
           fi; \
