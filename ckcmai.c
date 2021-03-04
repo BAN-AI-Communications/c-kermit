@@ -137,8 +137,8 @@ char *ck_s_name = "C-Kermit";
 #endif /* MAC */
 #endif /* OS2 */
 
-char *ck_s_who = "";                    /* Where customized, "" = not. */
-char *ck_patch = "";                    /* Patch info, if any. */
+char *ck_s_who = "Jeffrey H. Johnson <trnsz@pobox.com>";                    /* Where customized, "" = not. */
+char *ck_patch = "trn";                    /* Patch info, if any. */
 
 #define CKVERLEN 128
 char versiox[CKVERLEN];                 /* Version string buffer  */
