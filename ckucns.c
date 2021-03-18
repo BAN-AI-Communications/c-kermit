@@ -1076,9 +1076,9 @@ static CHAR inxbuf[OUTXBUFSIZ+1];	/* Host-to-screen expansion buffer */
 static int inxcount = 0;		/* and count */
 static CHAR outxbuf[OUTXBUFSIZ+1];	/* Keyboard-to-host expansion buf */
 static int outxcount = 0;		/* and count */
-static int reconnect = 0;
+
 int
-do_conect() {
+conect() {
     int rc = 0;				/* Return code: 0 = fail, 1 = OK */
     int i, x = 0, prev = -1;		/* Reason code in cx_status */
 #ifdef CKLEARN
@@ -1123,7 +1123,7 @@ do_conect() {
 			   "Kbd to Socket Pair",
 			    B_NORMAL_PRIORITY,
 			   (void *)pair[1]
-			);
+			   );
         resume_thread(tid);
 	debug(F110,"connect","tid",tid);
     }
@@ -1245,12 +1245,10 @@ do_conect() {
 		   network ? -nettype : mdmtyp,
 		   0
 		   ) < 0) {
-		if (!reconnect) {
-			ckmakmsg(temp,TMPLEN,"Sorry, can't open ",ttname,NULL,NULL);
-			perror(temp);
-			debug(F110,"CONNECT open failure",ttname,0);
-		}
-	    return(101);
+	    ckmakmsg(temp,TMPLEN,"Sorry, can't open ",ttname,NULL,NULL);
+	    perror(temp);
+	    debug(F110,"CONNECT open failure",ttname,0);
+	    return(0);
 	}
 
 #ifdef IKS_OPTION
@@ -1790,6 +1788,7 @@ do_conect() {
 		    outxcount = b_to_u((CHAR)c,outxbuf,OUTXBUFSIZ,tcssize);
 		    outxbuf[outxcount] = NUL;
 		} else if (unicode == 2) { /* Local is UTF-8 */
+		    
 		    x = u_to_b((CHAR)c);
 		    if (x < 0)
 		      continue;
@@ -1922,7 +1921,7 @@ do_conect() {
 	    if (c < 0) {		/* Failed... */
 		ckcputf();		/* Flush CONNECT output buffer */
 		if (msgflg) {
-		    printf("\r\nCommunications disconnect\n");
+		    printf("\r\nCommunications disconnect ");
 #ifdef COMMENT
 		    if (c == -3
 #ifdef ultrix
@@ -1936,7 +1935,6 @@ do_conect() {
 			)
 		      perror("\r\nCan't read character");
 #endif /* COMMENT */
-			return 100;
 		}
 #ifdef NOSETBUF
 		fflush(stdout);
@@ -1999,7 +1997,7 @@ do_conect() {
 		    continue;
 		} else if (tx == -1) {	/* I/O error */
 		    if (msgflg)
-		      printf("\r\nUart Communications disconnect ");
+		      printf("\r\nCommunications disconnect ");
 #ifdef NOSETBUF
 		    fflush(stdout);
 #endif /* NOSETBUF */
@@ -2395,11 +2393,8 @@ do_conect() {
 #ifdef CK_APC
 	&& !apcactive
 #endif /* CK_APC */
-		)
-		printf("\r\n %s %s %d\r\n", __FILE__, __func__, __LINE__);
-
+	)
       printf("(Back at %s)", *myhost ? myhost : "local UNIX system");
-	  rc = 0;
 #ifdef CK_APC
     if (!apcactive)
 #endif /* CK_APC */
@@ -2425,44 +2420,6 @@ do_conect() {
     return(rc);
 }
 
-#include <sys/types.h>
-#include <unistd.h>
-#include <fcntl.h>
-#define KEY_ESC_AUTO_RECONNECT 'q'
-int conect() {
-	int ret = 0;
-	int len;
-	char out;
-	int flags;
-	int prompt = 1;
-	do {
-		ret = do_conect();
-		ttclos(0);
-		if (ret) {
-			if (prompt) {
-				printf("\r\nPress '%c' to cancel auto reconnect\r\n", KEY_ESC_AUTO_RECONNECT);
-				prompt = 0;
-			}
-			reconnect = 1;
-			flags = fcntl(fileno(stdin), F_GETFL, 0);
-			flags |= O_NONBLOCK;
-			fcntl(fileno(stdin), F_SETFL, flags);   // 设置为非阻塞形式
-			len = read(fileno(stdin), &out, 1);
-			flags &= ~O_NONBLOCK;
-			fcntl(fileno(stdin), F_SETFL, flags);   // 设置为非阻塞形式
-			if (len > 0) {
-//				printf("out:%c:len:%d\r\n", out, len);
-				if (out == KEY_ESC_AUTO_RECONNECT) {
-					break;
-				}
-			}
-			msleep(50);
-		} else {
-			prompt = 1;
-		}
-	} while (ret != 0);
-	reconnect = 0;
-}
 /*  H C O N N E  --  Give help message for connect.  */
 
 #define CXM_SER 1			/* Serial connections only */
