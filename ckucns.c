@@ -1788,7 +1788,6 @@ conect() {
 		    outxcount = b_to_u((CHAR)c,outxbuf,OUTXBUFSIZ,tcssize);
 		    outxbuf[outxcount] = NUL;
 		} else if (unicode == 2) { /* Local is UTF-8 */
-		    
 		    x = u_to_b((CHAR)c);
 		    if (x < 0)
 		      continue;
