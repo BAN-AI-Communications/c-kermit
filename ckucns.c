@@ -1277,12 +1277,12 @@ conect() {
 	    else
 #endif /* CK_ENCRYPTION */
 	      if (ttpipe || ttpty)
-		printf("Connecting via command \"%s\"",ttname);
+		printf("\r\nConnecting via command \"%s\"",ttname);
 	      else
-		printf("Connecting to host %s",ttname);
+		printf("\r\nConnecting to host %s",ttname);
 	} else {
 #endif /* NETCONN */
-	    printf("Connecting to %s",ttname);
+	    printf("\r\nConnecting to %s",ttname);
 	    if (speed > -1L) printf(", speed %ld",speed);
 #ifdef NETCONN
 	}

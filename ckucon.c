@@ -1694,16 +1694,16 @@ conect() {
 #ifdef NETCONN
 	if (network) {
 	    if (ttpipe)
-	      printf("Connecting via command \"%s\"",ttname);
+	      printf("\r\nConnecting via command \"%s\"",ttname);
 	    else
-	      printf("Connecting to host %s",ttname);
+	      printf("\r\nConnecting to host %s",ttname);
 #ifdef ANYX25
 	    if (nettype == NET_SX25 || nettype == NET_IX25)
 	      printf(", Link ID %d, LCN %d",linkid,lcn);
 #endif /* ANYX25 */
 	} else {
 #endif /* NETCONN */
-	    printf("Connecting to %s",ttname);
+	    printf("\r\nConnecting to %s",ttname);
 	    if (speed > -1L) printf(", speed %ld",speed);
 #ifdef NETCONN
 	}

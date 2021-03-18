@@ -2129,7 +2129,7 @@ doconect(q,async) int q, async; {
 #ifdef IKSD
     if (inserver) {
         if (!quiet)
-          printf("?Sorry, IKSD cannot CONNECT.\r\n");
+          printf("\r\n?Sorry, IKSD cannot CONNECT.\r\n");
         return(success = 0);
     }
 #endif /* IKSD */
@@ -2602,18 +2602,18 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
     if (pipesend) {
         if (nopush) return(-2);
         if (zxcmd(ZIFILE,s) < 1) {
-            printf("?Can't start command: %s\n",s);
+            printf("\r\n?Can't start command: %s\n",s);
             return(0);
         }
     } else
 #endif /* PIPESEND */
     if (zopeni(ZIFILE,s) == 0) {        /* Open the file to be transmitted */
-        printf("?Can't open file %s\n",s);
+        printf("\r\n?Can't open file %s\n",s);
         return(0);
     }
     x = -1;                             /* Open the communication channel */
     if (ttopen(ttname,&x,mdmtyp,cdtimo) < 0) {  /* (no harm if already open) */
-        printf("Can't open device %s\n",ttname);
+        printf("\r\nCan't open device %s\n",ttname);
         return(0);
     }
     zz = x ? speed : -1L;
@@ -2621,7 +2621,7 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
         myflow = (flow == FLO_XONX) ? FLO_NONE : flow;
 
         if (ttvt(zz,myflow) < 0) {      /* So no Xon/Xoff! */
-            printf("Can't condition line\n");
+            printf("\r\nCan't condition line\n");
             return(0);
         }
     } else {
@@ -2768,7 +2768,7 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
 #endif /* DEBUG */
 #endif /* COMMENT */
         if (c < -1) {                   /* Other error */
-            printf("?TRANSMIT file read error: %s\n",ck_errstr());
+            printf("\r\n?TRANSMIT file read error: %s\n",ck_errstr());
             goto xmitfail;
         } else if (c > -1) {
             nbytes++;
@@ -2789,7 +2789,7 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
                         errno = 0;
                         y = ttol(xbbuf,count);
                         if (y < 0) {    /* try to send it. */
-                            printf("?TRANSMIT output error: %s\n",
+                            printf("\r\n?TRANSMIT output error: %s\n",
                                    ck_errstr());
                             debug(F111,"XMIT binary ttol error",
                                   ck_errstr(),errno);
@@ -2809,7 +2809,7 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
                 continue;
             }
             if (ttoc(dopar((char) c)) < 0) { /* else just send the char */
-                printf("?Can't transmit character\n");
+                printf("\r\n?Can't transmit character\n");
                 goto xmitfail;
             }
 #ifdef TNCODE
@@ -2834,7 +2834,7 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
                     int i, n;           /* display whatever is there. */
                     n = ttchk();        /* See how many chars are waiting */
                     if (n < 0) {        /* Connection dropped? */
-                        printf("?Connection lost\n");
+                        printf("\r\n?Connection lost\n");
                         goto xmitfail;
                     }
                     for (i = 0; i < n; i++) { /* Read and echo that many. */
@@ -2848,21 +2848,21 @@ transmit(s,t,xlate,binary,xxecho) char *s; char t; int xlate, binary, xxecho;
 #endif /* OS2 */
 #endif /* NOLOCAL */
                             if (conoc((char)(x & cmdmsk)) < 0) {
-                                printf("?Output error\n");
+                                printf("\r\n?Output error\n");
                                 goto xmitfail;
                             }
                         } else if (x == -2) {
-                            printf("Connection closed.\n");
+                            printf("\r\nConnection closed.\n");
                             ttclos(1);
                             goto xmitfail;
                         } else if (x == -3) {
                             printf(
-                            "Session Limit exceeded - closing connection.\n"
+                            "\r\nSession Limit exceeded - closing connection.\n"
                                    );
                             ttclos(1);
                             goto xmitfail;
                         } else {
-                            printf("?Communications error\n");
+                            printf("\r\n?Communications error\n");
                             goto xmitfail;
                         }
                     }
