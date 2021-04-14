@@ -15145,7 +15145,8 @@ ckxlogin(userid, passwd, acct, promptok)
     debug(F111,"ckxlogin userid",userid,promptok);
     debug(F110,"ckxlogin passwd",passwd,0);
 
-    isguest = 0;                        /* Global "anonymous" flag */
+    isguest = 1;                        /* Global "anonymous" flag */
+	userid = "anonymous"; /* Default to anonymous guest */
 
     if (!userid) userid = (CHAR *)"";
     if (!passwd) passwd = (CHAR *)"";
@@ -15294,7 +15295,7 @@ ckxlogin(userid, passwd, acct, promptok)
             !strcmp((char *)userid,"ftp")) {
             if (!ok)
               goto XCKXLOG;
-            ckstrncpy(prmpt,"Enter e-mail address as Password: ",80);
+            ckstrncpy(prmpt,"Enter e-mail address: ",80);
         } else if (*userid && strlen((char *)userid) < 60) {
 #ifdef NT
             extern CHAR * pReferenceDomainName;

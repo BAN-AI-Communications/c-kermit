@@ -2680,7 +2680,7 @@ srv_login() {
 		if (x_logged) {		/* Logged in? */
 		    tlog(F110,"Logged in", x_user, 0);
 		    if (isguest)
-		      ack1((CHAR *)"Logged in as guest - restrictions apply");
+		      ack1((CHAR *)"Logged in");
 		    else
 		      ack1((CHAR *)"Logged in");
 		    success = 1;

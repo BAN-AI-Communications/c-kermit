@@ -6095,12 +6095,12 @@ sndhlp() {
     nfils = 0;				/* No files, no lists. */
     xflg = 1;				/* Flag we must send X packet. */
     ckstrncpy(cmdstr,"REMOTE HELP",CMDSTRL); /* Data for X packet. */
-    sprintf((char *)funcbuf, "C-Kermit %s,%s\n\n", versio, ckxsys);
-    funclen = strlen((char *)funcbuf);
+    /*sprintf((char *)funcbuf, "C-Kermit %s,%s\n\n", versio, ckxsys);*/
+    /*funclen = strlen((char *)funcbuf);*/
 #ifdef IKSD
     if (inserver) {
 	sprintf((char *)(funcbuf+funclen),
-		"Internet Kermit Service (EXPERIMENTAL)\n\n");
+		"Internet Kermit Service\n\n");
 	funclen = strlen((char *)funcbuf);
     }
 #endif /* IKSD */
