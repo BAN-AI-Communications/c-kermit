@@ -74,17 +74,17 @@ _PROTOTYP(int ssl_client_verify_callback,(int, X509_STORE_CTX *));
 #ifndef OPENSSL_NO_SSL3
 #define SSLv3_method                     ck_SSLv3_method
 #endif /* OPENSSL_NO_SSL3 */
-#define TLSv1_method                     ck_TLSv1_method
+#define TLS_method                     ck_TLS_method
 #define SSLv23_client_method             ck_SSLv23_client_method
 #ifndef OPENSSL_NO_SSL3
 #define SSLv3_client_method              ck_SSLv3_client_method
 #endif /* OPENSSL_NO_SSL3 */
-#define TLSv1_client_method              ck_TLSv1_client_method
+#define TLS_client_method              ck_TLS_client_method
 #define SSLv23_server_method             ck_SSLv23_server_method
 #ifndef OPENSSL_NO_SSL3
 #define SSLv3_server_method              ck_SSLv3_server_method
 #endif /* OPENSSL_NO_SSL3 */
-#define TLSv1_server_method              ck_TLSv1_server_method
+#define TLS_server_method              ck_TLS_server_method
 #define SSL_library_init                 ck_SSL_library_init
 #define SSL_state_string                 ck_SSL_state_string
 #define SSL_state_string_long            ck_SSL_state_string_long

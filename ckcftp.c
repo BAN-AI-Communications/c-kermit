@@ -10216,8 +10216,8 @@ ssl_auth() {
         client_method = SSLv3_client_method();
 #endif /* OPENSSL_NO_SSL3 */
     } else {
-        /* default - allow TLS 1.0 or later */
-        client_method = TLSv1_client_method();
+        /* default - allow TLS */
+        client_method = TLS_client_method();
     }
     if (auth_type && !strcmp(auth_type,"TLS")) {
         ssl_ftp_ctx=SSL_CTX_new(client_method);

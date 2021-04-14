@@ -1659,7 +1659,7 @@ ssl_tn_init(mode) int mode;
 #endif /* OPENSSL_NO_SSL3 */
                     if ( !tls_ctx ) {
                         debug(F110,
-                              "ssl_tn_init","TLSv1_client_method failed",0);
+                              "ssl_tn_init","TLS_client_method failed",0);
                         debug(F110,
                               "ssl_tn_init","All SSL client methods failed",0);
                         last_ssl_mode = -1;
@@ -1687,17 +1687,17 @@ ssl_tn_init(mode) int mode;
                 return(0);
             }
 #ifdef COMMENT
-            tls_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_server_method());
+            tls_ctx=(SSL_CTX *)SSL_CTX_new(TLS_server_method());
 #else /* COMMENT */
             tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv23_server_method());
             /* This can fail because we do not have RSA available */
             if ( !tls_ctx ) {
                 debug(F110,"ssl_tn_init","SSLv23_server_method failed",0);
-                tls_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_server_method());
+                tls_ctx=(SSL_CTX *)SSL_CTX_new(TLS_server_method());
             }
 #endif /* COMMENT */
             if ( !tls_ctx ) {
-                debug(F110,"ssl_tn_init","TLSv1_server_method failed",0);
+                debug(F110,"ssl_tn_init","TLS_server_method failed",0);
                 last_ssl_mode = -1;
                 return(0);
             }
@@ -2229,9 +2229,9 @@ ssl_http_init(hostname) char * hostname;
           and SSL 3.0 in that order.  Maybe there should be
           an option not to fall back.
         */ 
-        tls_http_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_client_method());
+        tls_http_ctx=(SSL_CTX *)SSL_CTX_new(TLS_client_method());
         if ( tls_http_ctx ) {
-            debug(F110,"ssl_http_init","TLSv1_client_method OK",0);
+            debug(F110,"ssl_http_init","TLS_client_method OK",0);
         }
     }
     SSL_CTX_set_default_passwd_cb(tls_http_ctx,
