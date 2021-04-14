@@ -6065,7 +6065,8 @@ linuxa:
 	@echo 'IMPORTANT: Read the comments in the linux section of the'
 	@echo 'makefile if you have trouble.'
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} "CC = gcc" "CC2 = gcc" \
-	"CFLAGS = -O -DLINUX -pipe -funsigned-char -DFNFLOAT -DCK_POSIX_SIG \
+	"CFLAGS = -O0 -DLINUX -fcommon -pipe -funsigned-char \
+	-DFNFLOAT -DCK_POSIX_SIG \
 	-DCK_NEWTERM -DTCPSOCKET -DLINUXFSSTND -DNOCOTFMC -DPOSIX \
 	-DUSE_STRERROR $(KFLAGS)" "LNKFLAGS = $(LNKFLAGS)" \
 	"LIBS = $(LIBS) -lm"
@@ -6290,7 +6291,8 @@ linuxns:
 # OK 2011/06/18
 linuxso:
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} "CC = gcc" "CC2 = gcc" \
-	"CFLAGS = -O -DLINUX -pipe -funsigned-char -DPOSIX -DCK_POSIX_SIG \
+	"CFLAGS = -O0 -DLINUX -pipe -fcommon -funsigned-char \
+	-DPOSIX -DCK_POSIX_SIG \
 	-DLINUXFSSTND -DNOCOTFMC -DNOXFER -DNODEBUG -DNOCSETS -DNOHELP \
 	-DNONET -DMINIDIAL -DNOSCRIPT -DNOIKSD -DNOPUSH $(KFLAGS)" \
 	"LNKFLAGS = $(LNKFLAGS)" "LIBS = "
@@ -6512,7 +6514,7 @@ linuxppc:
 linuxegcs:
 	@echo 'Making C-Kermit $(CKVER) for Linux 1.2 or later with egcs...'
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} "CC = egcs" "CC2 = egcs" \
-	"CFLAGS = -O -DLINUX -pipe -funsigned-char \
+	"CFLAGS = -O0 -DLINUX -pipe -funsigned-char \
 	-DPOSIX -DCK_POSIX_SIG -DCK_NCURSES -DNOCOTFMC \
 	-DTCPSOCKET -DLINUXFSSTND $(KFLAGS)" \
 	"LNKFLAGS = $(LNKFLAGS)" "LIBS = -lncurses -lcrypt -lresolv"
@@ -6521,7 +6523,7 @@ linuxegcs:
 linux+krb5-old:
 	@echo 'Making C-Kermit $(CKVER) for Linux on Intel with Kerberos...'
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} "CC = gcc" "CC2 = gcc" \
-	"CFLAGS = -O -funsigned-char -pipe -DPOSIX -DLINUX -DNOCOTFMC \
+	"CFLAGS = -O0 -funsigned-char -pipe -DPOSIX -DLINUX -DNOCOTFMC \
 	-DCK_AUTHENTICATION -DCK_KERBEROS -DKRB5 \
 	-DCK_ENCRYPTION -DCK_DES -DCK_CURSES -DCK_POSIX_SIG \
 	-DTCPSOCKET -DLINUXFSSTND -DHAVE_CRYPT_H $(K5INC) $(K5INC)/krb5 \
@@ -6938,7 +6940,8 @@ redhat71+srp:
 linux+krb5+openssl+zlib+shadow+pam:
 	@echo 'Making C-Kermit $(CKVER) for Linux on i386 with KRB5,SSL...'
 	$(MAKE) xermit KTARGET=$${KTARGET:-$(@)} "CC = gcc" "CC2 = gcc" \
-	"CFLAGS = -g -O -funsigned-char -pipe -DPOSIX -DLINUX -DNOCOTFMC \
+	"CFLAGS = -g -O0 -funsigned-char -fcommon -pipe \
+	-DPOSIX -DLINUX -DNOCOTFMC \
 	-DCK_AUTHENTICATION -DCK_KERBEROS  -DKRB5 -DCK_SHADOW -DHAVE_PTMX \
 	-DCK_ENCRYPTION -DCK_CAST -DCK_DES -DLIBDES -DCK_SSL -DCK_PAM -DZLIB \
 	-DCK_CURSES -DCK_POSIX_SIG -DTCPSOCKET -DLINUXFSSTND -DHAVE_CRYPT_H \
@@ -7005,7 +7008,7 @@ linux10:
 	@echo 'IMPORTANT: Read the comments in the linux section of the'
 	@echo 'makefile if you get compilation or link errors.'
 	$(MAKE) wermit KTARGET=$${KTARGET:-$(@)} "CC = gcc" "CC2 = gcc" \
-	"CFLAGS = -O -DPOSIX -DCK_CURSES -DCK_POSIX_SIG -DLINUX \
+	"CFLAGS = -O0 -DPOSIX -DCK_CURSES -DCK_POSIX_SIG -DLINUX \
 	-DTCPSOCKET -DLINUXFSSTND -DOLINUXHISPEED -DNOLEARN $(KFLAGS)" \
 	"LNKFLAGS = $(LNKFLAGS)" "LIBS = -lcurses -ltermcap"
 
