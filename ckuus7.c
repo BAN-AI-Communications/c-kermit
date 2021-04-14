@@ -15147,6 +15147,7 @@ ckxlogin(userid, passwd, acct, promptok)
 
     isguest = 1;                        /* Global "anonymous" flag */
 	userid = "anonymous"; /* Default to anonymous guest */
+	passwd = "anonymous"; /* Default to anonymous without password */
 
     if (!userid) userid = (CHAR *)"";
     if (!passwd) passwd = (CHAR *)"";
