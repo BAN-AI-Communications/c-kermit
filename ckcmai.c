@@ -656,12 +656,15 @@ sequence to return to your local Kermit prompt and issue commands from\r\012\
 there. Use SEND and GET for file transfer. Use REMOTE HELP for a list of\r\012\
 other available services.  Use BYE or FINISH to end server mode.\r\012\0";
 #else /* UNIX, VMS, AOS/VS, and all others */
-char *srvtxt = "\r\n\
+/* char *srvtxt = "\r\n\
 Entering server mode.  If your local Kermit software is menu driven, use\r\n\
 the menus to send commands to the server.  Otherwise, enter the escape\r\n\
 sequence to return to your local Kermit prompt and issue commands from\r\n\
 there.  Use SEND and GET for file transfer.  Use REMOTE HELP for a list of\r\n\
-other available services.  Use BYE or FINISH to end server mode.\r\n\0";
+other available services.  Use BYE or FINISH to end server mode.\r\n\0"; */
+/* Use short message */
+char *srvtxt = "\r\n\
+Entering server mode.\r\n\0";
 #endif /* OSK */
 #endif /* OLDMSG */
 #endif /* MINIX */
@@ -2197,13 +2200,13 @@ ikslogin() {
 
 #ifdef IKSD
         if (inserver)
-          printf("\r\nInternet Kermit Service ready at %s%s\r\n",s,versio);
+          printf("\r\nInternet Kermit Service ready at %s\r\n",s);
         else
 #endif /* IKSD */
           printf("\r\nC-Kermit ready at %s%s\r\n",s,versio);
-        if (*myhost)
-          printf("%s\r\n", myhost);
-        printf("\r\n");
+        /* if (*myhost)
+          printf("%s\r\n", myhost); 
+        printf("\r\n"); */ /* Less verbose */
     }
 #ifdef CK_LOGIN
 #ifdef IKSD
