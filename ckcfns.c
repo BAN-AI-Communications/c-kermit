@@ -5897,7 +5897,7 @@ nxthlp(
     switch (srvhlpnum++) {
       case 0:
 	x = ckstrncpy((char *)funcbuf,
-		      "Client Command     Status        Description\n",
+		      " Client Command     Status        Description\n",
 		      FNCBUFL
 		      );
 	if (x_login && !x_logged) {
