@@ -1643,11 +1643,11 @@ ssl_tn_init(mode) int mode;
               and SSL 3.0 in that order.  Maybe there should be
               an option not to fall back.
             */ 
-            tls_ctx=(SSL_CTX *)SSL_CTX_new(TLSv1_client_method());
+            tls_ctx=(SSL_CTX *)SSL_CTX_new(TLS_client_method());
             if ( tls_ctx ) {
-                debug(F110,"ssl_tn_init","TLSv1_client_method OK",0);
+                debug(F110,"ssl_tn_init","TLS_client_method OK",0);
             } else {
-                debug(F110,"ssl_tn_init","TLSv1_client_method failed",0);
+                debug(F110,"ssl_tn_init","TLS_client_method failed",0);
                 /* This can fail because we do not have RSA available */
                 tls_ctx=(SSL_CTX *)SSL_CTX_new(SSLv23_client_method());
                 if ( !tls_ctx ) {
