@@ -13156,7 +13156,7 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
                       if (ssl_con == NULL) {
                           SSL_library_init();
                           ssl_ctx = (SSL_CTX *)
-                            SSL_CTX_new((SSL_METHOD *)TLSv1_method());
+                            SSL_CTX_new((SSL_METHOD *)TLS_method());
                           if (ssl_ctx != NULL)
                             ssl_con= (SSL *) SSL_new(ssl_ctx);
                       }
