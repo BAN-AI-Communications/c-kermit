@@ -1,0 +1,3 @@
+.nr linguist-vendored
+makefile linguist-vendored
+.mk linguist-vendored
