@@ -1,11 +1,11 @@
-
-   [1]The Columbia Crown The Kermit Project | Columbia University
-   612 West 115th Street, New York NY 10025 USA o [2]kermit@columbia.edu
+   The Kermit Project
+   Columbia University
+   612 West 115th Street
+   New York NY 10025 USA
+   kermit@columbia.edu
    ...since 1981
-   [3]Home [4]Kermit 95 [5]C-Kermit [6]Scripts [7]Current [8]New [9]FAQ
-   [10]Support
 
-Supplement to [11]Using C-Kermit , 2nd Edition
+Supplement to Using C-Kermit, 2nd Edition
 
 For C-Kermit 7.0
 
@@ -22,10 +22,10 @@ Address: The Kermit Project
          New York NY 10025-7799
          USA
 Fax:     +1 (212) 662-6442
-E-Mail:  [12]kermit-support@columbia.edu
-Web:     [13]http://www.columbia.edu/kermit/
-Or:      [14]http://www.kermit-project.org/
-Or:      [15]http://www.columbia.nyc.ny.us/kermit/
+E-Mail: kermit-support@columbia.edu
+Web:    http://www.columbia.edu/kermit/
+Or:     http://www.kermit-project.org/
+Or:     http://www.columbia.nyc.ny.us/kermit/
 
 NOTICES
 
@@ -40,8 +40,8 @@ NOTICES
    C-Kermit:
           Copyright © 1985, 2000,
           Trustees of Columbia University in the City of New York. All
-          rights reserved. See the C-Kermit [16]COPYING.TXT file or the
-          copyright text in the [17]ckcmai.c module for disclaimer and
+          rights reserved. See the C-KermitCOPYING.TXT file or the
+          copyright text in theckcmai.c module for disclaimer and
           permissions.
 
    When Kerberos(TM) and/or SRP(TM) (Secure Remote Password) and/or SSL
@@ -55,21 +55,21 @@ NOTICES
           Portions Copyright © 1995-1997, Eric Young <eay@cryptosoft.com>.
 
    For the full text of the third-party copyright notices, see
-   [18]Appendix V.
+  Appendix V.
 
 WHAT IS IN THIS FILE
 
    This file lists changes made to C-Kermit since the second edition of
-   the book [19]Using C-Kermit was published and C-Kermit 6.0 was released
+   the bookUsing C-Kermit was published and C-Kermit 6.0 was released
    in November 1996. Use this file as a supplement to the second edition
    of Using C-Kermit until the third edition is published some time in
    2000. If the "most recent update" shown above is long ago, contact
    Columbia University to see if there is a newer release.
 
-   For further information, also see the [20]CKCBWR.TXT ("C-Kermit
+   For further information, also see theCKCBWR.TXT ("C-Kermit
    beware") file for hints, tips, tricks, restrictions, frequently asked
    questions, etc, plus the system-specific "beware file", e.g.
-   [21]CKUBWR.TXT for UNIX, [22]CKVBWR.TXT for VMS, etc, and also any
+  CKUBWR.TXT for UNIX,CKVBWR.TXT for VMS, etc, and also any
    system-specific update files such as KERMIT95.HTM for Kermit 95 (in the
    DOCS\MANUAL\ subdirectory of your K95 directory).
 
@@ -83,7 +83,7 @@ ABOUT FILENAMES
 
    In this document, filenames are generally shown in uppercase, but on
    file systems with case-sensitive names such as UNIX, OS-9, and AOS/VS,
-   lowercase names are used: [23]ckubwr.txt, [24]ckermit70.txt, etc.
+   lowercase names are used:ckubwr.txt,ckermit70.txt, etc.
 
 ADDITIONAL FILES
 
@@ -93,33 +93,33 @@ ADDITIONAL FILES
           Discussion of Kermit's new authentication and encryption
           features:
 
-          + [25]Plain-text version
-          + [26]HTML (hypertext) version
+          +Plain-text version
+          +HTML (hypertext) version
 
    IKSD.TXT
           How to install and manage an Internet Kermit Service Daemon.
 
-          + [27]Plain-text version
-          + [28]HTML (hypertext) version
+          +Plain-text version
+          +HTML (hypertext) version
 
-          Also see [29]cuiksd.htm for instructions for use.
+          Also seecuiksd.htm for instructions for use.
 
    TELNET.TXT
           A thorough presentation of Kermit's new advanced Telnet features
           and controls.
 
-          + [30]Plain-text version
-          + [31]HTML (hypertext) version
+          +Plain-text version
+          +HTML (hypertext) version
 
 THE NEW C-KERMIT LICENSE
 
    The C-Kermit license was rewritten for version 7.0 to grant automatic
    permission to packagers of free operating-system distributions to
    include C-Kermit 7.0. Examples include Linux (GNU/Linux), FreeBSD,
-   NetBSD, etc. The new license is in the [32]COPYING.TXT file, and is
+   NetBSD, etc. The new license is in theCOPYING.TXT file, and is
    also displayed by C-Kermit itself when you give the VERSION or
    COPYRIGHT command. The new C-Kermit license does not apply to
-   [33]Kermit 95.
+  Kermit 95.
 
 ACKNOWLEDGMENTS
 
@@ -152,7 +152,7 @@ ACKNOWLEDGMENTS
    others for binaries, hosting, reviews, suggestions, advice, bug
    reports, and all the rest over the 3+ year C-Kermit 7.0 development
    cycle. Thanks to Russ Nelson and the board of the Open Software
-   Initiative ([34]http://www.opensource.org) for their cooperation in
+   Initiative (http://www.opensource.org) for their cooperation in
    developing the new C-Kermit license and to the proprietors of those
    free UNIX distributions that have incorporated C-Kermit 7.0 for their
    cooperation and support, especially FreeBSD's Jörg Wunsch.
@@ -163,7 +163,7 @@ NOTE TO KERMIT 95 USERS
    the same Kermit file-transfer protocol implementation, and much else
    besides.
 
-   Like the book [35]Using C-Kermit, this file concentrates on the aspects
+   Like the bookUsing C-Kermit, this file concentrates on the aspects
    of C-Kermit that are common to all versions: UNIX, VMS, Windows, OS/2,
    VOS, AOS/VS, etc. Please refer to your Kermit 95 documentation for
    information that is specific to Kermit 95.
@@ -228,327 +228,325 @@ C-KERMIT VERSIONS AND VERSION NUMBERS
 
 CONTENTS
 
- I.  [36]C-KERMIT DOCUMENTATION
+ I. C-KERMIT DOCUMENTATION
 
- II. [37]NEW FEATURES
+ II. NEW FEATURES
 
-     (0) [38]INCOMPATIBILITIES WITH PREVIOUS RELEASES
-     (1) [39]PROGRAM AND FILE MANAGEMENT AND COMMANDS
-         1.0.  [40]Bug fixes
-         1.1.  [41]Command Continuation
-         1.2.  [42]Editor Interface
-         1.3.  [43]Web Browser and FTP Interface
-         1.4.  [44]Command Editing
-         1.5.  [45]Command Switches
-               1.5.1. [46]General Switch Syntax
-               1.5.2. [47]Order and Effect of Switches
-               1.5.3. [48]Distinguishing Switches from Other Fields
-               1.5.4. [49]Standard File Selection Switches
-               1.5.5. [50]Setting Preferences for Different Commands
-         1.6.  [51]Dates and Times
-         1.7.  [52]Partial Completion of Keywords
-         1.8.  [53]Command Recall
-         1.9.  [54]EXIT Messages
-         1.10. [55]Managing Keyboard Interruptions
-         1.11. [56]Taming the Wild Backslash -- Part Deux
-               1.11.1. [57]Background
-               1.11.2. [58]Kermit's Quoting Rules
-               1.11.3. [59]Passing DOS Filenames from Kermit to Shell Commands
-               1.11.4. [60]Using Variables to Hold DOS Filenames
-               1.11.5. [61]Passing DOS Filenames as Parameters to Macros
-               1.11.6. [62]Passing DOS File Names from Macro Parameters to the D
-OS Shell
-               1.11.7. [63]Passing DOS Filenames to Kermit from the Shell
-         1.12. [64]Debugging
-         1.13. [65]Logs
-         1.14. [66]Automatic File-Transfer Packet Recognition at the Command Pro
-mpt
-         1.15. [67]The TYPE Command
-         1.16. [68]The RESET Command
-         1.17. [69]The COPY and RENAME Commands
-         1.18. [70]The MANUAL Command
-         1.19. [71]String and Filename Matching Patterns
-         1.20. [72]Multiple Commands on One Line
-         1.21. [73]What Do I Have?
-         1.22. [74]Generalized File Input and Output
-               1.22.1. [75]Why Another I/O System?
-               1.22.2. [76]The FILE Command
-               1.22.3. [77]FILE Command Examples
-               1.22.4. [78]Channel Numbers
-               1.22.5. [79]FILE Command Error Codes
-               1.22.6. [80]File I/O Variables
-               1.22.7. [81]File I/O Functions
-               1.22.8. [82]File I/O Function Examples
-         1.23. [83]The EXEC Command
-         1.24. [84]Getting Keyword Lists with '?'
-     (2) [85]MAKING AND USING CONNECTIONS
-         2.0. [86]SET LINE and SET HOST Command Switches
-         2.1. [87]Dialing
-              2.1.1. [88]The Dial Result Message
-              2.1.2. [89]Long-Distance Dialing Changes
-              2.1.3. [90]Forcing Long-Distance Dialing
-              2.1.4. [91]Exchange-Specific Dialing Decisions
-              2.1.5. [92]Cautions about Cheapest-First Dialing
-              2.1.6. [93]Blind Dialing (Dialing with No Dialtone)
-              2.1.7. [94]Trimming the Dialing Dialog
-              2.1.8. [95]Controlling the Dialing Speed
-              2.1.9. [96]Pretesting Phone Number Conversions
-              2.1.10. [97]Greater Control over Partial Dialing
-              2.1.11. [98]New DIAL-related Variables and Functions
-              2.1.12. [99]Increased Flexibility of PBX Dialing
-              2.1.13. [100]The DIAL macro - Last-Minute Phone Number Conversions
-              2.1.14. [101]Automatic Tone/Pulse Dialing Selection
-              2.1.15. [102]Dial-Modifier Variables
-              2.1.16. [103]Giving Multiple Numbers to the DIAL Command
-         2.2. [104]Modems
-              2.2.1. [105]New Modem Types
-              2.2.2. [106]New Modem Controls
-         2.3. [107]TELNET and RLOGIN
-              2.3.0. [108]Bug Fixes
-              2.3.1. [109]Telnet Binary Mode Bug Adjustments
-              2.3.2. [110]VMS UCX Telnet Port Bug Adjustment
-              2.3.3. [111]Telnet New Environment Option
-              2.3.4. [112]Telnet Location Option
-              2.3.5. [113]Connecting to Raw TCP Sockets
-              2.3.6. [114]Incoming TCP Connections
-         2.4. [115]The EIGHTBIT Command
-         2.5. [116]The Services Directory
-         2.6. [117]Closing Connections
-         2.7. [118]Using C-Kermit with External Communication Programs
-              2.7.0. [119]C-Kermit over tn3270 and tn5250
-              2.7.1. [120]C-Kermit over Telnet
-              2.7.2. [121]C-Kermit over Rlogin
-              2.7.3. [122]C-Kermit over Serial Communication Programs
-              2.7.4. [123]C-Kermit over Secure Network Clients
-              2.7.4.1. [124]SSH
-              2.7.4.2. [125]SSL
-              2.7.4.3. [126]SRP
-              2.7.4.4. [127]SOCKS
-              2.7.4.5. [128]Kerberos and SRP
-         2.8. [129]Scripting Local Programs
-         2.9. [130]X.25 Networking
-              2.9.1. [131]IBM AIXLink/X.25 Network Provider Interface for AIX
-              2.9.2. [132]HP-UX X.25
-         2.10. [133]Additional Serial Port Controls
-         2.11. [134]Getting Access to the Dialout Device
-         2.12. [135]The Connection Log
-         2.13. [136]Automatic Connection-Specific Flow Control Selection
-         2.14. [137]Trapping Connection Establishment and Loss
-         2.15. [138]Contacting Web Servers with the HTTP Command
-     (3) [139]TERMINAL CONNECTION
-         3.1. [140]CONNECT Command Switches
-         3.2. [141]Triggers
-         3.3. [142]Transparent Printing
-         3.4. [143]Binary and Text Session Logs
-     (4) [144]FILE TRANSFER AND MANAGEMENT
-         4.0. [145]Bug Fixes, Minor Changes, and Clarifications
-         4.1. [146]File-Transfer Filename Templates
-         4.1.1. [147]Templates in the As-Name
-         4.1.2. [148]Templates on the Command Line
-         4.1.3. [149]Post-Transfer Renaming
-         4.2. [150]File-Transfer Pipes and Filters
-         4.2.1. [151]Introduction
-         4.2.1.1. [152]Terminology
-         4.2.1.2. [153]Notation
-         4.2.1.3. [154]Security
-         4.2.2. [155]Commands for Transferring from and to Pipes
-         4.2.2.1. [156]Sending from a Command
-         4.2.2.2. [157]Receiving to a Command
-         4.2.3. [158]Using File-Transfer Filters
-         4.2.3.1. [159]The SEND Filter
-         4.2.3.2. [160]The RECEIVE Filter
-         4.2.4. [161]Implicit Use of Pipes
-         4.2.5. [162]Success and Failure of Piped Commands
-         4.2.6. [163]Cautions about Using Pipes to Transfer Directory Trees
-         4.2.7. [164]Pipes and Encryption
-         4.2.8. [165]Commands and Functions Related to Pipes
-         4.2.8.1. [166]The OPEN !READ and OPEN !WRITE Commands
-         4.2.8.2. [167]The REDIRECT Command
-         4.2.8.3. [168]Receiving Mail and Print Jobs
-         4.2.8.4. [169]Pipe-Related Functions
-         4.3. [170]Automatic Per-File Text/Binary Mode Switching
-         4.3.1. [171]Exceptions
-         4.3.2. [172]Overview
-         4.3.3. [173]Commands
-         4.3.4. [174]Examples
-         4.4. [175]File Permissions
-         4.4.1. [176]When ATTRIBUTES PROTECTION is OFF
-         4.4.1.1. [177]Unix
-         4.4.1.2. [178]VMS
-         4.4.2. [179]When ATTRIBUTES PROTECTION is ON
-         4.4.2.1. [180]System-Specific Permissions
-         4.4.2.1.1. [181]UNIX
-         4.4.2.1.2. [182]VMS
-         4.4.2.2. [183]System-Independent Permissions
-         4.5. [184]File Management Commands
-         4.5.1. [185]The DIRECTORY Command
-         4.5.2. [186]The CD and BACK Commands
-         4.5.2.1. [187]Parsing Improvements
-         4.5.2.2. [188]The CDPATH
-         4.5.3. [189]Creating and Removing Directories
-         4.5.4. [190]The DELETE and PURGE Commands
-         4.6. [191]Starting the Remote Kermit Server Automatically
-         4.7. [192]File-Transfer Command Switches
-         4.7.1. [193]SEND Command Switches
-         4.7.2. [194]GET Command Switches
-         4.7.3. [195]RECEIVE Command Switches
-         4.8. [196]Minor Kermit Protocol Improvements
-         4.8.1. [197]Multiple Attribute Packets
-         4.8.2. [198]Very Short Packets
-         4.9. [199]Wildcard / File Group Expansion
-         4.9.1. [200]In UNIX C-Kermit
-         4.9.2. [201]In Kermit 95
-         4.9.3. [202]In VMS, AOS/VS, OS-9, VOS, etc.
-         4.10. [203]Additional Pathname Controls
-         4.11. [204]Recursive SEND and GET: Transferring Directory Trees
-         4.11.1. [205]Command-Line Options
-         4.11.2. [206]The SEND /RECURSIVE Command
-         4.11.3. [207]The GET /RECURSIVE Command
-         4.11.4. [208]New and Changed File Functions
-         4.11.5. [209]Moving Directory Trees Between Like Systems
-         4.11.6. [210]Moving Directory Trees Between Unlike Systems
-         4.12. [211]Where Did My File Go?
-         4.13. [212]File Output Buffer Control
-         4.14. [213]Improved Responsiveness
-         4.15. [214]Doubling and Ignoring Characters for Transparency
-         4.16. [215]New File-Transfer Display Formats
-         4.17. [216]New Transaction Log Formats
-         4.17.1. [217]The BRIEF Format
-         4.17.2. [218]The FTP Format
-         4.18. [219]Unprefixing NUL
-         4.19. [220]Clear-Channel Protocol
-         4.20. [221]Streaming Protocol
-         4.20.1. [222]Commands for Streaming
-         4.20.2. [223]Examples of Streaming
-         4.20.2.1. [224]Streaming on Socket-to-Socket Connections
-         4.20.2.2. [225]Streaming on Telnet Connections
-         4.20.2.3. [226]Streaming with Limited Packet Length
-         4.20.2.4. [227]Streaming on Dialup Connections
-         4.20.2.5. [228]Streaming on X.25 Connections
-         4.20.3. [229]Streaming - Preliminary Conclusions
-         4.21. [230]The TRANSMIT Command
-         4.22. [231]Coping with Faulty Kermit Implementations
-         4.22.1. [232]Failure to Accept Modern Negotiation Strings
-         4.22.2. [233]Failure to Negotiate 8th-bit Prefixing
-         4.22.3. [234]Corrupt Files
-         4.22.4. [235]Spurious Cancellations
-         4.22.5. [236]Spurious Refusals
-         4.22.6. [237]Failures during the Data Transfer Phase
-         4.22.7. [238]Fractured Filenames
-         4.22.8. [239]Bad File Dates
-         4.23. [240]File Transfer Recovery
-         4.24. [241]FILE COLLISION UPDATE Clarification
-         4.25. [242]Autodownload Improvements
-     (5) [243]CLIENT/SERVER
-         5.0. [244]Hints
-         5.1. [245]New Command-Line Options
-         5.2. [246]New Client Commands
-         5.3. [247]New Server Capabilities
-         5.3.1. [248]Creating and Removing Directories
-         5.3.2. [249]Directory Listings
-         5.4. [250]Syntax for Remote Filenames with Embedded Spaces
-         5.5. [251]Automatic Orientation Messages upon Directory Change
-         5.6. [252]New Server Controls
-         5.7. [253]Timeouts during REMOTE HOST Command Execution
-     (6) [254]INTERNATIONAL CHARACTER SETS
-         6.0. [255]ISO 8859-15 Latin Alphabet 9
-         6.1. [256]The HP-Roman8 Character Set
-         6.2. [257]Greek Character Sets
-         6.3. [258]Additional Latin-2 Character Sets
-         6.4. [259]Additional Cyrillic Character Sets
-         6.5. [260]Automatic Character-Set Switching
-         6.6. [261]Unicode
-         6.6.1. [262]Overview of Unicode
-         6.6.2. [263]UCS Byte Order
-         6.6.2. [264]UCS Transformation Formats
-         6.6.3. [265]Conformance Levels
-         6.6.4. [266]Relationship of Unicode with Kermit's Other Character Sets
-         6.6.5. [267]Kermit's Unicode Features
-         6.6.5.1. [268]File Transfer
-         6.6.5.2. [269]The TRANSLATE Command
-         6.6.5.3. [270]Terminal Connection
-         6.6.5.4. [271]The TRANSMIT Command
-         6.6.5.5. [272]Summary of Kermit Unicode Commands
-         6.7. [273]Client/Server Character-Set Switching
-     (7) [274]SCRIPT PROGRAMMING
-         7.0. [275]Bug Fixes
-         7.1. [276]The INPUT Command
-         7.1.1. [277]INPUT Timeouts
-         7.1.2. [278]New INPUT Controls
-         7.1.3. [279]INPUT with Pattern Matching
-         7.1.4. [280]The INPUT Match Result
-         7.2. [281]New or Improved Built-In Variables
-         7.3. [282]New or Improved Built-In Functions
-         7.4. [283]New IF Conditions
-         7.5. [284]Using More than Ten Macro Arguments
-         7.6. [285]Clarification of Function Call Syntax
-         7.7. [286]Autodownload during INPUT Command Execution
-         7.8. [287]Built-in Help for Functions.
-         7.9. [288]Variable Assignments
-         7.9.1. [289]Assignment Operators
-         7.9.2. [290]New Assignment Commands
-         7.10. [291]Arrays
-         7.10.1. [292]Array Initializers
-         7.10.2. [293]Turning a String into an Array of Words
-         7.10.3. [294]Arrays of Filenames
-         7.10.4. [295]Automatic Arrays
-         7.10.5. [296]Sorting Arrays
-         7.10.6. [297]Displaying Arrays
-         7.10.7. [298]Other Array Operations
-         7.10.8. [299]Hints for Using Arrays
-         7.10.9. [300]Do-It-Yourself Arrays
-         7.10.10. [301]Associative Arrays
-         7.11. [302]OUTPUT Command Improvements
-         7.12. [303]Function and Variable Diagnostics
-         7.13. [304]Return Value of Macros
-         7.14. [305]The ASSERT, FAIL, and SUCCEED Commands.
-         7.15. [306]Using Alarms
-         7.16. [307]Passing Arguments to Command Files
-         7.17. [308]Dialogs with Timed Responses
-         7.18. [309]Increased Flexibility of SWITCH Case Labels
-         7.19. "[310]Kerbang" Scripts
-         7.20. [311]IF and XIF Statement Syntax
-         7.20.1. [312]The IF/XIF Distinction
-         7.20.2. [313]Boolean Expressions (The IF/WHILE Condition)
-         7.21. [314]Screen Formatting and Cursor Control
-         7.22. [315]Evaluating Arithmetic Expressions
-         7.23. [316]Floating-Point Arithmetic
-         7.24. [317]Tracing Script Execution
-         7.25. [318]Compact Substring Notation
-         7.26. [319]New WAIT Command Options
-         7.26.1. [320]Waiting for Modem Signals
-         7.26.2. [321]Waiting for File Events
-         7.27. [322]Relaxed FOR and SWITCH Syntax
-     (8) [323]USING OTHER FILE TRANSFER PROTOCOLS
-     (9) [324]COMMAND-LINE OPTIONS
-         9.0. [325]Extended-Format Command-Line Options
-         9.1. [326]Command Line Personalities
-         9.2. [327]Built-in Help for Command Line Options
-         9.3. [328]New Command-Line Options
-    (10) [329]C-KERMIT AND G-KERMIT
+     (0) INCOMPATIBILITIES WITH PREVIOUS RELEASES
+     (1) PROGRAM AND FILE MANAGEMENT AND COMMANDS
+         1.0. Bug fixes
+         1.1. Command Continuation
+         1.2. Editor Interface
+         1.3. Web Browser and FTP Interface
+         1.4. Command Editing
+         1.5. Command Switches
+               1.5.1. General Switch Syntax
+               1.5.2. Order and Effect of Switches
+               1.5.3. Distinguishing Switches from Other Fields
+               1.5.4. Standard File Selection Switches
+               1.5.5. Setting Preferences for Different Commands
+         1.6. Dates and Times
+         1.7. Partial Completion of Keywords
+         1.8. Command Recall
+         1.9. EXIT Messages
+         1.10. Managing Keyboard Interruptions
+         1.11. Taming the Wild Backslash -- Part Deux
+               1.11.1. Background
+               1.11.2. Kermit's Quoting Rules
+               1.11.3. Passing DOS Filenames from Kermit to Shell Commands
+               1.11.4. Using Variables to Hold DOS Filenames
+               1.11.5. Passing DOS Filenames as Parameters to Macros
+               1.11.6. Passing DOS File Names from Macro Parameters to
+			           the DOS Shell
+               1.11.7. Passing DOS Filenames to Kermit from the Shell
+         1.12. Debugging
+         1.13. Logs
+         1.14. Automatic File-Transfer Packet Recognition at
+		       the Command Prompt
+         1.15. The TYPE Command
+         1.16. The RESET Command
+         1.17. The COPY and RENAME Commands
+         1.18. The MANUAL Command
+         1.19. String and Filename Matching Patterns
+         1.20. Multiple Commands on One Line
+         1.21. What Do I Have?
+         1.22. Generalized File Input and Output
+               1.22.1. Why Another I/O System?
+               1.22.2. The FILE Command
+               1.22.3. FILE Command Examples
+               1.22.4. Channel Numbers
+               1.22.5. FILE Command Error Codes
+               1.22.6. File I/O Variables
+               1.22.7. File I/O Functions
+               1.22.8. File I/O Function Examples
+         1.23. The EXEC Command
+         1.24. Getting Keyword Lists with '?'
+     (2) MAKING AND USING CONNECTIONS
+         2.0. SET LINE and SET HOST Command Switches
+         2.1. Dialing
+              2.1.1. The Dial Result Message
+              2.1.2. Long-Distance Dialing Changes
+              2.1.3. Forcing Long-Distance Dialing
+              2.1.4. Exchange-Specific Dialing Decisions
+              2.1.5. Cautions about Cheapest-First Dialing
+              2.1.6. Blind Dialing (Dialing with No Dialtone)
+              2.1.7. Trimming the Dialing Dialog
+              2.1.8. Controlling the Dialing Speed
+              2.1.9. Pretesting Phone Number Conversions
+              2.1.10. Greater Control over Partial Dialing
+              2.1.11. New DIAL-related Variables and Functions
+              2.1.12. Increased Flexibility of PBX Dialing
+              2.1.13. The DIAL macro - Last-Minute Phone Number Conversions
+              2.1.14. Automatic Tone/Pulse Dialing Selection
+              2.1.15. Dial-Modifier Variables
+              2.1.16. Giving Multiple Numbers to the DIAL Command
+         2.2. Modems
+              2.2.1. New Modem Types
+              2.2.2. New Modem Controls
+         2.3.TELNET and RLOGIN
+              2.3.0. Bug Fixes
+              2.3.1. Telnet Binary Mode Bug Adjustments
+              2.3.2. VMS UCX Telnet Port Bug Adjustment
+              2.3.3. Telnet New Environment Option
+              2.3.4. Telnet Location Option
+              2.3.5. Connecting to Raw TCP Sockets
+              2.3.6. Incoming TCP Connections
+         2.4. The EIGHTBIT Command
+         2.5. The Services Directory
+         2.6. Closing Connections
+         2.7. Using C-Kermit with External Communication Programs
+              2.7.0. C-Kermit over tn3270 and tn5250
+              2.7.1. C-Kermit over Telnet
+              2.7.2. C-Kermit over Rlogin
+              2.7.3. C-Kermit over Serial Communication Programs
+              2.7.4. C-Kermit over Secure Network Clients
+              2.7.4.1. SSH
+              2.7.4.2. SSL
+              2.7.4.3. SRP
+              2.7.4.4. SOCKS
+              2.7.4.5. Kerberos and SRP
+         2.8. Scripting Local Programs
+         2.9. X.25 Networking
+              2.9.1. IBM AIXLink/X.25 Network Provider Interface for AIX
+              2.9.2. HP-UX X.25
+         2.10. Additional Serial Port Controls
+         2.11. Getting Access to the Dialout Device
+         2.12. The Connection Log
+         2.13. Automatic Connection-Specific Flow Control Selection
+         2.14. Trapping Connection Establishment and Loss
+         2.15. Contacting Web Servers with the HTTP Command
+     (3) TERMINAL CONNECTION
+         3.1. CONNECT Command Switches
+         3.2. Triggers
+         3.3. Transparent Printing
+         3.4. Binary and Text Session Logs
+     (4) FILE TRANSFER AND MANAGEMENT
+         4.0. Bug Fixes, Minor Changes, and Clarifications
+         4.1. File-Transfer Filename Templates
+         4.1.1. Templates in the As-Name
+         4.1.2. Templates on the Command Line
+         4.1.3. Post-Transfer Renaming
+         4.2. File-Transfer Pipes and Filters
+         4.2.1. Introduction
+         4.2.1.1. Terminology
+         4.2.1.2. Notation
+         4.2.1.3. Security
+         4.2.2. Commands for Transferring from and to Pipes
+         4.2.2.1. Sending from a Command
+         4.2.2.2. Receiving to a Command
+         4.2.3. Using File-Transfer Filters
+         4.2.3.1. The SEND Filter
+         4.2.3.2. The RECEIVE Filter
+         4.2.4. Implicit Use of Pipes
+         4.2.5. Success and Failure of Piped Commands
+         4.2.6. Cautions about Using Pipes to Transfer Directory Trees
+         4.2.7. Pipes and Encryption
+         4.2.8. Commands and Functions Related to Pipes
+         4.2.8.1. The OPEN !READ and OPEN !WRITE Commands
+         4.2.8.2. The REDIRECT Command
+         4.2.8.3. Receiving Mail and Print Jobs
+         4.2.8.4. Pipe-Related Functions
+         4.3. Automatic Per-File Text/Binary Mode Switching
+         4.3.1. Exceptions
+         4.3.2. Overview
+         4.3.3. Commands
+         4.3.4. Examples
+         4.4. File Permissions
+         4.4.1. When ATTRIBUTES PROTECTION is OFF
+         4.4.1.1. Unix
+         4.4.1.2. VMS
+         4.4.2. When ATTRIBUTES PROTECTION is ON
+         4.4.2.1. System-Specific Permissions
+         4.4.2.1.1. UNIX
+         4.4.2.1.2. VMS
+         4.4.2.2. System-Independent Permissions
+         4.5. File Management Commands
+         4.5.1. The DIRECTORY Command
+         4.5.2. The CD and BACK Commands
+         4.5.2.1. Parsing Improvements
+         4.5.2.2. The CDPATH
+         4.5.3. Creating and Removing Directories
+         4.5.4. The DELETE and PURGE Commands
+         4.6. Starting the Remote Kermit Server Automatically
+         4.7. File-Transfer Command Switches
+         4.7.1. SEND Command Switches
+         4.7.2. GET Command Switches
+         4.7.3. RECEIVE Command Switches
+         4.8. Minor Kermit Protocol Improvements
+         4.8.1. Multiple Attribute Packets
+         4.8.2. Very Short Packets
+         4.9. Wildcard / File Group Expansion
+         4.9.1. In UNIX C-Kermit
+         4.9.2. In Kermit 95
+         4.9.3. In VMS, AOS/VS, OS-9, VOS, etc.
+         4.10. Additional Pathname Controls
+         4.11. Recursive SEND and GET: Transferring Directory Trees
+         4.11.1. Command-Line Options
+         4.11.2. The SEND /RECURSIVE Command
+         4.11.3. The GET /RECURSIVE Command
+         4.11.4. New and Changed File Functions
+         4.11.5. Moving Directory Trees Between Like Systems
+         4.11.6. Moving Directory Trees Between Unlike Systems
+         4.12. Where Did My File Go?
+         4.13. File Output Buffer Control
+         4.14. Improved Responsiveness
+         4.15. Doubling and Ignoring Characters for Transparency
+         4.16. New File-Transfer Display Formats
+         4.17. New Transaction Log Formats
+         4.17.1. The BRIEF Format
+         4.17.2. The FTP Format
+         4.18. Unprefixing NUL
+         4.19. Clear-Channel Protocol
+         4.20. Streaming Protocol
+         4.20.1. Commands for Streaming
+         4.20.2. Examples of Streaming
+         4.20.2.1. Streaming on Socket-to-Socket Connections
+         4.20.2.2. Streaming on Telnet Connections
+         4.20.2.3. Streaming with Limited Packet Length
+         4.20.2.4. Streaming on Dialup Connections
+         4.20.2.5. Streaming on X.25 Connections
+         4.20.3. Streaming - Preliminary Conclusions
+         4.21. The TRANSMIT Command
+         4.22. Coping with Faulty Kermit Implementations
+         4.22.1. Failure to Accept Modern Negotiation Strings
+         4.22.2. Failure to Negotiate 8th-bit Prefixing
+         4.22.3. Corrupt Files
+         4.22.4. Spurious Cancellations
+         4.22.5. Spurious Refusals
+         4.22.6. Failures during the Data Transfer Phase
+         4.22.7. Fractured Filenames
+         4.22.8. Bad File Dates
+         4.23. File Transfer Recovery
+         4.24. FILE COLLISION UPDATE Clarification
+         4.25. Autodownload Improvements
+     (5) CLIENT / SERVER
+         5.0. Hints
+         5.1. New Command-Line Options
+         5.2. New Client Commands
+         5.3. New Server Capabilities
+         5.3.1. Creating and Removing Directories
+         5.3.2. Directory Listings
+         5.4. Syntax for Remote Filenames with Embedded Spaces
+         5.5. Automatic Orientation Messages upon Directory Change
+         5.6. New Server Controls
+         5.7. Timeouts during REMOTE HOST Command Execution
+     (6) INTERNATIONAL CHARACTER SETS
+         6.0. ISO 8859-15 Latin Alphabet 9
+         6.1. The HP-Roman8 Character Set
+         6.2. Greek Character Sets
+         6.3. Additional Latin-2 Character Sets
+         6.4. Additional Cyrillic Character Sets
+         6.5. Automatic Character-Set Switching
+         6.6. Unicode
+         6.6.1. Overview of Unicode
+         6.6.2. UCS Byte Order
+         6.6.2. UCS Transformation Formats
+         6.6.3. Conformance Levels
+         6.6.4. Relationship of Unicode with Kermit's Other Character Sets
+         6.6.5. Kermit's Unicode Features
+         6.6.5.1. File Transfer
+         6.6.5.2. The TRANSLATE Command
+         6.6.5.3. Terminal Connection
+         6.6.5.4. The TRANSMIT Command
+         6.6.5.5. Summary of Kermit Unicode Commands
+         6.7. Client / Server Character-Set Switching
+     (7) SCRIPT PROGRAMMING
+         7.0. Bug Fixes
+         7.1. The INPUT Command
+         7.1.1. INPUT Timeouts
+         7.1.2. New INPUT Controls
+         7.1.3. INPUT with Pattern Matching
+         7.1.4. The INPUT Match Result
+         7.2. New or Improved Built-In Variables
+         7.3. New or Improved Built-In Functions
+         7.4. New IF Conditions
+         7.5. Using More than Ten Macro Arguments
+         7.6. Clarification of Function Call Syntax
+         7.7. Autodownload during INPUT Command Execution
+         7.8. Built-in Help for Functions.
+         7.9. Variable Assignments
+         7.9.1. Assignment Operators
+         7.9.2. New Assignment Commands
+         7.10. Arrays
+         7.10.1. Array Initializers
+         7.10.2. Turning a String into an Array of Words
+         7.10.3. Arrays of Filenames
+         7.10.4. Automatic Arrays
+         7.10.5. Sorting Arrays
+         7.10.6. Displaying Arrays
+         7.10.7. Other Array Operations
+         7.10.8. Hints for Using Arrays
+         7.10.9. Do-It-Yourself Arrays
+         7.10.10. Associative Arrays
+         7.11. OUTPUT Command Improvements
+         7.12. Function and Variable Diagnostics
+         7.13. Return Value of Macros
+         7.14. The ASSERT, FAIL, and SUCCEED Commands.
+         7.15. Using Alarms
+         7.16. Passing Arguments to Command Files
+         7.17. Dialogs with Timed Responses
+         7.18. Increased Flexibility of SWITCH Case Labels
+         7.19. "Kerbang" Scripts
+         7.20. IF and XIF Statement Syntax
+         7.20.1. The IF/XIF Distinction
+         7.20.2. Boolean Expressions (The IF/WHILE Condition)
+         7.21. Screen Formatting and Cursor Control
+         7.22. Evaluating Arithmetic Expressions
+         7.23. Floating-Point Arithmetic
+         7.24. Tracing Script Execution
+         7.25. Compact Substring Notation
+         7.26. New WAIT Command Options
+         7.26.1. Waiting for Modem Signals
+         7.26.2. Waiting for File Events
+         7.27. Relaxed FOR and SWITCH Syntax
+     (8) USING OTHER FILE TRANSFER PROTOCOLS
+     (9) COMMAND-LINE OPTIONS
+         9.0. Extended-Format Command-Line Options
+         9.1. Command Line Personalities
+         9.2. Built-in Help for Command Line Options
+         9.3. New Command-Line Options
+    (10) C-KERMIT AND G-KERMIT
 
-III. [330]APPENDICES
+III. APPENDICES
 
-III.1. [331]Character Set Tables
-III.1.1. [332]The Hewlett Packard Roman8 Character Set
-III.1.2. [333]Greek Character Sets
-III.1.2.1. [334]The ISO 8859-7 Latin / Greek Alphabet
-III.1.2.2. [335]The ELOT 927 Character Set
-III.1.2.3. [336]PC Code Page 869
-III.2. [337]Updated Country Codes
+III.1. Character Set Tables
+III.1.1. The Hewlett Packard Roman8 Character Set
+III.1.2. Greek Character Sets
+III.1.2.1. The ISO 8859-7 Latin / Greek Alphabet
+III.1.2.2. The ELOT 927 Character Set
+III.1.2.3. PC Code Page 869
+III.2. Updated Country Codes
 
-IV. [338]ERRATA & CORRIGENDA: Corrections to "Using C-Kermit" 2nd Edition.
-V. [339]ADDITIONAL COPYRIGHT NOTICES
+IV. ERRATA & CORRIGENDA: Corrections to "Using C-Kermit" 2nd Edition.
+V. ADDITIONAL COPYRIGHT NOTICES
 
 I. C-KERMIT DOCUMENTATION
 
    The user manual for C-Kermit is:
 
-     Frank da Cruz and Christine M. Gianone, [340]Using C-Kermit, Second
+     Frank da Cruz and Christine M. Gianone, Using C-Kermit, Second
      Edition, Digital Press / Butterworth-Heinemann, Woburn, MA, 1997,
      622 pages, ISBN 1-55558-164-1.
-
-   [341]CLICK HERE for reviews.
 
    The present document is a supplement to Using C-Kermit 2nd Ed, not a
    replacement for it.
@@ -571,7 +569,7 @@ I. C-KERMIT DOCUMENTATION
    bank. Do not include sales tax. Inquire about quantity discounts.
 
    You can also order by phone from the publisher, Digital Press /
-   [342]Butterworth-Heinemann, with MasterCard, Visa, or American Express:
+  Butterworth-Heinemann, with MasterCard, Visa, or American Express:
 
   +1 800 366-2665   (Woburn, Massachusetts office for USA & Canada)
   +44 1865 314627   (Oxford, England distribution centre for UK & Europe)
@@ -579,7 +577,7 @@ I. C-KERMIT DOCUMENTATION
   +65 356-1968      (Singapore office for Asia)
   +27 (31) 2683111  (Durban office for South Africa)
 
-   A [343]German-language edition of the First Edition is also available:
+   AGerman-language edition of the First Edition is also available:
 
      Frank da Cruz and Christine M. Gianone, C-Kermit - Einführung und
      Referenz, Verlag Heinz Heise, Hannover, Germany (1994). ISBN
@@ -587,18 +585,18 @@ I. C-KERMIT DOCUMENTATION
      Heinz Heise GmbH & Co. KG, Helstorfer Strasse 7, D-30625 Hannover.
      Tel. +49 (05 11) 53 52-0, Fax. +49 (05 11) 53 52-1 29.
 
-   The [344]Kermit file transfer protocol is specified in:
+   TheKermit file transfer protocol is specified in:
 
      Frank da Cruz, Kermit, A File Transfer Protocol, Digital Press,
      Bedford, MA, 1987, 379 pages, ISBN 0-932376-88-6. US single-copy
      price: $39.95. Availability as above.
 
    News and articles about Kermit software and protocol are published
-   periodically in the journal, [345]Kermit News. Subscriptions are free;
+   periodically in the journal,Kermit News. Subscriptions are free;
    contact Columbia University at the address above.
 
    Online news about Kermit is published in the
-   [346]comp.protocols.kermit.announce and [347]comp.protocols.kermit.misc
+  comp.protocols.kermit.announce andcomp.protocols.kermit.misc
    newsgroups.
 
 II. NEW FEATURES
@@ -608,7 +606,7 @@ II. NEW FEATURES
    the cover).
 
    Specific changes and additions are grouped together by major topic,
-   roughly corresponding to the chapters of [348]Using C-Kermit.
+   roughly corresponding to the chapters ofUsing C-Kermit.
 
 0. INCOMPATIBILITIES WITH PREVIOUS RELEASES
 
@@ -627,7 +625,7 @@ II. NEW FEATURES
        per-file basis according to various criteria, including (a) which
        kind of platform is on the other end of the connection (if known),
        (b) the version of Kermit on the other end, and (c) the file's name
-       (see [349]Section 4, especially [350]4.3). To disable this
+       (see Section 4, especially 4.3). To disable this
        automatic switching and restore the earlier behavior, put SET
        TRANSFER MODE MANUAL in your C-Kermit initialization file. To
        disable automatic switching for a particular transfer, include a
@@ -636,7 +634,7 @@ II. NEW FEATURES
        previously if RESEND or REGET were attempted when FILE TYPE was
        TEXT, these commands would fail immediately, with a message telling
        you they work only when the FILE TYPE is BINARY. Now they simply do
-       this for you. See [351]Section 4.23 for additional (important)
+       this for you. See Section 4.23 for additional (important)
        information.
     5. SET PREFIXING CAUTIOUS and MINIMAL now both prefix linefeed (10 and
        138) in case rlogin, ssh, or cu are "in the middle", since
@@ -653,20 +651,20 @@ II. NEW FEATURES
        platform-specific command can still be accessed with "!", "@", or
        "RUN" wherever the installation does not forbid. In UNIX, the "ls"
        command can be accessed directly as "ls" in C-Kermit. See
-       [352]Section 4.5.1 for details.
+       Section 4.5.1 for details.
     7. SEND ? prints a list of switches rather than a list of filenames.
        If you want to see a list of filenames, use a (system-dependent)
        construction such as SEND ./? (for UNIX, Windows, or OS/2), SEND
-       []? (VMS), etc. See [353]Sections 1.5 and [354]4.7.1.
+       []? (VMS), etc. See Sections 1.5 and4.7.1.
     8. In UNIX, OS-9, and Kermit 95, the wildcard characters in previous
        versions were * and ?. In C-Kermit 7.0 they are *, ?, [, ], {, and
        }, with dash used inside []'s to denote ranges and comma used
        inside {} to separate list elements. If you need to include any of
        these characters literally in a filename, precede each one with
-       backslash (\). See [355]Section 4.9.
+       backslash (\). See Section 4.9.
     9. SET QUIET { ON, OFF } is now on the command stack, just like SET
        INPUT CASE, SET COUNT, SET MACRO ERROR, etc, as described on p.458
-       of [356]Using C-Kermit, 2nd Edition. This allows any macro or
+       ofUsing C-Kermit, 2nd Edition. This allows any macro or
        command file to SET QUIET ON or OFF without worrying about saving
        and restoring the global QUIET value. For example, this lets you
        write a script that tries SET LINE on lots of devices until it
@@ -675,7 +673,7 @@ II. NEW FEATURES
    10. Because of the new "." operator (which introduces assignments),
        macros whose names begin with "." can not be invoked "by name".
        However, they still can be invoked with DO.
-   11. The syntax of the EVALUATE command has changed. See [357]Section
+   11. The syntax of the EVALUATE command has changed. SeeSection
        7.9.2. To restore the previous syntax, use SET EVALUATE OLD.
    12. The \v(directory) variable now includes the trailing directory
        separator; in previous releases it did not. This is to allow
@@ -844,7 +842,7 @@ II. NEW FEATURES
 
    Related variables: \v(browser), \v(browsopts), \v(browsurl).
 
-   Also see [358]Section 2.15: Contacting Web Servers with the HTTP
+   Also see Section 2.15: Contacting Web Servers with the HTTP
    Command.
 
 1.3.2. Invoking C-Kermit from your Browser
@@ -882,7 +880,7 @@ II. NEW FEATURES
 
    But none of the above is necessary if you make C-Kermit your default
    Telnet client, which you can do by making a symlink called 'telnet' to
-   the C-Kermit 7.0 binary. See [359]Section 9.1 for details.
+   the C-Kermit 7.0 binary. See Section 9.1 for details.
 
 1.4. Command Editing
 
@@ -1020,7 +1018,7 @@ II. NEW FEATURES
 
    /AFTER:date-time
           Select only those files having a date-time later than the one
-          given. See [360]Section 1.6 for date-time formats. Synonym:
+          given. See Section 1.6 for date-time formats. Synonym:
           /SINCE.
 
    /NOT-AFTER:date-time
@@ -1070,7 +1068,7 @@ II. NEW FEATURES
           use the /NOBACKUP switch for this).
 
           The pattern matcher is the same one used by IF MATCH string
-          pattern ([361]Section 7.4), so you can test your patterns using
+          pattern ( Section 7.4), so you can test your patterns using
           IF MATCH. If you need to match a literal * or ? (etc), precede
           it by a backslash (\). If the pattern contains any spaces, it
           must be enclosed in braces:
@@ -1091,7 +1089,7 @@ II. NEW FEATURES
 
           If a pattern is to include a literal brace character, precede it
           with "\". Also note the apparent conflict of this list format
-          and the string-list format described in [362]Section 4.9.1. In
+          and the string-list format described in Section 4.9.1. In
           case you want to include a wildcard string-list with braces on
           its outer ends as an /EXCEPT: argument, do it like this:
 
@@ -1281,7 +1279,7 @@ II. NEW FEATURES
    abbreviation "wks" is accepted for WEEKS, and "yrs" for "YEARS".
 
    (To see how to specify dates relative to a specific date, rather than
-   the current one, see the [363]\fmjd() function description below.)
+   the current one, see the\fmjd() function description below.)
 
    You can check date formats with the DATE command. DATE by itself prints
    the current date and time in standard format: yyyymmdd hh:mm:ss. DATE
@@ -1385,7 +1383,7 @@ II. NEW FEATURES
    Note: The yyyyddd day-of-year format is often erroneously referred to
    as a Julian date. However, a true Julian date is a simple counting
    number, the number of days since a certain fixed day in the past.
-   [364]See \fmjd() below.
+  See \fmjd() below.
 
    \fdoy2date(date-time)
           Converts a date or date-time in day-of-year format to a standard
@@ -1480,7 +1478,7 @@ II. NEW FEATURES
    "*" and/or "?", which match any string and any single character,
    respectively (note that "?" must be preceded by backslash to override
    its normal function of giving help), and in most C-Kermit versions may
-   also include [] character lists and {} string lists (see [365]Section
+   also include [] character lists and {} string lists (seeSection
    4.9).
 
    The match works by appending "*" to the end of the given pattern (if
@@ -1644,7 +1642,7 @@ II. NEW FEATURES
 
 1.11. Taming The Wild Backslash -- Part Deux
 
-   [366]Using C-Kermit, 2nd Edition, contains a brief section, "Taming the
+  Using C-Kermit, 2nd Edition, contains a brief section, "Taming the
    Wild Backslash", on page 48, which subsequent experience has shown to
    be inadequate for Kermit users intent on writing scripts that deal with
    Windows, DOS, and OS/2 filenames, in which backslash (\) is used as the
@@ -1890,7 +1888,7 @@ II. NEW FEATURES
 
    This will work; no surprises here. However, if you had used ASSIGN
    rather than DEFINE, you might have been surprised after all; review
-   pages 348-349 of [367]Using C-Kermit (2nd Ed) for the difference
+   pages 348-349 ofUsing C-Kermit (2nd Ed) for the difference
    between DEFINE and ASSIGN.
 
    We have said that any Kermit 95 or MS-DOS Kermit command that parses
@@ -2051,7 +2049,7 @@ II. NEW FEATURES
    arguments. Suppose one of these arguments, say \&@[3], is a DOS
    filename such as C:\FOO\BAR\BAZ\OOFA.TXT. (Note: In C-Kermit 7.0 and
    K95 1.1.18 and later, command-line arguments after "=" or "--" are also
-   available in the top-level \%1..9 variables; see [368]Section 7.5.)
+   available in the top-level \%1..9 variables; see Section 7.5.)
 
    Of course you can eliminate any problems by using forward slashes
    rather than backslashes in the filename, but sometimes this is not
@@ -2147,7 +2145,7 @@ II. NEW FEATURES
           double backslash (normal Kermit quoting rules). "man tr" and
           "man cut" for further info.
 
-   See [369]Section 2.12 for information about the new connection log.
+   See Section 2.12 for information about the new connection log.
 
 1.14. Automatic File-Transfer Packet Recognition at the Command Prompt
 
@@ -2173,7 +2171,7 @@ II. NEW FEATURES
 1.15. The TYPE Command
 
    The TYPE command now accepts a selection of optional switches
-   ([370]Section 1.5), and also sets several variables.
+   ( Section 1.5), and also sets several variables.
 
    Syntax: TYPE [ switches... ] filename
 
@@ -2217,7 +2215,7 @@ II. NEW FEATURES
 
    /MATCH:pattern
           Only type lines from the file that match the given pattern (see
-          [371]Section 4.9.1 for pattern notation). UNIX users familiar
+         Section 4.9.1 for pattern notation). UNIX users familiar
           with grep should note a significant difference: there is no
           implied "*" at the beginning and end of the pattern. Thus:
 
@@ -2324,7 +2322,7 @@ II. NEW FEATURES
    when the source and target files are the same file:
 
   /APPEND                   = Append source file to destination file.
-  /SWAP-BYTES               = Swap bytes (see [372]Section 6.6.5).
+  /SWAP-BYTES               = Swap bytes (see Section 6.6.5).
   /FROMB64                  = Decode the source file from Base64 encoding.
   /TOB64                    = Encode the target file in Base64.
 
@@ -2361,17 +2359,17 @@ II. NEW FEATURES
    classes or sequences of characters. C-Kermit 7.0 / K95 1.1.19 supports
    patterns in several places:
 
-     * Filenames ([373]Section 4.9)
-     * SWITCH case labels ([374]Section 7.18)
-     * The new IF MATCH statement ([375]Section 7.4)
-     * TYPE /MATCH ([376]Section 1.15)
-     * SET FILE TEXT-PATTERNS and BINARY-PATTERNS ([377]Section 4.3)
-     * The \fsearch() and \farraylook() functions ([378]Sections 7.3 and
-       [379]7.10.7)
-     * The \fpattern() function used with [M,RE]INPUT ([380]Section 7.1)
+     * Filenames ( Section 4.9)
+     * SWITCH case labels ( Section 7.18)
+     * The new IF MATCH statement ( Section 7.4)
+     * TYPE /MATCH ( Section 1.15)
+     * SET FILE TEXT-PATTERNS and BINARY-PATTERNS ( Section 4.3)
+     * The \fsearch() and \farraylook() functions (Sections 7.3 and
+      7.10.7)
+     * The \fpattern() function used with [M,RE]INPUT ( Section 7.1)
 
    Patterns are also called wildcards, especially when used for filename
-   matching. C-Kermit's pattern syntax is explained in [381]Section 4.9.1,
+   matching. C-Kermit's pattern syntax is explained in Section 4.9.1,
    and also by the HELP WILDCARDS command.
 
 1.20. Multiple Commands on One Line
@@ -2413,7 +2411,7 @@ II. NEW FEATURES
    configuration of your C-Kermit program with the SHOW FEATURES command.
    Of course, a lot of what it says, especially in the bottom part, might
    seem like gibberish, but can be deciphered with a Rosetta Stone (such
-   as the C-Kermit source or the [382]ckccfg.txt file). In any case, the
+   as the C-Kermit source or theckccfg.txt file). In any case, the
    output from SHOW FEATURES might easily explain why some expected
    feature is missing, or some buffer is smaller than expected. Here's a
    sample of the bottom section for the SunOS version:
@@ -2497,7 +2495,7 @@ Compiled Dec 31 1999 10:38:54, options:
        size of the INPUT command circular buffer); MAC_MAX=16384 (the
        maximum number of macros), etc.
 
-   See the [383]ckccfg.txt file for details.
+   See theckccfg.txt file for details.
 
 1.22. Generalized File Input and Output
 
@@ -2572,12 +2570,12 @@ Compiled Dec 31 1999 10:38:54, options:
   \v(f_max)
 
    or by giving the FILE LIST (FLIST) command. Channels are discussed in
-   greater detail in [384]Section 1.22.4.
+   greater detail in Section 1.22.4.
 
    FILE command errors can be caught with IF FAIL after the FILE command.
    In addition, the \v(f_error) variable is set to the completion code of
    the command: 0 if no error, or a negative number if there was an error.
-   The error codes are listed in [385]Section 1.22.5.
+   The error codes are listed in Section 1.22.5.
 
    The command to open a file is:
 
@@ -2724,7 +2722,7 @@ Compiled Dec 31 1999 10:38:54, options:
           is printed on the screen. IMPORTANT: The variable should
           normally be a macro name rather than a \%x or \&x[] variable if
           you want backslash characters in the file to be taken literally
-          (see pp.408-412 of [386]Using C-Kermit for an explanation; you
+          (see pp.408-412 ofUsing C-Kermit for an explanation; you
           can also read into a \%x or \&x[] variable, but then you must
           remember to protect future references to by \fcontents() if you
           don't want C-Kermit to process any backslashes it might
@@ -3217,8 +3215,8 @@ Compiled Dec 31 1999 10:38:54, options:
   8 = /BINARY
 
    The remaining functions work only for open channels. Each of these
-   functions can fail for the applicable reasons listed in [387]Section
-   1.22.5. For instructions on handling function errors, see [388]Section
+   functions can fail for the applicable reasons listed inSection
+   1.22.5. For instructions on handling function errors, seeSection
    7.12.
 
    \f_pos(channel)
@@ -3364,7 +3362,7 @@ Compiled Dec 31 1999 10:38:54, options:
      * You can have Kermit fetch the number or numbers from a dialing
        directory.
      * You can have Kermit cycle through a list of phone numbers (this is
-       new in C-Kermit 7.0; see [389]Section 2.1.16) without having to
+       new in C-Kermit 7.0; see Section 2.1.16) without having to
        enter the numbers in a dialing directory.
      * Dialing is location-independent; you can use the same script to
        dial from different areas or countries.
@@ -3421,7 +3419,7 @@ The first group of switches is:
    /NETWORK-TYPE:{TCP/IP,X.25,PIPE,PTY...}
           When more than one network type is available, this lets you
           specify the type of network to use for this connection without
-          affecting your global SET NETWORK TYPE. See [390]Section 2.7
+          affecting your global SET NETWORK TYPE. See Section 2.7
           about pipes and ptys.
 
    /USERID:[string]
@@ -3500,7 +3498,7 @@ The first group of switches is:
           port.
 
    /RAW-SOCKET
-          This is a connection to a raw TCP socket ([391]Section 2.3.5).
+          This is a connection to a raw TCP socket ( Section 2.3.5).
 
    /RLOGIN
           Use Rlogin protocol even if this is not an Rlogin port.
@@ -3578,7 +3576,7 @@ define HSDIAL {                ; High Speed DIAL
     }
 }
 
-   (See [392]Section 7.5 about the \%* variable.)
+   (See Section 7.5 about the \%* variable.)
 
 2.1.2. Long-Distance Dialing Changes
 
@@ -3614,7 +3612,7 @@ define HSDIAL {                ; High Speed DIAL
    all calls within the country must be dialed with 9 digits, and all
    calls from outside Spain must also be dialed with 9 digits (after the
    country code, 34). The new 9-digit numbers all begin with "9". More
-   info at: [393]http://www.telefonica.es/cambiodenumeracion/
+   info at:http://www.telefonica.es/cambiodenumeracion/
 
    Several new dialing features and commands have been added in version
    6.1 and 7.0 to address these changes.
@@ -3746,12 +3744,12 @@ define HSDIAL {                ; High Speed DIAL
       end \%x
   }
 
-   (See [394]Section 7.5 about the \%* variable.)
+   (See Section 7.5 about the \%* variable.)
 
 2.1.4. Exchange-Specific Dialing Decisions
 
    This applies mainly to the North American Numbering Plan (NANP). Refer
-   to the section "Alternative notations" in [395]Using C-Kermit 2nd
+   to the section "Alternative notations" inUsing C-Kermit 2nd
    Edition, pages 106-107, and the story about Toronto on page 110. Using
    the new LC-AREA-CODES list, we can address the problem by treating the
    exchange as part of the area code:
@@ -3875,7 +3873,7 @@ define HSDIAL {                ; High Speed DIAL
 
    Hint: To add S-Register settings or other commands to your dialing
    procedure, use the new SET MODEM COMMAND PREDIAL-INIT command
-   ([396]Section 2.2.2).
+   ( Section 2.2.2).
 
 2.1.9. Pretesting Phone Number Conversions
 
@@ -3893,7 +3891,7 @@ define HSDIAL {                ; High Speed DIAL
   +1 (212) 7654321 => 93,7654321
   C-Kermit>
 
-   You can also use the \fdialconvert(phone-number) function ([397]Section
+   You can also use the \fdialconvert(phone-number) function (Section
    2.1.11) to do this programmatically:
 
   C-Kermit> echo "\fdialconvert(+1 (212) 7654321)"
@@ -3983,13 +3981,13 @@ define HSDIAL {                ; High Speed DIAL
 
    \v(dialcount)
           The current value of the DIAL retry counter, for use in a DIAL
-          macro ([398]Section 2.1.13).
+          macro ( Section 2.1.13).
 
    \v(d$px)
-          PBX Exchange (see [399]Section 2.1.12).
+          PBX Exchange (see Section 2.1.12).
 
-   Other dial-related variables, already documented in [400]Using C-Kermit
-   (or other sections of this document, e.g. [401]Section 2.1.1), include
+   Other dial-related variables, already documented inUsing C-Kermit
+   (or other sections of this document, e.g. Section 2.1.1), include
    \v(dialnumber), \v(dialstatus), etc. A convenient way to display all of
    them is:
 
@@ -4000,7 +3998,7 @@ define HSDIAL {                ; High Speed DIAL
 
 2.1.12. Increased Flexibility of PBX Dialing
 
-   Refer to [402]Using C-Kermit, 2nd Edition, pages 107-108. Recall that
+   Refer toUsing C-Kermit, 2nd Edition, pages 107-108. Recall that
    three commands are needed to configure C-Kermit for dialing from a PBX:
 
   SET DIAL PBX-EXCHANGE number
@@ -4080,7 +4078,7 @@ define HSDIAL {                ; High Speed DIAL
    After a DIAL or LOOKUP command is given, a list of phone numbers is
    assembled from the dialing directory (if any), with all
    location-dependent conversion rules applied as described in Chapter 5
-   of [403]Using C-Kermit.
+   ofUsing C-Kermit.
 
    However, additional conversions might still be required at the last
    minute based on local or ephemeral conditions. So that you can have the
@@ -4362,7 +4360,7 @@ define HSDIAL {                ; High Speed DIAL
    not unless you change the init string from AT&F\13 to something else
    that enables local Xon/Xoff or other appropriate type of flow control.
 
-   Also see [404]Section 2.1.7 for additional hints about making dialing
+   Also see Section 2.1.7 for additional hints about making dialing
    go faster.
 
 2.2.2. New Modem Controls
@@ -4400,7 +4398,7 @@ define HSDIAL {                ; High Speed DIAL
           volume.
 
    SET MODEM COMMAND IGNORE-DIALTONE [ text ]
-          The command to enable blind dialing ([405]Section 2.1.6).
+          The command to enable blind dialing ( Section 2.1.6).
 
    SET MODEM ESCAPE-CHARACTER code
           Has been augmented to allow codes of 0 or less: < 0 means the
@@ -4417,7 +4415,7 @@ define HSDIAL {                ; High Speed DIAL
           allows a lot more pages to be sent per unit time.
 
    Recall that C-Kermit can dial modems to which it is connected via
-   TCP/IP (Telnet or Rlogin) as described on page 126 of [406]Using
+   TCP/IP (Telnet or Rlogin) as described on page 126 ofUsing
    C-Kermit, 2nd Ed. In this case the MODEM HANGUP-METHOD should be
    MODEM-COMMAND, since RS-232 signals don't work over TCP/IP connections.
    As noted in the manual, such connections are set up by the following
@@ -4450,8 +4448,8 @@ define HSDIAL {                ; High Speed DIAL
 
 2.3. TELNET and RLOGIN
 
-   For additional background, please also read the [407]TELNET.TXT file,
-   also available on the Web in [408]HTML format.
+   For additional background, please also read theTELNET.TXT file,
+   also available on the Web inHTML format.
 
    Cautions:
 
@@ -4460,7 +4458,7 @@ define HSDIAL {                ; High Speed DIAL
        same connection immediately, try including the /NOWAIT switch:
   C-Kermit> telnet /nowait hostname
 
-       See [409]TELNET.TXT or [410]TELNET.HTM for details. If it also
+       SeeTELNET.TXT orTELNET.HTM for details. If it also
        takes a very long time to make a Telnet connection with system
        Telnet, then the delay is most likely caused by reverse DNS lookups
        when your host is not properly registered in DNS.
@@ -4611,7 +4609,7 @@ define HSDIAL {                ; High Speed DIAL
 
 2.3.3. Telnet New Environment Option
 
-   The TELNET NEW-ENVIRONMENT option ([411]RFC 1572) is supported as 7.0.
+   The TELNET NEW-ENVIRONMENT option (RFC 1572) is supported as 7.0.
    This option allows the C-Kermit Telnet client to send certain
    well-known variables to the Telnet server, including USER, PRINTER,
    DISPLAY, and several others. This feature is enabled by default in
@@ -4633,7 +4631,7 @@ define HSDIAL {                ; High Speed DIAL
 
 2.3.4. Telnet Location Option
 
-   The TELNET LOCATION option ([412]RFC 779) is supported in 7.0. This
+   The TELNET LOCATION option (RFC 779) is supported in 7.0. This
    option allows the C-Kermit Telnet client to send a location string to
    the server if the server indicates its willingness to accept one. If an
    environment variable named LOCATION exists at the time C-Kermit starts,
@@ -4680,7 +4678,7 @@ define HSDIAL {                ; High Speed DIAL
 
 2.5. The Services Directory
 
-   Chapter 7 of [413]Using C-Kermit does not mention the ULOGIN macro,
+   Chapter 7 ofUsing C-Kermit does not mention the ULOGIN macro,
    which is used by our sample services directory, CKERMIT.KND. Unlike
    UNIXLOGIN, VMSLOGIN, etc, this one is for use with systems that require
    a user ID but no password. Therefore it doesn't prompt for a password
@@ -4711,7 +4709,7 @@ define HSDIAL {                ; High Speed DIAL
    expect, especially if you are a Telnet or Ftp user.
 
    Also see the description of the new SET CLOSE-ON-DISCONNECT command in
-   [414]Section 2.10.
+  Section 2.10.
 
 2.7. Using C-Kermit with External Communication Programs
 
@@ -4741,7 +4739,7 @@ define HSDIAL {                ; High Speed DIAL
    program over this connection. In a pty or pipe connection, C-Kermit
    runs and controls a local command or program, which makes the
    connection. (The same method can be used to simply to control a local
-   program without making a connection; see [415]Section 2.8.)
+   program without making a connection; see Section 2.8.)
 
    To find out if your version of Kermit includes PTY support, type "show
    features" and look for NETPTY in the alphabetical list of options. For
@@ -4774,7 +4772,7 @@ define HSDIAL {                ; High Speed DIAL
 
    These are like SET NETWORK TYPE followed by SET HOST, except they apply
    only to the connection being made and do not change the global network
-   type setting (see [416]Section 1.5 about the difference between
+   type setting (see Section 1.5 about the difference between
    switches and SET commands).
 
    Include any command-line options with the command that might be needed,
@@ -4876,7 +4874,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           This forces C-Kermit to treat the connection as unreliable and
           to engage in its normal ACK/NAK protocol for error detection and
           correction, rather than "streaming" its packets, as it normally
-          does on a network connection ([417]Section 4.20).
+          does on a network connection ( Section 4.20).
 
    In some cases, buffer sizes might be restricted, so you might also need
    to reduce the Kermit packet length to fit; this is a trial-and-error
@@ -5088,21 +5086,20 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    designed by and for Netscape. An SSL Telnet client is available for
    UNIX from the University of Queensland. More info at:
 
-  [418]http://www.psy.uq.oz.au/~ftp/Crypto/
+ http://www.psy.uq.oz.au/~ftp/Crypto/
 
    Interoperability with C-Kermit is unknown. C-Kermit also includes its
-   own built-in SSL/TLS support, but it is not exportable; [419]CLICK HERE
-   file for details.
+   own built-in SSL/TLS support, but it is not exportable.
 
 2.7.4.3. SRP
 
    SRP(TM) is Stanford University's Secure Remote Password protocol. An
    SRP Telnet client is available from Stanford:
 
-  [420]http://srp.stanford.edu/srp/
+ http://srp.stanford.edu/srp/
 
    Stanford's SRP Telnet client for UNIX has been tested on SunOS and
-   works fine with C-Kermit, as described in [421]Section 2.7.1, e.g.
+   works fine with C-Kermit, as described in Section 2.7.1, e.g.
 
   SET PREFIX ALL
   PTY (or PIPE) srp-telnet xenon.stanford.edu
@@ -5114,7 +5111,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 2.7.4.4. SOCKS
 
    C-Kermit can be built as a SOCKS-aware client on systems that have a
-   SOCKS library. See section 8.1.1 of the [422]ckccfg.txt file.
+   SOCKS library. See section 8.1.1 of theckccfg.txt file.
 
    C-Kermit 7.0 can also be run over SOCKSified Telnet or rlogin clients
    with SET NETWORK TYPE COMMAND. Suppose the Telnet program on your
@@ -5127,7 +5124,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 2.7.4.5. Kerberos
 
    UNIX C-Kermit can be built with MIT Kerberos IV or V authentication and
-   encryption. Instructions are available in a [423]separate document.
+   encryption. Instructions are available in aseparate document.
    Additional modules are required that can not be exported from the USA
    to any country except Canada, by US law.
 
@@ -5206,7 +5203,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
 2.9. X.25 Networking
 
-   X.25 networking is documented in [424]Using C-Kermit, 2nd Edition. When
+   X.25 networking is documented inUsing C-Kermit, 2nd Edition. When
    the book was published, X.25 was available only in SunOS, Solaris, and
    Stratus VOS. Unlike TCP/IP, X.25 APIs are not standardized; each
    vendor's X.25 libraries and services (if they have them at all) are
@@ -5277,7 +5274,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   set parity space
   pty padem address
 
-   This should work in HP-UX 9.00 and later (see [425]Section 2.7). If you
+   This should work in HP-UX 9.00 and later (see Section 2.7). If you
    have an earlier HP-UX version, or the PTY interface doesn't work or
    isn't available, try:
 
@@ -5412,7 +5409,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 2.11. Getting Access to the Dialout Device
 
      This section is for UNIX only; note the special words about QNX at
-     the end. Also see [426]Section 2.0 for SET LINE switches,
+     the end. Also see Section 2.0 for SET LINE switches,
      particularly the /SHARE switch for VMS only.
 
    C-Kermit does its best to obey the UUCP lockfile conventions of each
@@ -5439,7 +5436,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
      * The use, wherever possible, of lockfile names based on
        inode/major/minor device number rather than device name.
 
-   See the [427]ckuins.txt and [428]ckubwr.txt files for details.
+   See theckuins.txt andckubwr.txt files for details.
 
    QNX is almost unique among UNIX varieties in having no UUCP programs
    nor UUCP-oriented dialout-device locking conventions. QNX does,
@@ -5555,8 +5552,8 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    requires you keep a publicly write-accessible logfile (a glaring target
    for mischief), and (b) it would require each user to log to that file
    and not disable logging. A better method for logging connections, in
-   UNIX at least, is syslogging (see [429]ckuins.txt Section 15 and
-   [430]Section 4.2 of the [431]IKSD Administration Guide for details).
+   UNIX at least, is syslogging (seeckuins.txt Section 15 and
+  Section 4.2 of theIKSD Administration Guide for details).
 
 2.13. Automatic Connection-Specific Flow Control Selection
 
@@ -5720,7 +5717,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
       read \%p                                ; Get port number
       if fail stop 1 Tunnel failure: \%1
       close read
-      if fail stop 1 Tunnel failure: \%1      ; See [432]Section 4.2.8.1
+      if fail stop 1 Tunnel failure: \%1      ; See Section 4.2.8.1
       assign on_close {                       ; Set up close handler
           echo Closing tunnel: \m(tunnelhost)
           !tunnel stop \m(tunnelhost)
@@ -5825,7 +5822,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
   /HEADER:{{tag:value}{tag:value}...}
 
-          For a listing of valid tag value and value formats see [433]RFC
+          For a listing of valid tag value and value formats seeRFC
           1945: Hypertext Transfer Protocol -- HTTP/1.0. A maximum of
           eight headers may be specified.
 
@@ -5888,7 +5885,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
 3.1. CONNECT Command Switches
 
-   The following switches (see [434]Section 1.5) were added to the CONNECT
+   The following switches (see Section 1.5) were added to the CONNECT
    command in 7.0:
 
    /QUIETLY
@@ -5896,9 +5893,9 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           is an invisible command synonym for CONNECT /QUIETLY.
 
    /TRIGGER:string
-          Specify a trigger or triggers ([435]Section 3.2) effective for
+          Specify a trigger or triggers ( Section 3.2) effective for
           this CONNECT command only, temporarily overriding any current
-          SET TERMINAL TRIGGER values ([436]Section 3.2).
+          SET TERMINAL TRIGGER values ( Section 3.2).
 
    Note: Other switches might also be available; type "connect ?" for a
    list, "help connect" for a description of each.
@@ -5969,7 +5966,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    By default, your SET PRINTER device is your default UNIX printer, but
    it can also be a file, a command, or the null device (which causes all
-   printer material to be discarded). See [437]Using C-Kermit, 2nd Ed.,
+   printer material to be discarded). SeeUsing C-Kermit, 2nd Ed.,
    p.41 for details.
 
    Transparent printing is controlled by the command:
@@ -6038,7 +6035,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   set printer {| grep -v ^Received | lpr}   ; Filter out some lines
 
    Then use "pcprint" or "vtprint" commands on the host to initiate
-   transparent print operations. See [438]Using C-Kermit, 2nd Ed., p.406
+   transparent print operations. SeeUsing C-Kermit, 2nd Ed., p.406
    for details.
 
    Here is a sample "pcprint" shell script for UNIX:
@@ -6135,7 +6132,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    sends all files whose name contains a space.
 
    All things considered, it is best to avoid spaces in file and directory
-   names if you can. Also see [439]Section 5.4 on this topic.
+   names if you can. Also see Section 5.4 on this topic.
 
 4.0.1. Packet out of Window
 
@@ -6166,7 +6163,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    factors into account. Now it sets packet lengths and window sizes
    appropriate to the configuration. Furthermore, in IRIX only, it might
    restrict the SEND packet length to 4000, to work around a bug in the
-   IRIX Telnet server, depending on the IRIX version (see [440]ckubwr.txt,
+   IRIX Telnet server, depending on the IRIX version (seeckubwr.txt,
    IRIX section). To see the built-in definition of the FAST macro, type
    "show macro fast". To change it, simply define it to be whatever you
    want -- it's just a macro, like any other.
@@ -6350,7 +6347,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    The RECEIVE command, when given without an as-name, behaves as always,
    storing all incoming files under the names they arrive with, subject to
-   SET FILE NAME and SET RECEIVE PATHNAMES modifications ([441]Section
+   SET FILE NAME and SET RECEIVE PATHNAMES modifications (Section
    4.10).
 
    However, when an as-name is given in the RECEIVE command, it is applied
@@ -6415,8 +6412,8 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    file has been completely and successfully transferred before it starts
    to process it. This can be accomplished easily using C-Kermit's SET {
    SEND, RECEIVE } { MOVE-TO, RENAME-TO } command or /MOVE-TO: or
-   /RENAME-TO: switches, described in [442]Sections 4.7.1 through
-   [443]4.7.3.
+   /RENAME-TO: switches, described inSections 4.7.1 through
+  4.7.3.
 
    Here's an example for the client side, in which files to be sent are
    placed in a certain directory (/usr/olga/tosend in this example) by
@@ -6482,8 +6479,8 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    from a command, or "pipe", as well as from a file, and to receive to a
    pipe or command. In a typical example, we might want to transfer an
    entire directory tree from one UNIX system to another (but without
-   using the methods described in [444]Sections 4.3 , [445]4.10,
-   [446]4.11, and [447]4.15). We could do this in multiple steps as
+   using the methods described inSections 4.3 ,4.10,
+  4.11, and4.15). We could do this in multiple steps as
    follows:
 
   1. Create a tar archive of the desired directory tree
@@ -6622,7 +6619,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
     1. When building from source code, include -DNOPUSH among the CFLAGS.
     2. At runtime, give the NOPUSH command.
     3. For server mode, give the DISABLE HOST command.
-    4. Implicit use of pipes can be disabled as described in [448]Section
+    4. Implicit use of pipes can be disabled as described inSection
        4.2.4.
 
    Note: 3 and 4 are not necessary if you have done 1 or 2.
@@ -6633,7 +6630,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    RECEIVE /COMMENT writes data to a command or pipeline. The GET /COMMAND
    command asks a server to send material, and then writes the incoming
    material to a command or pipeline. These features, along with switches
-   (like "/COMMAND", described in [449]Section 4.7) are new to C-Kermit
+   (like "/COMMAND", described in Section 4.7) are new to C-Kermit
    6.1. The following synonyms are also provided:
 
   CSEND    = SEND /COMMAND
@@ -6641,8 +6638,8 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   CGET     = GET /COMMAND
 
    None of these commands can be used if a SEND or RECEIVE FILTER
-   (respectively, [450]Section 4.2.3) is in effect, or if a NOPUSH command
-   ([451]Section 4.2.1.3) has been given, or if the current protocol is
+   (respectively, Section 4.2.3) is in effect, or if a NOPUSH command
+   ( Section 4.2.1.3) has been given, or if the current protocol is
    not Kermit.
 
 4.2.2.1. Sending from a Command
@@ -6781,7 +6778,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           uncompresses the archive and passes it to tar for extraction. In
           this case the braces are needed because otherwise the final "-"
           would be taken as a command continuation character (see
-          [452]Using C-Kermit, 2nd Edition, p.33).
+         Using C-Kermit, 2nd Edition, p.33).
 
    GET /COMMAND remote-file command
    GET /COMMAND /AS-NAME:command remote-file
@@ -6827,7 +6824,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
 4.2.3. Using File-Transfer Filters
 
-   The commands described in [453]Section 4.2.2 let you send the output of
+   The commands described in Section 4.2.2 let you send the output of
    a command, or receive data into a command. But what if you want to
    specify preprocessing for files that you send, or postprocessing of
    files that you receive, even when multiple files are involved? For this
@@ -6855,7 +6852,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    applies to all subsequent file-sending commands until you change or
    remove it. You can also specify a "local" filter to be used in a
    specific file-sending command by using the /FILTER switch (see
-   [454]Section 1.5); for example:
+  Section 1.5); for example:
 
   SEND /FILTER:command [ other-switches ] filename
 
@@ -7207,7 +7204,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 4.2.5. Success and Failure of Piped Commands
 
    Commands or programs started by Kermit as a result of CSEND or CRECEIVE
-   commands, CGET, SEND /COMMAND, REDIRECT commands (see [455]Section
+   commands, CGET, SEND /COMMAND, REDIRECT commands (seeSection
    4.2.8.2), implicit use of pipes, RUN commands, and so forth, should
    return their exit status codes to the Kermit command that caused them
    to be run, and therefore IF SUCCESS and IF FAILURE tests after these
@@ -7300,7 +7297,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    or the two systems use the same record format and character set for
    text files.
 
-   Also see [456]Sections 4.3, [457]4.10, [458]4.11, and [459]4.15 for how
+   Also seeSections 4.3,4.10,4.11, and4.15 for how
    to transfer directory trees between both like and unlike systems
    directly with Kermit.
 
@@ -7341,20 +7338,21 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    has yet to be worked out.
 
      HINT: See the PGP User's Guide, e.g. at:
-     [460]http://www.telstra.com.au/docs/PGP/
+    http://www.telstra.com.au/docs/PGP/
+
      Especially the topic "Using PGP as a UNIX-Style Filter":
-     [461]http://www.telstra.com.au/docs/PGP/pgpdoc2/pgpdoc2_17.html
+    http://www.telstra.com.au/docs/PGP/pgpdoc2/pgpdoc2_17.html
 
    In any case, better and more convenient security options are now
-   available: Kerberos authentication and encryption ([462]CLICK HERE for
-   details) and the new ability to run C-Kermit "though" other
-   communication programs, described in [463]Section 2.7.
+   available: Kerberos authentication and encryption and the new
+   ability to run C-Kermit "though" other communication programs,
+   described in Section 2.7.
 
 4.2.8. Commands and Functions Related to Pipes
 
 4.2.8.1. The OPEN !READ and OPEN !WRITE Commands
 
-   These are described in [464]Using C-Kermit, and are generally useful
+   These are described inUsing C-Kermit, and are generally useful
    with reading output from commands that produce more than one line on
    their standard output, or writing multiple lines into commands that
    accept them on their standard input.
@@ -7399,7 +7397,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    close, since this is the occasion upon which the shell gives Kermit its
    exit status code.
 
-   For an illustration of this situation, see [465]Section 2.14.
+   For an illustration of this situation, see Section 2.14.
 
 4.2.8.2. The REDIRECT Command
 
@@ -7446,7 +7444,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    It is possible to use C-Kermit on UNIX as your PPP dialer and then to
    REDIRECT the connection to the PPP software, but C-Kermit 7.0 offers a
-   better approach to PPP dialing in its new EXEC command ([466]Section
+   better approach to PPP dialing in its new EXEC command (Section
    1.23).
 
    In theory, you can also redirect an interactive process. For example,
@@ -7482,7 +7480,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    subject in place of the filename. Temporary files were bad not only
    because they required (a) space, and (b) writability of the current
    directory, but also because using them could result in wiping out an
-   existing file. See [467]Section 4.7 for more about SEND /MAIL and SEND
+   existing file. See Section 4.7 for more about SEND /MAIL and SEND
    /PRINT.
 
 4.2.8.4. Pipe-Related Functions
@@ -7540,7 +7538,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
   [ remote ] query kermit command(date)
 
-   The result is in the local \v(query) variable; see [468]Using C-Kermit,
+   The result is in the local \v(query) variable; seeUsing C-Kermit,
    2nd Ed., pp.359-360 for details.
 
 4.3. Automatic Per-File Text/Binary Mode Switching
@@ -7581,7 +7579,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    in the file's directory entry; thus the mechanisms described in this
    section do not apply to VMS C-Kermit, yet the effect is the same:
    automatic text/binary mode switching when VMS C-Kermit is sending
-   files. See the VMS Appendix of [469]Using C-Kermit for details.
+   files. See the VMS Appendix ofUsing C-Kermit for details.
 
    Kermit versions that support LABELED or IMAGE transfer mode are
    likewise not affected by this feature when one of those modes is
@@ -7636,7 +7634,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
      NOTE: When typing commands at the C-Kermit prompt, you must prefix
      "?" with \ to override its normal function of giving help.
 
-   (Also see [470]Section 4.9 for additional pattern-matching notations
+   (Also see Section 4.9 for additional pattern-matching notations
    that might be available in your version of C-Kermit.)
 
    When you have specified filename recognition patterns, C-Kermit can
@@ -7823,7 +7821,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    If no file of the same name exists, system defaults determine the
    permissions of the new file. Otherwise, the actions taken depend on the
    current FILE COLLISION setting: BACKUP, OVERWRITE, RENAME, etc, as
-   documented in [471]Using C-Kermit. But now the new file (if it is
+   documented inUsing C-Kermit. But now the new file (if it is
    created at all) automatically inherits the permissions (mode bits) of
    the existing file in a way that is appropriate for the platform.
 
@@ -7978,7 +7976,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    If no filespec is given, all files in the current directory are listed.
 
    Optional switches include all the standard file-selection switches
-   presented in [472]Section 1.5.4, plus:
+   presented in Section 1.5.4, plus:
 
    /ALL
           Show both regular files and directories; this is the default.
@@ -8057,7 +8055,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    /XFERMODE
           Only in Kermit programs that support SET FILE PATTERNS. If this
           switch is included, and the filename matches any FILE
-          BINARY-PATTERN ([473]Section 4.3), "(B)" is printed after the
+          BINARY-PATTERN ( Section 4.3), "(B)" is printed after the
           filename; otherwise, if it matches a FILE TEXT-PATTERN, "(T)" is
           printed.
 
@@ -8106,7 +8104,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    other (e.g. /HEADINGS).
 
    If you always want to use certain options, you can set them with the
-   SET OPTIONS DIRECTORY command ([474]Section 1.5.5). Use SHOW OPTIONS to
+   SET OPTIONS DIRECTORY command ( Section 1.5.5). Use SHOW OPTIONS to
    list the options currently in effect. To make the desired options apply
    every time you run C-Kermit, put a SET OPTIONS DIRECTORY command in
    your C-Kermit customization file, specifying the desired options.
@@ -8179,7 +8177,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   DEFINE DL DIR /DIR /SORT:NAME /ASCEND \%*    ; Alphabetical directory list
 
    Put these definitions in your C-Kermit customization file. Note that
-   "\%*" ([475]Section 7.5) in these definitions lets you include other
+   "\%*" ( Section 7.5) in these definitions lets you include other
    switches in your macro invocations, e.g.:
 
   wd /headings *.txt
@@ -8347,10 +8345,10 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    DELETE [ switches... ] filespec
           Deletes the file or files that match the filespec, which may
-          contain wildcards ([476]Section 4.9).
+          contain wildcards ( Section 4.9).
 
    Optional switches include the standard file-selection switches
-   presented in [477]Section 1.5.4, plus:
+   presented in Section 1.5.4, plus:
 
    /ASK
           Before deleting each file, ask permission interactively. Answers
@@ -8393,7 +8391,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    PURGE [ switches... ] [ filespec ]
           (UNIX only) Deletes "backup files" that match the filespec,
-          which may contain wildcards ([478]Section 4.9). If no filespec
+          which may contain wildcards ( Section 4.9). If no filespec
           is given, all backup files in the current directory are selected
           (subject to modification by any switches). Do not include backup
           notation in the filespec.
@@ -8412,7 +8410,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    The new PURGE command lets you clean out accumulated backup files:
 
    Optional switches include the standard file-selection switches
-   presented in [479]Section 1.5.4, plus all the switches listed above for
+   presented in Section 1.5.4, plus all the switches listed above for
    the DELETE command, plus:
 
    /KEEP:n
@@ -8440,7 +8438,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    If you want certain switches to be supplied automatically with each
    DELETE or PURGE command, you can set them with SET OPTIONS
-   ([480]Section 1.5.5) and you can display any such settings with SHOW
+   ( Section 1.5.5) and you can display any such settings with SHOW
    OPTIONS. Of course you can override them on a per-command basis by
    including switches in your PURGE or DELETE command.
 
@@ -8449,7 +8447,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
 4.6. Starting the Remote Kermit Server Automatically
 
-   As noted on pages 275-276 of [481]Using C-Kermit 2nd edition, you can
+   As noted on pages 275-276 ofUsing C-Kermit 2nd edition, you can
    have Kermit send "kermit receive" commands automatically when it is in
    local mode and you give a SEND or similar command, to start the remote
    Kermit receiver in case it is not already started. The "kermit receive"
@@ -8475,7 +8473,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    NOTE: If the remote Kermit is 6.0, the following are recommended for
    fast startup and high-performance file transfer (see Appendix I in
-   [482]Using C-Kermit, second Edition, for command-line options):
+  Using C-Kermit, second Edition, for command-line options):
 
   s1   kermit -YQir   (Kermit receive binary, skip init file, fast.)
   s2   kermit -YQTr   (Kermit receive text, skip init file, fast.)
@@ -8507,7 +8505,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    combinations, like "send a file as mail, then delete it".
 
    In C-Kermit 7.0, the SEND, GET, and RECEIVE commands were restructured
-   to accept modifier switches (switches are explained in [483]Section
+   to accept modifier switches (switches are explained inSection
    1.5).
 
 4.7.1. SEND Command Switches
@@ -8527,7 +8525,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /AFTER:date-time
           Specifies that only those files modified (or, in VMS, created)
-          after the given date-time (see [484]Section 1.6) are to be sent.
+          after the given date-time (see Section 1.6) are to be sent.
           Examples:
 
   send /text /after:{2-Feb-1997 10:28:30} *.txt
@@ -8541,7 +8539,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           filename, you should include an /AS-NAME switch to specify the
           name under which the array is to be sent (if you do not, the
           name "_array_x_" is used, where 'x' is replaced by the array
-          designator). See [485]section 7.10 for array-name syntax. As
+          designator). Seesection 7.10 for array-name syntax. As
           noted in that section, you can also include a range to have a
           segment of the array sent, rather than the whole thing; for
           example: "send /array:&a[100:199]". It is strongly recommended
@@ -8550,7 +8548,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           various automatic mechanisms might switch to binary mode when
           you really wanted text, or vice versa. In text mode a line
           terminator is added to the end of each array element, but not in
-          binary mode. For details and examples see [486]Section 7.10.11.
+          binary mode. For details and examples see Section 7.10.11.
 
    /AS-NAME:text
           Specifies "text" as the name to send the file under. You can
@@ -8562,7 +8560,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /BEFORE:date-time
           Specifies that only those files modified (or, in VMS, created)
-          before the given date-time ([487]Section 1.6) are to be sent.
+          before the given date-time ( Section 1.6) are to be sent.
 
    /BINARY
           Performs this transfer in binary mode without affecting the
@@ -8577,7 +8575,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   send oofa.txt           ; This one is sent in text mode
 
    /COMMAND
-          SEND /COMMAND is equivalent to CSEND ([488]Section 4.2.2) -- it
+          SEND /COMMAND is equivalent to CSEND ( Section 4.2.2) -- it
           says to send the output from a command, rather than the contents
           of a file. The first "filename" on the SEND command line is
           interpreted as the name of a command; the second (if any) is the
@@ -8603,18 +8601,18 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    /RECURSIVE
           Descend the through the directory tree when locating files to
           send. Automatically sets /PATHNAMES:RELATIVE. Explained in
-          [489]Section 4.11 .
+         Section 4.11 .
 
    /EXCEPT:pattern
-          See [490]Section 1.5.4.
+          See Section 1.5.4.
 
    /NOBACKUP
           This means to skip backup files when sending, even if they match
           the SEND file specification. This is equivalent to using SEND
           /EXCEPT and including *.~[0-9]*~ in the exception list (or *.~*~
           if Kermit was built without pattern-matching support; see
-          [491]Section 4.9.1). Including this switch is equivalent to
-          giving SET SEND BACKUP OFF ([492]Section 4.0.6) prior to SEND,
+         Section 4.9.1). Including this switch is equivalent to
+          giving SET SEND BACKUP OFF ( Section 4.0.6) prior to SEND,
           except its effect is local to the SEND command with which it was
           given.
 
@@ -8627,7 +8625,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /FILTER:command
           This specifies a filter to pass the file through before sending
-          it. See the [493]section on file-transfer pipes and filters. The
+          it. See thesection on file-transfer pipes and filters. The
           /FILTER switch applies only to the file-transfer command it is
           given with; it does not affect the global SEND FILTER setting,
           if any.
@@ -8708,7 +8706,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           renamed to the name given. If the name contains spaces, enclose
           it in braces. If a file group is being sent, then the "text"
           must contain a variable reference such as \v(filename) (see
-          [494]Section 4.1). Example:
+         Section 4.1). Example:
 
   send /rename-to:ok_\v(filename) *.*
 
@@ -8769,7 +8767,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           command only. In other words, SEND /TEXT really send the file in
           text mode, regardless of any other settings or negotiations.
 
-   About mail... Refer to [495]Section 4.7.1. The same rules apply as for
+   About mail... Refer to Section 4.7.1. The same rules apply as for
    file transfer. If you are mailing multiple files, you can't use an
    as-name (in this case, a subject) unless it contains replacement
    variables like \v(filenum). For example, if you:
@@ -8790,7 +8788,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    The MOVE, CSEND, MAIL, and RESEND commands now also accept the same
    switches. And the switches are also operative when sending from a
-   SEND-LIST (see [496]Using C-Kermit, 2nd Ed, pp.191-192), so, for
+   SEND-LIST (seeUsing C-Kermit, 2nd Ed, pp.191-192), so, for
    example, it is now possible to SEND /PRINT or SEND /MAIL from a
    SEND-LIST.
 
@@ -8818,7 +8816,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    In UNIX, where "/" is also the directory separator, there is usually no
    ambiguity between a fully-specified pathname and a switch, except when
    a file in the root directory has the same name as a switch (as noted in
-   [497]Section 1.5):
+  Section 1.5):
 
   send /etc/motd                        ; Works as expected
   send /command                         ; ???
@@ -8900,7 +8898,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           or later or K95 1.1.19 or later.
 
    /COMMAND
-          GET /COMMAND is equivalent to CGET ([498]Section 4.2.2) -- it
+          GET /COMMAND is equivalent to CGET ( Section 4.2.2) -- it
           says to receive the file into the standard input of a command,
           rather than saving it on disk. The /AS-NAME or the second
           "filename" on the GET command line is interpreted as the name of
@@ -8927,7 +8925,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
   /EXCEPT:{{pattern1}{pattern2}...}
 
-          See the description of SEND /EXCEPT in [499]Section 4.7.1 for
+          See the description of SEND /EXCEPT in Section 4.7.1 for
           examples, etc. Refusal is accomplished using the Attribute
           Rejection mechanism (reason "name"), which works only when
           Attribute packets have been successfully negotiated.
@@ -8938,7 +8936,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /FILTER:command
           This specifies a filter to pass the incoming file through before
-          writing to disk. See the [500]section on file-transfer pipes and
+          writing to disk. See thesection on file-transfer pipes and
           filters. The /FILTER switch applies only to the file-transfer
           command it is given with; it does not affect the global RECEIVE
           FILTER setting, if any.
@@ -8959,7 +8957,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           PATHNAMES setting for this transfer only. /PATHNAMES:ABSOLUTE or
           RELATIVE also sets /FILENAMES:LITERAL (also for this transfer
           only) since incoming pathnames would not be treated as pathnames
-          otherwise. See [501]Section 4.10.
+          otherwise. See Section 4.10.
 
    /QUIET
           When sending in local mode, this suppresses the file-transfer
@@ -9049,7 +9047,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
           whatsoever on the file sender.
 
    /COMMAND
-          RECEIVE /COMMAND is equivalent to CRECEIVE ([502]Section 4.2.2)
+          RECEIVE /COMMAND is equivalent to CRECEIVE ( Section 4.2.2)
           -- it says to receive the file into the standard input of a
           command, rather than saving it on disk. The /AS-NAME or the
           "filename" on the RECEIVE command line is interpreted as the
@@ -9068,7 +9066,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
   /EXCEPT:{{pattern1}{pattern2}...}
 
-          See the description of SEND /EXCEPT in [503]Section 4.7.1 for
+          See the description of SEND /EXCEPT in Section 4.7.1 for
           examples, etc. Refusal is accomplished using the Attribute
           Rejection mechanism (reason "name"), which works only when
           Attribute packets have been successfully negotiated.
@@ -9079,7 +9077,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /FILTER:command
           This specifies a filter to pass the incoming file through before
-          writing to disk. See the [504]section on file-transfer pipes and
+          writing to disk. See thesection on file-transfer pipes and
           filters. The /FILTER switch applies only to the file-transfer
           command it is given with; it does not affect the global RECEIVE
           FILTER setting, if any.
@@ -9099,7 +9097,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    /PATHNAMES:{ABSOLUTE,RELATIVE,OFF,AUTO}
           Use this switch to override the current global SET RECEIVE
-          PATHNAMES setting for this transfer only. See [505]Section 4.10.
+          PATHNAMES setting for this transfer only. See Section 4.10.
 
    /RECURSIVE
           When used with the RECEIVE command, /RECURSIVE is simply a
@@ -9301,7 +9299,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
        the command prompt or in a command file. However, when passing
        patterns to macros you'll need double backslashes, and when
        referring to these patterns within the macro, you'll need to use
-       \fcontents(\%1) (see [506]Section 1.11.5). You should enclose macro
+       \fcontents(\%1) (see Section 1.11.5). You should enclose macro
        argument references in braces in case grouped arguments were
        passed. Example:
  define ismatch {
@@ -9372,7 +9370,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
        "send xxx/*". You can also use the special shorthand "send ." to
        send all the files from the current directory.
      * To easily skip over backup files (the ones whose names end like
-       .~22~) when sending, you can use SEND /NOBACKUP (see [507]Section
+       .~22~) when sending, you can use SEND /NOBACKUP (seeSection
        4.0.6 for details).
      * When choosing Kermit to expand wildcards, rather than the shell,
        you can choose whether "dot files" -- files whose names begin with
@@ -9384,7 +9382,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
        are using, such as SEND or DIRECTORY.
      * Commands such as DIRECTORY and SEND allow recursive directory
        traversal. There are also new functions for this to use in scripts.
-       See [508]Section 4.11 for details.
+       See Section 4.11 for details.
 
    When building file lists in UNIX, C-Kermit follows symbolic links.
    Because of this, you might encounter any or all of the following
@@ -9422,8 +9420,8 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    example, [] encloses directory names in VMS.
 
    Nevertheless you can still use all the pattern-matching capabilities
-   described in [509]Section 4.9.1 by loading a file list into an array
-   (e.g. with \ffiles(*,&a), see [510]Section 4.11.3) and then using IF
+   described in Section 4.9.1 by loading a file list into an array
+   (e.g. with \ffiles(*,&a), see Section 4.11.3) and then using IF
    MATCH on the members.
 
 4.10. Additional Pathname Controls
@@ -9592,7 +9590,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    SEND /RECURSIVE /usr/olga (or /usr/olga/)
           Same as above. If the name is a directory name (with or without
           a trailing slash), its files are sent, and those of its
-          subdirectories, and their subdirectories, etc (see [511]Section
+          subdirectories, and their subdirectories, etc (seeSection
           4.9).
 
    SEND /RECURSIVE /TEXT /usr/olga/*.txt
@@ -9605,7 +9603,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    SEND /RECURSIVE .
           UNIX only: Sends all of the files in the current directory and
-          all of its subdirectories, etc ([512]Section 4.9).
+          all of its subdirectories, etc ( Section 4.9).
 
    The /RECURSIVE switch is different from most other switches in that its
    effect is immediate (but still local to the command in which it is
@@ -9695,7 +9693,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    Each of these functions builds up a list of files to be returned by the
    \fnextfile() function, just as \ffiles() always has done. (This can
    also be done with the /ARRAY switch of the DIRECTORY command; see
-   [513]Sections 4.5.1 and [514]7.10).
+ Sections 4.5.1 and7.10).
 
    Each of these functions can be given an array name as an optional
    second argument. If an array name is supplied, the array will contain
@@ -9714,7 +9712,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    array.
 
    Note that the order in which the array is filled (and in which
-   \fnextfile() returns filenames) is indeterminate (but see [515]Section
+   \fnextfile() returns filenames) is indeterminate (but seeSection
    7.10.5).
 
    Here's an example that builds and prints a list of all the file whose
@@ -9728,7 +9726,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
   }
 
    Alternatively, using the array method, and then printing the filenames
-   in alphabetic order (see [516]Section 7.10.3 and [517]7.10.5):
+   in alphabetic order (see Section 7.10.3 and7.10.5):
 
   asg \%n \frfiles(*.txt,&a)
   sort &a
@@ -9754,7 +9752,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
       if fail break
   }
 
-   Copying to an array (as shown on p.398 of [518]Using C-Kermit 2nd Ed)
+   Copying to an array (as shown on p.398 ofUsing C-Kermit 2nd Ed)
    is no longer necessary.
 
 4.11.5. Moving Directory Trees Between Like Systems
@@ -9825,7 +9823,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
      * File formats can be different, especially text files character sets
        and record formats. This can now be handled by using SET FILE
        PATTERN, SET FILE TEXT-PATTERNS, and SET FILE BINARY-PATTERNS
-       ([519]Section 4.3).
+       ( Section 4.3).
      * File naming conventions are different. For example, one system
        might allow (and use) longer filenames than the other. You can tell
        Kermit how to handle file names with the normal "set file names"
@@ -9836,7 +9834,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
      * Directory notations can be different, e.g. backslashes instead of
        slashes, brackets, parentheses, spaces, etc. But this is now
        handled by converting pathnames to a standard format during
-       transfer ([520]Section 4.10).
+       transfer ( Section 4.10).
 
    So now, for the first time, it is possible to send directory trees
    among any combination of UNIX, DOS, Windows, OS/2, VMS, AOS/VS, etc.
@@ -9871,7 +9869,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
      * By default, destination file dates will be the same as on the
        source.
      * Many of the settings shown might already be set by default.
-     * See [521]Sections 4.3, [522]4.10, and [523]4.15 for additional
+     * SeeSections 4.3,4.10, and4.15 for additional
        explanation.
 
    If you are refreshing an existing directory on the destination
@@ -10157,7 +10155,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 4.19. Clear-Channel Protocol
 
    Now that C-Kermit itself is capable of sending and receiving any byte
-   at all on a clear channel ([524]Section 4.18), it is, for the first
+   at all on a clear channel ( Section 4.18), it is, for the first
    time, in a position to negotiate a clear channel with the other Kermit,
    giving it permission (but not requiring it) to unprefix any and all
    characters that it knows are safe. In general this means all but the
@@ -10176,11 +10174,11 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    AUTO is the default, meaning that the clear-channel status is
    determined automatically from the type of connection. ON means to
    announce a clear channel, OFF means not to announce it. Use SHOW
-   STREAMING ([525]Section 4.20) to see the current CLEAR-CHANNEL status.
+   STREAMING ( Section 4.20) to see the current CLEAR-CHANNEL status.
    Synonym: SET CLEARCHANNEL.
 
    CLEAR-CHANNEL is also set if you start C-Kermit with the -I switch (see
-   [526]Section 4.20).
+  Section 4.20).
 
    Whenever a clear channel is negotiated, the resulting control-character
    unprefixing is "sticky"; that is, it remains in effect after the
@@ -10197,7 +10195,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    and then made a Telnet connection from there to another host. If a file
    transfer fails on a TCP/IP connection, use SHOW CONTROL to check
    whether control characters became unprefixed as a result of protocol
-   negotiations, and/or SHOW STREAMING ([527]Section 4.20) to see if
+   negotiations, and/or SHOW STREAMING ( Section 4.20) to see if
    "clear-channel" was negotiated. If this happened, use SET CLEAR-CHANNEL
    OFF and SET PREFIXING CAUTIOUS (or whatever) to prevent it from
    happening again.
@@ -10232,7 +10230,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
        to control streaming.
 
    (Note that an offer to stream also results in a Clear-Channel
-   announcement if CLEAR-CHANNEL is set to AUTO; see [528]Section 4.19.)
+   announcement if CLEAR-CHANNEL is set to AUTO; see Section 4.19.)
 
    When BOTH Kermits offer to stream, then they stream; otherwise they
    don't. Thus streaming-capable Kermit programs interoperate
@@ -10281,7 +10279,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    achieved on socket-to-socket connections (in which the considerable
    overhead of the terminal driver and Telnet or Rlogin server is
    eliminated) with long packets and the new "brief" file-transfer display
-   ([529]Section 4.16).
+   ( Section 4.16).
 
 4.20.1. Commands for Streaming
 
@@ -10401,7 +10399,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
    Since we have a reliable connection, we'll also get control-character
    unprefixing automatically because of the new clear-channel protocol
-   ([530]Section 4.19).
+   ( Section 4.19).
 
    Any errors that occur during streaming are fatal to the transfer. The
    message is "Transmission error on reliable link". Should this happen:
@@ -10421,7 +10419,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
        and b don't cure the problem, tell the file receiver to "set
        receive packet-length 1000" (or other number -- use the largest one
        that works). This too, is no different from the non-streaming case
-       (more about this in [531]Section 4.20.2.3).
+       (more about this in Section 4.20.2.3).
 
    And remember you can continue interrupted binary-mode transfers where
    they left off with the RESEND (= SEND /RECOVER) command.
@@ -10576,7 +10574,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    FILE TYPE setting.
 
    C-Kermit 7.0 expands the capabilities of the TRANSMIT command by adding
-   the following switches (see [532]Section 1.5). The new syntax is:
+   the following switches (see Section 1.5). The new syntax is:
 
   TRANSMIT [ switches... ] filename
 
@@ -10642,7 +10640,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    more than usual for the TRANSMIT command!) on a clean connection with
    effective flow control.
 
-   For details on TRANSMIT and character sets, see [533]Section 6.6.5.4.
+   For details on TRANSMIT and character sets, see Section 6.6.5.4.
 
   4.22. Coping with Faulty Kermit Implementations
 
@@ -10691,7 +10689,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
     4.22.3. Corrupt Files
 
-   Refer to [534]Section 4.22.2. Some Kermit implementations mistakenly
+   Refer to Section 4.22.2. Some Kermit implementations mistakenly
    interpret the "Y" as a prefix character. Then, whenever a letter Y
    appears in the data, the Y and the character that follows it are
    replaced by a garbage character. At this writing, we are not sure if
@@ -10748,13 +10746,13 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
     4.22.6. Failures during the Data Transfer Phase
 
-   This can be caused by control-character unprefixing ([535]Section
+   This can be caused by control-character unprefixing (Section
    4.22.3 ), and fixed by:
 
   SET PREFIXING ALL
 
    It can also have numerous other causes, explained in Chapter 10 of
-   [536]Using C-Kermit: the connection is not 8-bit transparent (so use
+  Using C-Kermit: the connection is not 8-bit transparent (so use
    "set parity space" or somesuch), inadequate flow control, etc. Consult
    the manual.
 
@@ -10894,7 +10892,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
 
   4.25. Autodownload Improvements
 
-   Refer to pages 164-165 of [537]Using C-Kermit about the hazards of
+   Refer to pages 164-165 ofUsing C-Kermit about the hazards of
    autodownload when C-Kermit is "in the middle". As of C-Kermit 7.0, no
    more hazards. If C-Kermit has TERMINAL AUTODOWNLOAD ON and it detects a
    packet of the current protocol type (Kermit or Zmodem), it "erases" the
@@ -10933,7 +10931,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    The -O option ("Only One") tells C-Kermit to enter server mode but then
    exit after the first client operation.
 
-   See [538]Section 9.3 for details.
+   See Section 9.3 for details.
 
   5.2. New Client Commands
 
@@ -10954,7 +10952,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    REMOTE MKDIR directory-name
           Tells the client to ask the server to create a directory with
           the given name, which can be absolute or relative. The syntax of
-          the directory name depends on the Kermit server (see [539]next
+          the directory name depends on the Kermit server (seenext
           section); in all cases, it can be in the syntax of the system
           where the server is running (UNIX, VMS, DOS, etc) but newer
           servers also accept UNIX syntax, no matter what the underlying
@@ -11131,7 +11129,7 @@ SET HOST /PTY {sh -c "grep somestring *.txt"}
    Directory listings are generated by C-Kermit itself, rather than by
    running the underlying system's directory command. Some control over
    the listing format can be obtained with the SET OPTIONS DIRECTORY
-   command ([540]Section 4.5.1). The following options affect listings
+   command ( Section 4.5.1). The following options affect listings
    sent by the server: /[NO]HEADING, /[NO]DOTFILES, and /[NO]BACKUP. In
    UNIX and VMS, the listing is always sorted by filename. There is, at
    present, no protocol defined for the client to request listing options
@@ -11273,7 +11271,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
           Given to server, includes CD-Message status.
 
    The default CD message file name is system dependent. SHOW CD or SHOW
-   SERVER displays the list. Also see [541]Section 4.5.2.
+   SERVER displays the list. Also see Section 4.5.2.
 
   5.6. New Server Controls
 
@@ -11345,13 +11343,13 @@ C-Kermit> remote directory | sort +0.22 -0.40
    involving the DEC MCS or NeXT character sets.
 
    The Euro character is also present in the Universal Character Set,
-   described in [542]Section 6.6.
+   described in Section 6.6.
 
   6.1. The HP-Roman8 Character Set
 
    The HP-Roman8 character set is supported in C-Kermit 6.0 and later but
    was omitted from Table VII-4 in the 2nd Edition of Using C-Kermit due
-   to lack of space. It is listed in [543]Appendix III.
+   to lack of space. It is listed inAppendix III.
 
   6.2. Greek Character Sets
 
@@ -11362,7 +11360,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
 
    GREEK-ISO is ISO 8859-7, which the same as ELOT 928.
 
-   The new Greek character sets are listed in [544]Appendix III.
+   The new Greek character sets are listed inAppendix III.
 
   6.3. Additional Latin-2 Character Sets
 
@@ -11401,11 +11399,11 @@ C-Kermit> remote directory | sort +0.22 -0.40
           Cyrillic letter Io (looks like Roman E with diaeresis) plus a
           selection of box-drawing characters to columns 8 through 11,
           which are vacant in original Old KOI-8. KOI8-R is used for the
-          Russian language. It is specified in [545]RFC 1489.
+          Russian language. It is specified inRFC 1489.
 
    KOI8U
           A similar extension of Old KOI-8, but for Ukrainian. It is
-          specified in [546]RFC 2319.
+          specified inRFC 2319.
 
   6.5. Automatic Character-Set Switching
 
@@ -11528,7 +11526,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
 
    For a more complete picture, please visit:
 
-  [547]http://www.unicode.org/
+ http://www.unicode.org/
 
    and access the various online introductions, FAQs, technical reports,
    and other information. For greater depth, order the latest version of
@@ -11552,7 +11550,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    or ancient (or other esoteric) CJK characters, but these planes are not
    yet defined and so we will say nothing more about them here, except
    that their use will require the 4-byte form of UCS, called UCS-4, in
-   some form (more about "forms" in [548]Section 6.6.2).
+   some form (more about "forms" in Section 6.6.2).
 
    Unicode and ISO 10646 are constantly under revision, mainly to add new
    characters. The Unicode revision is denoted by a version number, such
@@ -11600,7 +11598,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    platforms store UCS-2 characters in different byte order. Thus a UCS-2
    file transferred by FTP (or accessed via NFS, etc) between two
    computers with different architecture might have its bytes in the wrong
-   order (or worse; see [549]Section 6.6.5.1 ).
+   order (or worse; see Section 6.6.5.1 ).
 
     6.6.2. UCS Byte Order
 
@@ -11726,7 +11724,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    Normalization Form C (described in Unicode Technical Report 15,
    incorporated into Unicode 3.0).
 
-   As noted in [551]Section 6.6.2, Kermit does not claim to support UTF-16
+   As noted in Section 6.6.2, Kermit does not claim to support UTF-16
    at the present time, hence the UCS-2 nomenclature. Kermit treats
    surrogates just as if they were any other UCS-2 characters, rather than
    as escapes to other planes, which means that (except when converting
@@ -11739,7 +11737,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    A minor yet significant aspect of Unicode 3.0 and some recent
    perturbation of ISO 10646-1 (probably Amendment 18, "Symbols and Other
    Characters") is the addition of the Euro Sign at U+20AC. As noted in
-   [552]Section 6.0, Kermit's "Euro compliance" includes conversion
+  Section 6.0, Kermit's "Euro compliance" includes conversion
    between Latin Alphabet 9 and various PC code pages. Text can also be
    converted between UCS-2 or UTF-8 and any other Euro-compliant character
    set (Latin-9, CP858, CP1250, CP1252) without loss of the Euro Sign.
@@ -11963,7 +11961,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    mechanism that operates on a per-byte basis; it has no knowledge of the
    distinction between a byte and a character.
 
-   When C-Kermit starts, it sets up associations ([553]Section 6.5) for
+   When C-Kermit starts, it sets up associations ( Section 6.5) for
    incoming files whose transfer character sets are UCS-2 or UTF-8
    appropriately for the platform so that the file character-set for the
    incoming file is UCS-2 in Windows and UTF-8 elsewhere. Otherwise,
@@ -12012,7 +12010,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
    happens when Unicode is the intermediate set because Unicode is a
    superset of all other character sets supported by Kermit. A more
    dramatic example would be translation between Cyrillic PC code page 866
-   and KOI8-R ([554]Section 6.4); formerly all the line- and box-drawing
+   and KOI8-R ( Section 6.4); formerly all the line- and box-drawing
    characters would be lost (since ISO 8859-5 does not have any); now the
    ones that these two sets have in common are preserved.
 
@@ -12149,7 +12147,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
 
     6.6.5.4. The TRANSMIT Command
 
-   As described in Chapter 15 of [555]Using C-Kermit and [556]Section 4.21
+   As described in Chapter 15 ofUsing C-Kermit and Section 4.21
    of this document, the TRANSMIT command can be used to upload a file
    without protocol, more or less as if you were typing it on your
    keyboard while connected to the host. When TRANSMITting in text mode,
@@ -12289,7 +12287,7 @@ C-Kermit> remote directory | sort +0.22 -0.40
           and sends it to the server. The server, if it supports this
           command (C-Kermit 7.0 and K95 1.1.19 do), sets its file
           character-set as requested, and also disables automatic
-          character-set switching ([557]Section 6.5). If the server does
+          character-set switching ( Section 6.5). If the server does
           not support this command or if it does not support the given
           character set, the REMOTE SET FILE CHARACTER-SET command fails.
 
@@ -12320,7 +12318,7 @@ e
 
   7. SCRIPT PROGRAMMING
 
-   (Also see [558]Section 2.8, Scripting Local Programs.)
+   (Also see Section 2.8, Scripting Local Programs.)
 
   7.0. Bug Fixes
 
@@ -12362,7 +12360,7 @@ e
    The following new INPUT controls were added in version 7.0:
 
    SET INPUT AUTODOWNLOAD { ON, OFF }
-          Explained in [559]Section 7.7.
+          Explained in Section 7.7.
 
    SET INPUT CANCELLATION { ON, OFF }
           This governs whether an INPUT command can be canceled by
@@ -12376,12 +12374,12 @@ e
           emergency exit. (If you really want to disable interruption by
           Ctrl-C, use SET COMMAND INTERRUPTION OFF.)
 
-   Also see [560]Section 7.2 for any new variables related to INPUT.
+   Also see Section 7.2 for any new variables related to INPUT.
 
     7.1.3. INPUT with Pattern Matching
 
    C-Kermit 7.0 allows INPUT, MINPUT, and REINPUT targets to be a pattern
-   (explained in [561]Sections 1.19 and [562]4.9). This solves a
+   (explained inSections 1.19 and4.9). This solves a
    long-standing problem illustrated by the following scenario: a certain
    company has a bank of TCP/IP modem servers, with hostnames server1,
    server2, server3, and so on. Each server's prompt is its name, followed
@@ -12491,10 +12489,10 @@ e
           The device name of C-Kermit's controlling (login) terminal.
 
    \v(filename)
-          Described in [563]Sections 4.1 and [564]4.2.
+          Described inSections 4.1 and4.2.
 
    \v(filenumber)
-          Described in [565]Sections 4.1 and [566]4.2.
+          Described inSections 4.1 and4.2.
 
    \v(filespec)
           As of C-Kermit 7.0, contains fully qualified filenames rather
@@ -12523,7 +12521,7 @@ e
           URL most recently given to Web browser
 
    \v(dialtype)
-          Type of call most recently placed (see [567]Section 2.1.11).
+          Type of call most recently placed (see Section 2.1.11).
 
    \v(kbchar)
           The character, if any, that was typed at the keyboard to to
@@ -12552,7 +12550,7 @@ e
           will be "none"). Otherwise this variable is empty.
 
    \v(serial)
-          Current serial port settings in 8N1 format ([568]Section 2.10).
+          Current serial port settings in 8N1 format ( Section 2.10).
 
    \v(errno)
           In UNIX, the current value of the C runtime errno variable,
@@ -12566,7 +12564,7 @@ e
    \v(errstring)
           The UNIX or VMS system error message that corresponds to
           \v(errno). Not available in all OS's. Also see
-          [569]\ferrstring().
+         \ferrstring().
 
    \v(setlinemsg)
           The error message, if any, from the most recent SET LINE, SET
@@ -12585,7 +12583,7 @@ e
           code can be given to \ferrstring() to get the corresponding
           error message (in UNIX, program/command return codes are not the
           same as system error codes). Not available in operating systems
-          other than UNIX and VMS. See [570]Section 4.2.5 for details.
+          other than UNIX and VMS. See Section 4.2.5 for details.
 
    \v(inmatch)
           The incoming string of characters, if any, that matched the most
@@ -12607,7 +12605,7 @@ e
           recent INPUT command.
 
    \v(dialsuffix)
-          Dialing suffix for use during PDIAL sequence; see [571]Section
+          Dialing suffix for use during PDIAL sequence; seeSection
           2.1.10.
 
    \v(pid)
@@ -12679,7 +12677,7 @@ e
 
    \v(name)
           The name with which the Kermit program was invoked, e.g.
-          "kermit", "wermit", "k95", "k2", etc (see [572]Section 9.1).
+          "kermit", "wermit", "k95", "k2", etc (see Section 9.1).
 
    \v(osname)
           Name of operating system on computer where C-Kermit is running,
@@ -12698,10 +12696,10 @@ e
           running, if known.
 
    \v(math_pi)
-          The value of Pi (see [573]Section 7.23)
+          The value of Pi (see Section 7.23)
 
    \v(math_e)
-          The value of e (see [574]Section 7.23)
+          The value of e (see Section 7.23)
 
    \v(math_precision)
           How many significant digits in a floating-point number.
@@ -12734,7 +12732,7 @@ e
 
   7.3. New or Improved Built-In Functions
 
-   The following new file-i/o functions are explained in [575]Section
+   The following new file-i/o functions are explained inSection
    1.22.
 
   \f_status(channel)           Status of file open on channel
@@ -12750,7 +12748,7 @@ e
   \f_putblock(channel,string)  Write a block to given file
 
    The following new date-time-related functions are explained in
-   [576]Section 1.6:
+  Section 1.6:
 
   \fday()                Returns day of week of given date
   \fnday()               Returns numeric day of week of given date
@@ -12765,7 +12763,7 @@ e
   \fmjd2date(mjd)        Converts modified Julian date to yyyymmdd
 
    The new floating-point arithmetic functions are explained in
-   [577]Section 7.23. f1 and f2 are floating-point (real) numbers; d is
+  Section 7.23. f1 and f2 are floating-point (real) numbers; d is
    the number of decimal places to show:
 
   \ffpabsolute(f1,d)     Absolute value of f1
@@ -12851,11 +12849,11 @@ e
    String functions:
 
    \s(name[n:m])
-          Equivalent to \fsubstring(\m(name),n,m) ([578]Section 7.24).
+          Equivalent to \fsubstring(\m(name),n,m) ( Section 7.24).
 
    \:(name[n:m])
           Equivalent to \fsubstring(name,n,m) (where "name" is any
-          \-quantity) ([579]Section 7.24).
+          \-quantity) ( Section 7.24).
 
    \fleft(s,n)
           The leftmost ncharacters of string s; equivalent to
@@ -12888,7 +12886,7 @@ e
   \fstripn(12345678,3)                = "12345"
 
           (For more discussion of \fstripx(), \fstripn(), and \flop() see
-          [580]Section 4.2.3).
+         Section 4.2.3).
 
    \fb64encode(s)
           Returns the Base-64 encoding of the string s.
@@ -12963,7 +12961,7 @@ while true {
     ...
 }
 
-          This problem is addressed in [581]C-Kermit 9.0.
+          This problem is addressed inC-Kermit 9.0.
 
    \fsplit(s1,&a,s2,s3)
           This is like \fword(), except instead of extracting and
@@ -13020,7 +13018,7 @@ while true {
 
   fopen /read \%c some-file
   if fail ...
-  set function error on    ; See [582]Section 7.12
+  set function error on    ; See Section 7.12
   while true {
       dcl \&w[]            ; Destroy \&[w] each time thru the loop
       fread /line \%c \%a
@@ -13042,7 +13040,7 @@ while true {
   length(s2) - length(s1) - n (with the same defaults for n).
 
    \fsearch(pattern,string[,position])
-          Exactly like \findex(), except with a pattern (see [583]Section
+          Exactly like \findex(), except with a pattern (seeSection
           7.9) rather than a literal string.
 
    \frsearch(pattern,string[,position])
@@ -13053,7 +13051,7 @@ while true {
 
    \ffiles(), \fnextfile()
           It is no longer necessary to copy the file list to an array
-          before use, as shown on p.398 of [584]Using C-Kermit 2nd
+          before use, as shown on p.398 ofUsing C-Kermit 2nd
           Edition. \ffiles() and friends now make their own safe copies of
           the file list. Thus constructions like the following are now
           possible:
@@ -13061,7 +13059,7 @@ while true {
   for \%i 1 \ffiles(*.txt) 1 { send \fnextfile() }
 
           The same is true for the new function \frfiles(),
-          \fdirectories(), and \frdirectories(), described in [585]Section
+          \fdirectories(), and \frdirectories(), described inSection
           4.11.3.
 
           But note that each reference to \fnextfile() still gets you the
@@ -13078,7 +13076,7 @@ while true {
           Also note that \ffiles(), \frfiles(), \fdirectories(), and
           \frdirectories() all now accept on optional 2nd argument: the
           name of an array to load with the resulting file or directory
-          list, explained in [586]Section 4.11.3. So you can also load an
+          list, explained in Section 4.11.3. So you can also load an
           array with the filelist when you need to refer to the same file
           more than once:
 
@@ -13099,7 +13097,7 @@ while true {
           letter, a-z, or special character "_" or "@", is given after the
           "&" in the argument. If the array is not declared, 0 is
           returned. Note that when used with the macro argument vector
-          array, \&_[] (see [587]Section 7.5), the value of this function
+          array, \&_[] (see Section 7.5), the value of this function
           is one less than \v(argc), and when used with the C-Kermit
           command-line argument vector array, \&@[], it is equal to the
           \v(args) variable. Examples:
@@ -13116,13 +13114,13 @@ while true {
           The arrayname can include a range specifier to restrict to
           search to a segment of the array, e.g.
           \farraylook(*xyz*,&a[32:63]). For greater detail see
-          [588]Section 7.10.7.
+         Section 7.10.7.
 
    \ftablelook(keyword,arrayname[,delimiter])
           Looks in the given "table", which must be sorted, for the given
           keyword. Returns the index of the table element that uniquely
           matches the given keyword, or -1 if none match, or -2 if more
-          than 1 match. For greater detail see [589]Section 7.10.7.
+          than 1 match. For greater detail see Section 7.10.7.
 
    Other new functions:
 
@@ -13138,7 +13136,7 @@ while true {
    \fcommand()
    \frawcommand()
           These run an external command and return its output; see
-          [590]Section 4.2.8.4.
+         Section 4.2.8.4.
 
    \fdialconvert(s)
           s is a phone number in either literal or portable format (not a
@@ -13150,7 +13148,7 @@ while true {
    \ferrstring(n)
           Returns the system error message associated with the (numeric)
           error code n. UNIX and VMS only. Use in conjunction with
-          \v(errno) or \v(pexitstat). See [591]Section 4.2.5 for a usage
+          \v(errno) or \v(pexitstat). See Section 4.2.5 for a usage
           example. Note: This function doesn't work in Windows because
           there is not a consistent error-code-to-message mapping; error
           code "x" means something completely different depending on
@@ -13162,7 +13160,7 @@ while true {
           strings that are to be treated as patterns rather than
           literally.
 
-   Also see [592]Section 7.8 on built-in help for functions.
+   Also see Section 7.8 on built-in help for functions.
 
   7.4. New IF Conditions
 
@@ -13215,7 +13213,7 @@ while true {
 
    IF MATCH string pattern command
           Executes the command if the string matches the pattern. For a
-          description of the syntax for the pattern, see [593]Section
+          description of the syntax for the pattern, seeSection
           4.9.1. If you want to test if the string contains pattern, use
           IF \fsearch(pattern,string).
 
@@ -13275,7 +13273,7 @@ while true {
    arguments. As in versions 6.0 and earlier, if more than 9 arguments are
    given, only the first nine are assigned to the variables \%1..\%9.
 
-   The \&_[] array, discussed on page 353 of [594]Using C-Kermit, 2nd ed,
+   The \&_[] array, discussed on page 353 ofUsing C-Kermit, 2nd ed,
    now holds all the arguments, up to some implementation-dependent limit
    (64 or greater), rather than only the first 9. To illustrate: the
    following macro tells the number of arguments it was called with and
@@ -13292,7 +13290,7 @@ while true {
    At top level, the \&_[] array is filled as follows:
 
      * If the first argument on the C-Kermit command line was a filename,
-       or C-Kermit was invoked from a "Kerbang" script ([595]Section
+       or C-Kermit was invoked from a "Kerbang" script (Section
        7.19), element 0 contains the filename, and elements 1 through
        \v(argc)-1 hold the remaining command-line arguments.
      * Otherwise the program name goes in element 0, and elements 1
@@ -13341,7 +13339,7 @@ while true {
    the \%1..9 variables from the argument vector array.
 
    At top level, the SHIFT command operates on the \&_[] array and \%1..9
-   variables; the \&@[] array is not affected. See [596]Section 7.16 for
+   variables; the \&@[] array is not affected. See Section 7.16 for
    details.
 
    The \%* variable is not affected by the SHIFT command.
@@ -13580,7 +13578,7 @@ while true {
    EVALUATE NEW.
 
    NOTE: There are no analogs to the "_" commands for the operators
-   described in [597]Section 7.9.1; those operators can not be used to
+   described in Section 7.9.1; those operators can not be used to
    assign values to variables whose names must be computed.
 
   7.10. Arrays
@@ -13732,19 +13730,19 @@ while true {
 
    Finally, remember that every command level has its own local array,
    \&_[], containing all the macro arguments (\%0, \%1, ...) for that
-   level. See [598]Section 7.5 for details.
+   level. See Section 7.5 for details.
 
     7.10.2. Turning a String into an Array of Words
 
    The \fsplit(s1,&a,s2,s3) function assigns the words of string s1 to
    successive elements of the array (beginning with element 1) whose
    identifying letter, a-z, is given after the "&" in the second argument,
-   using break and include characters given in s2 and s3. See [599]Section
+   using break and include characters given in s2 and s3. SeeSection
    7.3 for details.
 
     7.10.3. Arrays of Filenames
 
-   See [600]Section 4.11.3 for news about how \ffiles() and related
+   See Section 4.11.3 for news about how \ffiles() and related
    functions can assign a list of filenames to an array. To recapitulate
    briefly here:
 
@@ -13757,7 +13755,7 @@ while true {
    The filenames are assigned starting at array element 1. Element 0 holds
    the number of files in the list.
 
-   The DIRECTORY command ([601]Section 4.5.1) can also create filename
+   The DIRECTORY command ( Section 4.5.1) can also create filename
    arrays if you give it the /ARRAY: switch; this allows selection
    criteria beyond whether the filename matches the given pattern.
 
@@ -13808,16 +13806,16 @@ while true {
           (string based). The array name can be given fully, e.g. "\&a[]",
           or the "\" and/or "&" and/or brackets can be omitted, e.g.
           "array sort \&a[]", "sort &a", "sort a". Also, a range can be
-          indicated in the brackets as noted in [602]Section 7.10, to
+          indicated in the brackets as noted in Section 7.10, to
           restrict the sort to a range of elements (equivalent to the
           /RANGE switch, described just below), e.g. "array sort
           &a[20:30]".
 
    A second array may be specified. If it is, and if it is at least as big
    as the first array, it is sorted according to the first array. For a
-   sample application, see [603]Section 7.10.10.
+   sample application, see Section 7.10.10.
 
-   See [604]Section 1.5 for an explanation of switches. The optional
+   See Section 1.5 for an explanation of switches. The optional
    switches are:
 
    /CASE:{ON,OFF}
@@ -13843,7 +13841,7 @@ while true {
           of "numeric", terminating at the first character that does not
           qualify. A numeric string has an optional sign (+ or -) followed
           by one or more digits, and (if your version of Kermit was built
-          with floating-point support; see [605]Section 7.23 ) zero or one
+          with floating-point support; see Section 7.23 ) zero or one
           decimal point (period). If both /CASE and /NUMERIC are given,
           /NUMERIC takes precedence.
 
@@ -13851,7 +13849,7 @@ while true {
           Sort elements nthrough m of the array. By default, the entire
           array from element 1 to its dimensioned size is sorted, which
           might produce surprising results if the array is not full; see
-          example in [606]Section 7.10.7. If ":m" is omitted from the
+          example in Section 7.10.7. If ":m" is omitted from the
           range, the dimensioned size is used. Thus, to sort an entire
           array, \&a[], including its 0th element, use "sort /range:0 &a".
           You can also sort any desired section of an array, e.g. "sort
@@ -13877,7 +13875,7 @@ while true {
   xena     100
 
    (and so on) stored in array \&s[] (e.g. by reading them from a file as
-   illustrated in [607]section 7.10.7). In these records, the student's
+   illustrated insection 7.10.7). In these records, the student's
    name is in columns 1-9 and the score in 10-12. So to rearrange the list
    in descending order of score:
 
@@ -13917,7 +13915,7 @@ while true {
 
    Example:
 
-  assign \%n \ffiles(*,&a)  ; Fill an array with filenames ([608]Section 4.11.3)
+  assign \%n \ffiles(*,&a)  ; Fill an array with filenames ( Section 4.11.3)
   show array \&a[]          ; Show the array we just read
   array show \&a[]          ; Same as previous
   array sort \&a[]          ; Sort the array
@@ -14021,12 +14019,12 @@ for i 1 n 1 {
           are discarded. Note: If you have stored the array size in
           element 0, ARRAY RESIZE does not change this value. Alternative
           notation: ARRAY RESIZE arrayname[size]. For a practical example,
-          see [609]Section 7.10.11.
+          see Section 7.10.11.
 
    \farraylook(pattern,arrayname)
           This function returns the index of the first element of the
           given array that matches the given pattern (for details about
-          pattern syntax, see [610]section 4.9). The array name can
+          pattern syntax, seesection 4.9). The array name can
           include a range specification to restrict the search to a given
           segment of the array. If no elements match the pattern, -1 is
           returned.
@@ -14170,9 +14168,9 @@ for i 1 n 1 {
 
    However, note that C-Kermit has certain biases towards 1-based arrays:
 
-     * Assignment of file lists starts with element 1 ([611]Section
+     * Assignment of file lists starts with element 1 (Section
        7.10.3).
-     * Assignment by \fsplit() starts with element 1 ([612]Section 7.3).
+     * Assignment by \fsplit() starts with element 1 ( Section 7.3).
      * Array initialization skips the 0th element. To initialize a 0-based
        array, use something like this:
   declare \&a[3] = one two three
@@ -14256,7 +14254,7 @@ for i 1 n 1 {
        higher-dimensioned arrays are not available.
 
    But none of this is to say you can't invent any kind of data structure
-   you like. In [613]Section 7.9.2 you can see some examples. Here's
+   you like. In Section 7.9.2 you can see some examples. Here's
    another (courtesy of Dat Thuc Nguyen), in which a pair of matrices is
    created and then added: no dimensioning necessary.
 
@@ -14334,7 +14332,7 @@ for i 1 n 1 {
    Associative arrays are most useful, however, when the value of the
    index is a variable. In that case, you must use the "hidden" forms of
    the DEFINE or ASSIGN commands that evaluate the macro name before
-   making the assignment (see [614]Using C-Kermit, page 457). Example:
+   making the assignment (seeUsing C-Kermit, page 457). Example:
 
   define \%f oofa.txt
   _define file<\%f> 1
@@ -14367,7 +14365,7 @@ for i 1 n 1 {
    file-transfer log in which each line is composed of a number of
    blank-separated fields, and the 9th field is a filename (which happens
    to be the format of certain FTP server logs, as well as of C-Kermit's
-   new FTP-format transaction log, described in [615]Section 4.17.2), for
+   new FTP-format transaction log, described in Section 4.17.2), for
    example:
 
   Wed Jul 14 09:35:31 1999 22 xx.mit.edu 13412 /pub/ftp/mm/intro.txt ....
@@ -14377,7 +14375,7 @@ for i 1 n 1 {
    counts for each file:
 
   local name line max \%c \%n          ; Declare local variables
-  fopen /read \%c /var/log/ftpd.log    ; Open the log file ([616]Section 1.22)
+  fopen /read \%c /var/log/ftpd.log    ; Open the log file ( Section 1.22)
   if fail exit 1 Can't open log        ; Check
   while true {                         ; Loop for each record
       fread /line \%c line             ; Read a line
@@ -14468,12 +14466,12 @@ for i 1 n 1 {
 
     7.10.11. Transferring Array Contents to Other Computers
 
-   The SEND /ARRAY:arrayname command ([617]Section 4.7.1) allows you to
+   The SEND /ARRAY:arrayname command ( Section 4.7.1) allows you to
    send the contents of any array, or any contiguous segment of it, in
    either text or binary mode to another computer, using Kermit protocol.
    When used in conjunction with C-Kermit's other features (the array
    features described in this section; the file i/o package from
-   [618]Section 1.22; its decision-making, pattern-matching, and string
+  Section 1.22; its decision-making, pattern-matching, and string
    manipulation capabilities, and so on) the possibilities are endless:
    extracts of large files, remote database queries, ..., all without
    recourse to system-dependent mechanisms such UNIX pipes and filters,
@@ -14493,7 +14491,7 @@ for i 1 n 1 {
 
    You should always include a /TEXT or /BINARY switch in any SEND /ARRAY
    command to force the desired transfer mode, otherwise you're likely to
-   be surprised by the effects described in [619]Section 4.3.
+   be surprised by the effects described in Section 4.3.
 
    Here are some examples:
 
@@ -14522,7 +14520,7 @@ for i 1 n 1 {
 
    Here's an example that shows how to send all the lines (up to 1000 of
    them) from a file animals.txt that contain the words "cat", "dog", or
-   "hog" (see [620]Section 4.9 about pattern matching):
+   "hog" (see Section 4.9 about pattern matching):
 
   declare \&a[1000]
   fopen /read \%c animals.txt
@@ -14658,7 +14656,7 @@ for i 1 n 1 {
   FILE_NOT_ACCESSIBLE Filename argument names a file that is read-protected.
   FILE_ERROR          Other error with filename argument.
   FILE_NOT_OPEN       A file function was given a channel that is not open.
-  FILE_ERROR_-n       A file function got error -n ([621]Section 1.22).
+  FILE_ERROR_-n       A file function got error -n ( Section 1.22).
   LOOKUP_FAILURE      Error looking up function (shouldn't happen).
   MALLOC_FAILURE      Failure to allocate needed memory (shouldn't happen).
   NAME_AMBIGUOUS      The function is not uniquely identified.
@@ -14756,7 +14754,7 @@ for i 1 n 1 {
 
    SHOW ALARM
           Displays the current alarm, if any, in standard date-time format
-          (see [622]Section 1.6): yyyymmdd hh:mm:ss.
+          (see Section 1.6): yyyymmdd hh:mm:ss.
 
    IF ALARM command
           Executes the command if an alarm has been set and the alarm time
@@ -14810,7 +14808,7 @@ for i 1 n 1 {
   \%4 = four
 
    and \%5..\%9 are undefined (empty). Arguments past the ninth are
-   available in the \&_[] argument-vector array ( [623]Section 7.5).
+   available in the \&_[] argument-vector array ( Section 7.5).
 
    The variables are those at the current macro level. Thus, if the TAKE
    command is executed from within a macro, the macro's arguments are
@@ -14841,7 +14839,7 @@ for i 1 n 1 {
    command stack, rather than the macro stack, for arguments -- this would
    have made TAKE work exactly like DO, which is "nicer", but it would
    also have broken countless existing scripts. However, the new SHIFT
-   command ([624]Section 7.5) makes it possible to create an alternative
+   command ( Section 7.5) makes it possible to create an alternative
    TAKE command that does indeed save and restore the argument variables
    at its own level around execution of a command file:
 
@@ -14860,7 +14858,7 @@ for i 1 n 1 {
    in which arg1, arg2, arg3 (etc) are arguments for the script (whose
    filename is given), and are assigned to \%1, \%2, ... \%9. The filename
    is assigned to \%0. This applies equally to "Kerbang" scripts in UNIX
-   ([625]Section 7.19). For example, suppose you have a file called
+   ( Section 7.19). For example, suppose you have a file called
    "showargs" containing the following lines:
 
   #!/usr/local/bin/kermit +
@@ -14928,7 +14926,7 @@ for i 1 n 1 {
 
    Furthermore, after the case label is evaluated, it is treated not as a
    string constant, but as a pattern against which the SWITCH variable is
-   matched ([626]Section 4.9.1).
+   matched ( Section 4.9.1).
 
    This introduces a possible incompatibility with previous releases,
    since the following characters in case labels are no longer taken
@@ -14960,7 +14958,7 @@ for i 1 n 1 {
 
   $ autotelnet xyzcorp.com myuserid
 
-     See [627]Section 9.3 for an explanation of the "+" symbol.
+     See Section 9.3 for an explanation of the "+" symbol.
 
    UNIX shell scripts can specify which shell should run them by including
    a "shebang" line at the top, e.g.:
@@ -15036,7 +15034,7 @@ for i 1 n 1 {
 
    Save this file as (say) "showargs", then give it execute permission and
    run it (the \&_[] array is the same as \%0..\%9, but allows you to
-   refer to argument variables programmatically; see [628]Section 7.5).
+   refer to argument variables programmatically; see Section 7.5).
    (Yes, you could substitute SHOW ARGUMENTS for the loop.)
 
   $ chmod +x showargs
@@ -15074,7 +15072,7 @@ for i 1 n 1 {
   #!/usr/local/bin/kermit +
   assign \%m \fbasename(\%0)
   define usage { exit 1 {usage: \%m phonenumber message} }
-  define apage { (definition of APAGE...) } ; (See [629]book pp.454-456)
+  define apage { (definition of APAGE...) } ; (Seebook pp.454-456)
   xif equal "\%0" "\v(cmdfil)" {
       if not def \%1 usage
       if not def \%2 usage
@@ -15241,7 +15239,7 @@ ELSE command-list
    a command, each command is a line. The first line above, having no hint
    of continuation, is an incomplete command, yet syntactically correct --
    an IF statement with an empty THEN part. Interestingly enough, since
-   the next line begins with "{" it is a block that (in [630]C-Kermit 8.0
+   the next line begins with "{" it is a block that (inC-Kermit 8.0
    and later) is a block that is executed unconditionally. Thus the
    commands in the THEN part are executed regardless of whether the
    condition is true -- not what you wanted!
@@ -15351,12 +15349,12 @@ ELSE command-list
        evaluated; there is no "early stopping" property and therefore no
        question about when or if side effects will occur -- if any Boolean
        assertion has side effects, they will always occur. (Early stopping
-       is, however, possible with the [631]S-Expression IF introduced in
+       is, however, possible with theS-Expression IF introduced in
        C-Kermit 8.0.)
 
    Constructions of arbitrary complexity are possible, within reason.
 
-   Also see [632]Section 7.4 for new IF / WHILE conditions.
+   Also see Section 7.4 for new IF / WHILE conditions.
 
   7.21. Screen Formatting and Cursor Control
 
@@ -15525,8 +15523,8 @@ ELSE command-list
   7.23. Floating-Point Arithmetic
 
      For a more convenient way of dealing with floating-point numbers
-     than the one described here, see the [633]C-Kermit 8.0 update notes,
-     the section on [634]S-Expressions.
+     than the one described here, see theC-Kermit 8.0 update notes,
+     the section onS-Expressions.
 
    C-Kermit 7.0 adds limited support for floating-point numbers (numbers
    that have fractional parts, like 3.141592653). This support is provided
@@ -15719,7 +15717,7 @@ ELSE command-list
    result to \ffpround(xxx,0) (to round).
 
    Floating-point numbers (or variables or functions that return them) can
-   be used in Boolean expressions (see [635]Section 7.20.2) that compare
+   be used in Boolean expressions (see Section 7.20.2) that compare
    numbers:
 
   = x y
@@ -15750,7 +15748,7 @@ ELSE command-list
    and is executed otherwise.
 
    Floating-point numbers can be sorted using ARRAY SORT /NUMERIC (see
-   [636]Section 7.10.5 ).
+  Section 7.10.5 ).
 
    Two floating-point constants are provided:
 
@@ -15893,7 +15891,7 @@ ELSE command-list
    Syntactically, \m(name) and \s(name) differ only in that the sequence
    [*] at the end of the name (where * is any sequence of 0 or more
    characters) is treated as substring notation in \s(name), but is
-   considered part of the name in \m(name) (to see why, see [637]Section
+   considered part of the name in \m(name) (to see why, seeSection
    7.10.9).
 
   7.26. New WAIT Command Options
@@ -15962,7 +15960,7 @@ ELSE command-list
    heading is the time of the most recent event (including when the
    program started).
 
-   See [638]Section 1.10, where the \v(kbchar) variable is explained. This
+   See Section 1.10, where the \v(kbchar) variable is explained. This
    lets you modify a loop like the one above to also accept
    single-character commands, which interrupt the WAIT, and dispatch
    accordingly. For example:
@@ -16004,8 +16002,8 @@ ELSE command-list
   8. USING OTHER FILE TRANSFER PROTOCOLS
 
    In C-Kermit 7.0, alternative protocols can be selected using switches.
-   Switches are described in [639]Section 1.5; the use of
-   protocol-selection switches is described in [640]Section 4.7.1.
+   Switches are described in Section 1.5; the use of
+   protocol-selection switches is described in Section 4.7.1.
    Example:
 
   send /binary /protocol:zmodem x.tar.gz
@@ -16051,7 +16049,7 @@ ELSE command-list
    where a keyword (rather than a single letter) specifies the function,
    and if an argument is to be included, it is separated by a colon (or
    equal sign). Most of the new extended-format command-line options are
-   only for use with the Internet Kermit Service Daemon; see the [641]IKSD
+   only for use with the Internet Kermit Service Daemon; see theIKSD
    Administration Guide for details. However, several of them are also
    general in nature:
 
@@ -16176,7 +16174,7 @@ ELSE command-list
           become the name of the script file, rather than the pathname of
           the C-Kermit program, which is its normal value. Primarily for
           use in the top line of "Kerbang" scripts in UNIX (see
-          [642]Section 7.19). Example from UNIX command line:
+         Section 7.19). Example from UNIX command line:
 
   $ kermit [ regular kermit args ] + filename
 
@@ -16216,11 +16214,11 @@ ELSE command-list
   kermit -L -s "*.c"
 
           In UNIX only, "kermit -L -s ." means to send the current
-          directory tree. See [643]Sections 4.10 and [644]4.11 about
+          directory tree. SeeSections 4.10 and4.11 about
           recursive file transfer.
 
    -V
-          Equivalent to SET FILE PATTERNS OFF ([645]Section 4.3) and SET
+          Equivalent to SET FILE PATTERNS OFF ( Section 4.3) and SET
           TRANSFER MODE MANUAL. In other words, take the FILE TYPE setting
           literally. For example, "kermit -VT oofa.bin" means send the
           file in Text mode, no matter what its name is and no matter
@@ -16252,7 +16250,7 @@ ELSE command-list
    thus it is called G-Kermit (for GNU Kermit). All it does is send and
    receive files, period. You can find it at:
 
-  [646]http://www.columbia.edu/kermit/gkermit.html
+ http://www.columbia.edu/kermit/gkermit.html
 
    Where the C-Kermit 7.0 binary might be anywhere from 1 to 3 million
    bytes in size, the G-Kermit binary ranges from 30K to 100K, depending
@@ -16271,7 +16269,7 @@ ELSE command-list
    In such cases G-Kermit might be preferred since it generally starts up
    faster, and yet transfers files just as fast on most (but not
    necessarily all) kinds of connections; for example, it supports
-   streaming ([647]Section 4.20).
+   streaming ( Section 4.20).
 
    G-Kermit is also handy for bootstrapping. It is easier to load on a new
    computer than C-Kermit -- it fits on a floppy diskette with plenty of
@@ -16281,7 +16279,7 @@ ELSE command-list
    diskette on Xenix with "dosread", and then use G-Kermit to receive
    C-Kermit (which does not fit on a diskette). If diskettes aren't an
    option, other bootstrapping methods are possible too -- see the
-   [648]G-Kermit web page for details.
+  G-Kermit web page for details.
 
 III. APPENDICES
 
@@ -16658,7 +16656,7 @@ CC  Nation            Effective     Mandatory    Notes
 
 IV. ERRATA & CORRIGENDA
 
-   The following errors in [649]Using C-Kermit, Second Edition, first
+   The following errors inUsing C-Kermit, Second Edition, first
    printing, have been noted.
 
    First, some missing acknowledgements for C-Kermit 6.0: JE Jones of
@@ -16726,7 +16724,7 @@ COVER   "COS" is a misprint.  There is no COS.  Pretend it says "SCO" or "VOS".
 393     \Fverify() description.  The 3rd sentence could be stated more clearly
         as "If all characters in string2 are also in string1, 0 is returned."
 398     Copying \ffiles() results to an array before is not required as of
-        C-Kermit 7.0 (see [650]Section 7.3).
+        C-Kermit 7.0 (see Section 7.3).
 403     In "(\%a + 3) * (\%b  5)", a minus sign is missing between b and 5.
 407     C-Kermit 7.0 no longer supports multiline GET.  Change
         "get, \%1, \%2" to "get {\%1} {\%2}" or "get /as:{\%2} {\%1}".
@@ -16836,7 +16834,7 @@ Index:  Missing entries: SET { SEND, RECEIVE } PATHNAMES, Call waiting, ...
    suggestions for improvements, additional index entries, and any other
    comments:
 
-   [651]kermit@columbia.edu
+  kermit@columbia.edu
 
 APPENDIX V. ADDITIONAL COPYRIGHT NOTICES
 
@@ -16912,6 +16910,7 @@ APPENDIX V. ADDITIONAL COPYRIGHT NOTICES
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
+
     1. Redistributions of source code must retain the above copyright
        notice, this list of conditions and the following disclaimer.
     2. Redistributions in binary form must reproduce the above copyright
@@ -16923,6 +16922,7 @@ APPENDIX V. ADDITIONAL COPYRIGHT NOTICES
 
      This product includes software developed by the University of
      California, Berkeley and its contributors.
+
     4. Neither the name of the University nor the names of its
        contributors may be used to endorse or promote products derived
        from this software without specific prior written permission.
@@ -16964,6 +16964,7 @@ APPENDIX V. ADDITIONAL COPYRIGHT NOTICES
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions are
    met:
+
     1. Redistributions of source code must retain the copyright notice,
        this list of conditions and the following disclaimer.
     2. Redistributions in binary form must reproduce the above copyright
@@ -17026,665 +17027,10 @@ APPENDIX V. ADDITIONAL COPYRIGHT NOTICES
 
    Used for Big Number library in Kermit 95 (k95crypt.dll, k2crypt.dll).
 
-   [ [652]Top ] [ [653]C-Kermit ] [ [654]Kermit Home ]
      __________________________________________________________________
 
-   CKERMIT70.HTM / The Kermit Project / Columbia University / 8 Feb 2000 /
+   CKERMIT70.TXT
+   The Kermit Project
+   Columbia University
+   8 Feb 2000
    Last update: 8 Aug 2011
-
-References
-
-   1. http://www.columbia.edu/
-   2. mailto:kermit@columbia.edu
-   3. http://www.columbia.edu/kermit/index.html
-   4. http://www.columbia.edu/kermit/k95.html
-   5. http://www.columbia.edu/kermit/ckermit.html
-   6. http://www.columbia.edu/kermit/ckscripts.html
-   7. http://www.columbia.edu/kermit/current.html
-   8. http://www.columbia.edu/kermit/whatsnew.html
-   9. http://www.columbia.edu/kermit/faq.html
-  10. http://www.columbia.edu/kermit/support.html
-  11. http://www.amazon.com/gp/product/1555581641?ie=UTF8&tag=aleidmoreldom-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1555581641
-  12. mailto:kermit-support@columbia.edu
-  13. http://www.columbia.edu/kermit/
-  14. http://www.kermit-project.org/
-  15. http://www.columbia.nyc.ny.us/kermit/
-  16. ftp://kermit.columbia.edu/kermit/f/COPYING.TXT
-  17. ftp://kermit.columbia.edu/kermit/f/ckcmai.c
-  18. http://www.columbia.edu/kermit/ckermit70.html#xv
-  19. http://www.columbia.edu/kermit/ckb2.htm
-  20. ftp://kermit.columbia.edu/kermit/f/ckcbwr.txt
-  21. ftp://kermit.columbia.edu/kermit/f/ckubwr.txt
-  22. ftp://kermit.columbia.edu/kermit/f/ckvbwr.txt
-  23. ftp://kermit.columbia.edu/kermit/f/ckubwr.txt
-  24. ftp://kermit.columbia.edu/kermit/f/ckermit70.txt
-  25. ftp://kermit.columbia.edu/kermit/f/security.txt
-  26. http://www.columbia.edu/kermit/security.htm
-  27. ftp://kermit.columbia.edu/kermit/f/iksd.txt
-  28. http://www.columbia.edu/kermit/iksd.htm
-  29. http://www.columbia.edu/kermit/cuiksd.htm
-  30. ftp://kermit.columbia.edu/kermit/f/telnet.txt
-  31. http://www.columbia.edu/kermit/telnet.htm
-  32. ftp://kermit.columbia.edu/kermit/f/COPYING.TXT
-  33. http://www.columbia.edu/kermit/k95.html
-  34. http://www.opensource.org/
-  35. http://www.columbia.edu/kermit/ckb2.htm
-  36. http://www.columbia.edu/kermit/ckermit70.html#xi
-  37. http://www.columbia.edu/kermit/ckermit70.html#xii
-  38. http://www.columbia.edu/kermit/ckermit70.html#x0
-  39. http://www.columbia.edu/kermit/ckermit70.html#x1
-  40. http://www.columbia.edu/kermit/ckermit70.html#x1.0
-  41. http://www.columbia.edu/kermit/ckermit70.html#x1.1
-  42. http://www.columbia.edu/kermit/ckermit70.html#x1.2
-  43. http://www.columbia.edu/kermit/ckermit70.html#x1.3
-  44. http://www.columbia.edu/kermit/ckermit70.html#x1.4
-  45. http://www.columbia.edu/kermit/ckermit70.html#x1.5
-  46. http://www.columbia.edu/kermit/ckermit70.html#x1.5.1
-  47. http://www.columbia.edu/kermit/ckermit70.html#x1.5.2
-  48. http://www.columbia.edu/kermit/ckermit70.html#x1.5.3
-  49. http://www.columbia.edu/kermit/ckermit70.html#x1.5.4
-  50. http://www.columbia.edu/kermit/ckermit70.html#x1.5.5
-  51. http://www.columbia.edu/kermit/ckermit70.html#x1.6
-  52. http://www.columbia.edu/kermit/ckermit70.html#x1.7
-  53. http://www.columbia.edu/kermit/ckermit70.html#x1.8
-  54. http://www.columbia.edu/kermit/ckermit70.html#x1.9
-  55. http://www.columbia.edu/kermit/ckermit70.html#x1.10
-  56. http://www.columbia.edu/kermit/ckermit70.html#x1.11
-  57. http://www.columbia.edu/kermit/ckermit70.html#x1.11.1
-  58. http://www.columbia.edu/kermit/ckermit70.html#x1.11.2
-  59. http://www.columbia.edu/kermit/ckermit70.html#x1.11.3
-  60. http://www.columbia.edu/kermit/ckermit70.html#x1.11.4
-  61. http://www.columbia.edu/kermit/ckermit70.html#x1.11.5
-  62. http://www.columbia.edu/kermit/ckermit70.html#x1.11.6
-  63. http://www.columbia.edu/kermit/ckermit70.html#x1.11.7
-  64. http://www.columbia.edu/kermit/ckermit70.html#x1.12
-  65. http://www.columbia.edu/kermit/ckermit70.html#x1.13
-  66. http://www.columbia.edu/kermit/ckermit70.html#x1.14
-  67. http://www.columbia.edu/kermit/ckermit70.html#x1.15
-  68. http://www.columbia.edu/kermit/ckermit70.html#x1.16
-  69. http://www.columbia.edu/kermit/ckermit70.html#x1.17
-  70. http://www.columbia.edu/kermit/ckermit70.html#x1.18
-  71. http://www.columbia.edu/kermit/ckermit70.html#x1.19
-  72. http://www.columbia.edu/kermit/ckermit70.html#x1.20
-  73. http://www.columbia.edu/kermit/ckermit70.html#x1.21
-  74. http://www.columbia.edu/kermit/ckermit70.html#x1.22
-  75. http://www.columbia.edu/kermit/ckermit70.html#x1.22.1
-  76. http://www.columbia.edu/kermit/ckermit70.html#x1.22.2
-  77. http://www.columbia.edu/kermit/ckermit70.html#x1.22.3
-  78. http://www.columbia.edu/kermit/ckermit70.html#x1.22.4
-  79. http://www.columbia.edu/kermit/ckermit70.html#x1.22.5
-  80. http://www.columbia.edu/kermit/ckermit70.html#x1.22.6
-  81. http://www.columbia.edu/kermit/ckermit70.html#x1.22.7
-  82. http://www.columbia.edu/kermit/ckermit70.html#x1.22.8
-  83. http://www.columbia.edu/kermit/ckermit70.html#x1.23
-  84. http://www.columbia.edu/kermit/ckermit70.html#x1.24
-  85. http://www.columbia.edu/kermit/ckermit70.html#x2
-  86. http://www.columbia.edu/kermit/ckermit70.html#x2.0
-  87. http://www.columbia.edu/kermit/ckermit70.html#x2.1
-  88. http://www.columbia.edu/kermit/ckermit70.html#x2.1.1
-  89. http://www.columbia.edu/kermit/ckermit70.html#x2.1.2
-  90. http://www.columbia.edu/kermit/ckermit70.html#x2.1.3
-  91. http://www.columbia.edu/kermit/ckermit70.html#x2.1.4
-  92. http://www.columbia.edu/kermit/ckermit70.html#x2.1.5
-  93. http://www.columbia.edu/kermit/ckermit70.html#x2.1.6
-  94. http://www.columbia.edu/kermit/ckermit70.html#x2.1.7
-  95. http://www.columbia.edu/kermit/ckermit70.html#x2.1.8
-  96. http://www.columbia.edu/kermit/ckermit70.html#x2.1.9
-  97. http://www.columbia.edu/kermit/ckermit70.html#x2.1.10
-  98. http://www.columbia.edu/kermit/ckermit70.html#x2.1.11
-  99. http://www.columbia.edu/kermit/ckermit70.html#x2.1.12
- 100. http://www.columbia.edu/kermit/ckermit70.html#x2.1.13
- 101. http://www.columbia.edu/kermit/ckermit70.html#x2.1.14
- 102. http://www.columbia.edu/kermit/ckermit70.html#x2.1.15
- 103. http://www.columbia.edu/kermit/ckermit70.html#x2.1.16
- 104. http://www.columbia.edu/kermit/ckermit70.html#x2.2
- 105. http://www.columbia.edu/kermit/ckermit70.html#x2.2.1
- 106. http://www.columbia.edu/kermit/ckermit70.html#x2.2.2
- 107. http://www.columbia.edu/kermit/ckermit70.html#x2.3
- 108. http://www.columbia.edu/kermit/ckermit70.html#x2.3.0
- 109. http://www.columbia.edu/kermit/ckermit70.html#x2.3.1
- 110. http://www.columbia.edu/kermit/ckermit70.html#x2.3.2
- 111. http://www.columbia.edu/kermit/ckermit70.html#x2.3.3
- 112. http://www.columbia.edu/kermit/ckermit70.html#x2.3.4
- 113. http://www.columbia.edu/kermit/ckermit70.html#x2.3.5
- 114. http://www.columbia.edu/kermit/ckermit70.html#x2.3.6
- 115. http://www.columbia.edu/kermit/ckermit70.html#x2.4
- 116. http://www.columbia.edu/kermit/ckermit70.html#x2.5
- 117. http://www.columbia.edu/kermit/ckermit70.html#x2.6
- 118. http://www.columbia.edu/kermit/ckermit70.html#x2.7
- 119. http://www.columbia.edu/kermit/ckermit70.html#x2.7.0
- 120. http://www.columbia.edu/kermit/ckermit70.html#x2.7.1
- 121. http://www.columbia.edu/kermit/ckermit70.html#x2.7.2
- 122. http://www.columbia.edu/kermit/ckermit70.html#x2.7.3
- 123. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4
- 124. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4.1
- 125. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4.2
- 126. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4.3
- 127. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4.4
- 128. http://www.columbia.edu/kermit/ckermit70.html#x2.7.4.5
- 129. http://www.columbia.edu/kermit/ckermit70.html#x2.8
- 130. http://www.columbia.edu/kermit/ckermit70.html#x2.9
- 131. http://www.columbia.edu/kermit/ckermit70.html#x2.9.1
- 132. http://www.columbia.edu/kermit/ckermit70.html#x2.9.2
- 133. http://www.columbia.edu/kermit/ckermit70.html#x2.10
- 134. http://www.columbia.edu/kermit/ckermit70.html#x2.11
- 135. http://www.columbia.edu/kermit/ckermit70.html#x2.12
- 136. http://www.columbia.edu/kermit/ckermit70.html#x2.13
- 137. http://www.columbia.edu/kermit/ckermit70.html#x2.14
- 138. http://www.columbia.edu/kermit/ckermit70.html#x2.15
- 139. http://www.columbia.edu/kermit/ckermit70.html#x3
- 140. http://www.columbia.edu/kermit/ckermit70.html#x3.1
- 141. http://www.columbia.edu/kermit/ckermit70.html#x3.2
- 142. http://www.columbia.edu/kermit/ckermit70.html#x3.3
- 143. http://www.columbia.edu/kermit/ckermit70.html#x3.4
- 144. http://www.columbia.edu/kermit/ckermit70.html#x4
- 145. http://www.columbia.edu/kermit/ckermit70.html#x4.0
- 146. http://www.columbia.edu/kermit/ckermit70.html#x4.1
- 147. http://www.columbia.edu/kermit/ckermit70.html#x4.1.1
- 148. http://www.columbia.edu/kermit/ckermit70.html#x4.1.2
- 149. http://www.columbia.edu/kermit/ckermit70.html#x4.1.3
- 150. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 151. http://www.columbia.edu/kermit/ckermit70.html#x4.2.1
- 152. http://www.columbia.edu/kermit/ckermit70.html#x4.2.1.1
- 153. http://www.columbia.edu/kermit/ckermit70.html#x4.2.1.2
- 154. http://www.columbia.edu/kermit/ckermit70.html#x4.2.1.3
- 155. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2
- 156. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2.1
- 157. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2.2
- 158. http://www.columbia.edu/kermit/ckermit70.html#x4.2.3
- 159. http://www.columbia.edu/kermit/ckermit70.html#x4.2.3.1
- 160. http://www.columbia.edu/kermit/ckermit70.html#x4.2.3.2
- 161. http://www.columbia.edu/kermit/ckermit70.html#x4.2.4
- 162. http://www.columbia.edu/kermit/ckermit70.html#x4.2.5
- 163. http://www.columbia.edu/kermit/ckermit70.html#x4.2.6
- 164. http://www.columbia.edu/kermit/ckermit70.html#x4.2.7
- 165. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8
- 166. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.1
- 167. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.2
- 168. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.3
- 169. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.4
- 170. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 171. http://www.columbia.edu/kermit/ckermit70.html#x4.3.1
- 172. http://www.columbia.edu/kermit/ckermit70.html#x4.3.2
- 173. http://www.columbia.edu/kermit/ckermit70.html#x4.3.3
- 174. http://www.columbia.edu/kermit/ckermit70.html#x4.3.4
- 175. http://www.columbia.edu/kermit/ckermit70.html#x4.4
- 176. http://www.columbia.edu/kermit/ckermit70.html#x4.4.1
- 177. http://www.columbia.edu/kermit/ckermit70.html#x4.4.1.1
- 178. http://www.columbia.edu/kermit/ckermit70.html#x4.4.1.2
- 179. http://www.columbia.edu/kermit/ckermit70.html#x4.4.2
- 180. http://www.columbia.edu/kermit/ckermit70.html#x4.4.2.1
- 181. http://www.columbia.edu/kermit/ckermit70.html#x4.4.2.1.1
- 182. http://www.columbia.edu/kermit/ckermit70.html#x4.4.2.1.2
- 183. http://www.columbia.edu/kermit/ckermit70.html#x4.4.2.2
- 184. http://www.columbia.edu/kermit/ckermit70.html#x4.5
- 185. http://www.columbia.edu/kermit/ckermit70.html#x4.5.1
- 186. http://www.columbia.edu/kermit/ckermit70.html#x4.5.2
- 187. http://www.columbia.edu/kermit/ckermit70.html#x4.5.2.1
- 188. http://www.columbia.edu/kermit/ckermit70.html#x4.5.2.2
- 189. http://www.columbia.edu/kermit/ckermit70.html#x4.5.3
- 190. http://www.columbia.edu/kermit/ckermit70.html#x4.5.4
- 191. http://www.columbia.edu/kermit/ckermit70.html#x4.6
- 192. http://www.columbia.edu/kermit/ckermit70.html#x4.7
- 193. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 194. http://www.columbia.edu/kermit/ckermit70.html#x4.7.2
- 195. http://www.columbia.edu/kermit/ckermit70.html#x4.7.3
- 196. http://www.columbia.edu/kermit/ckermit70.html#x4.8
- 197. http://www.columbia.edu/kermit/ckermit70.html#x4.8.1
- 198. http://www.columbia.edu/kermit/ckermit70.html#x4.8.2
- 199. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 200. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 201. http://www.columbia.edu/kermit/ckermit70.html#x4.9.2
- 202. http://www.columbia.edu/kermit/ckermit70.html#x4.9.3
- 203. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 204. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 205. http://www.columbia.edu/kermit/ckermit70.html#x4.11.1
- 206. http://www.columbia.edu/kermit/ckermit70.html#x4.11.2
- 207. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 208. http://www.columbia.edu/kermit/ckermit70.html#x4.11.4
- 209. http://www.columbia.edu/kermit/ckermit70.html#x4.11.5
- 210. http://www.columbia.edu/kermit/ckermit70.html#x4.11.6
- 211. http://www.columbia.edu/kermit/ckermit70.html#x4.12
- 212. http://www.columbia.edu/kermit/ckermit70.html#x4.13
- 213. http://www.columbia.edu/kermit/ckermit70.html#x4.14
- 214. http://www.columbia.edu/kermit/ckermit70.html#x4.15
- 215. http://www.columbia.edu/kermit/ckermit70.html#x4.16
- 216. http://www.columbia.edu/kermit/ckermit70.html#x4.17
- 217. http://www.columbia.edu/kermit/ckermit70.html#x4.17.1
- 218. http://www.columbia.edu/kermit/ckermit70.html#x4.17.2
- 219. http://www.columbia.edu/kermit/ckermit70.html#x4.18
- 220. http://www.columbia.edu/kermit/ckermit70.html#x4.19
- 221. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 222. http://www.columbia.edu/kermit/ckermit70.html#x4.20.1
- 223. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2
- 224. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.1
- 225. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.2
- 226. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.3
- 227. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.4
- 228. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.5
- 229. http://www.columbia.edu/kermit/ckermit70.html#x4.20.3
- 230. http://www.columbia.edu/kermit/ckermit70.html#x4.21
- 231. http://www.columbia.edu/kermit/ckermit70.html#x4.22
- 232. http://www.columbia.edu/kermit/ckermit70.html#x4.22.1
- 233. http://www.columbia.edu/kermit/ckermit70.html#x4.22.2
- 234. http://www.columbia.edu/kermit/ckermit70.html#x4.22.3
- 235. http://www.columbia.edu/kermit/ckermit70.html#x4.22.4
- 236. http://www.columbia.edu/kermit/ckermit70.html#x4.22.5
- 237. http://www.columbia.edu/kermit/ckermit70.html#x4.22.6
- 238. http://www.columbia.edu/kermit/ckermit70.html#x4.22.7
- 239. http://www.columbia.edu/kermit/ckermit70.html#x4.22.8
- 240. http://www.columbia.edu/kermit/ckermit70.html#x4.23
- 241. http://www.columbia.edu/kermit/ckermit70.html#x4.24
- 242. http://www.columbia.edu/kermit/ckermit70.html#x4.25
- 243. http://www.columbia.edu/kermit/ckermit70.html#x5
- 244. http://www.columbia.edu/kermit/ckermit70.html#x5.0
- 245. http://www.columbia.edu/kermit/ckermit70.html#x5.1
- 246. http://www.columbia.edu/kermit/ckermit70.html#x5.2
- 247. http://www.columbia.edu/kermit/ckermit70.html#x5.3
- 248. http://www.columbia.edu/kermit/ckermit70.html#x5.3.1
- 249. http://www.columbia.edu/kermit/ckermit70.html#x5.3.2
- 250. http://www.columbia.edu/kermit/ckermit70.html#x5.4
- 251. http://www.columbia.edu/kermit/ckermit70.html#x5.5
- 252. http://www.columbia.edu/kermit/ckermit70.html#x5.6
- 253. http://www.columbia.edu/kermit/ckermit70.html#x5.7
- 254. http://www.columbia.edu/kermit/ckermit70.html#x6
- 255. http://www.columbia.edu/kermit/ckermit70.html#x6.0
- 256. http://www.columbia.edu/kermit/ckermit70.html#x6.1
- 257. http://www.columbia.edu/kermit/ckermit70.html#x6.2
- 258. http://www.columbia.edu/kermit/ckermit70.html#x6.3
- 259. http://www.columbia.edu/kermit/ckermit70.html#x6.4
- 260. http://www.columbia.edu/kermit/ckermit70.html#x6.5
- 261. http://www.columbia.edu/kermit/ckermit70.html#x6.6
- 262. http://www.columbia.edu/kermit/ckermit70.html#x6.6.1
- 263. http://www.columbia.edu/kermit/ckermit70.html#x6.6.2
- 264. http://www.columbia.edu/kermit/ckermit70.html#x6.6.2
- 265. http://www.columbia.edu/kermit/ckermit70.html#x6.6.3
- 266. http://www.columbia.edu/kermit/ckermit70.html#x6.6.4
- 267. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5
- 268. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.1
- 269. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.2
- 270. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.3
- 271. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.4
- 272. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.5
- 273. http://www.columbia.edu/kermit/ckermit70.html#x6.7
- 274. http://www.columbia.edu/kermit/ckermit70.html#x7
- 275. http://www.columbia.edu/kermit/ckermit70.html#x7.0
- 276. http://www.columbia.edu/kermit/ckermit70.html#x7.1
- 277. http://www.columbia.edu/kermit/ckermit70.html#x7.1.1
- 278. http://www.columbia.edu/kermit/ckermit70.html#x7.1.2
- 279. http://www.columbia.edu/kermit/ckermit70.html#x7.1.3
- 280. http://www.columbia.edu/kermit/ckermit70.html#x7.1.4
- 281. http://www.columbia.edu/kermit/ckermit70.html#x7.2
- 282. http://www.columbia.edu/kermit/ckermit70.html#x7.3
- 283. http://www.columbia.edu/kermit/ckermit70.html#x7.4
- 284. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 285. http://www.columbia.edu/kermit/ckermit70.html#x7.6
- 286. http://www.columbia.edu/kermit/ckermit70.html#x7.7
- 287. http://www.columbia.edu/kermit/ckermit70.html#x7.8
- 288. http://www.columbia.edu/kermit/ckermit70.html#x7.9
- 289. http://www.columbia.edu/kermit/ckermit70.html#x7.9.1
- 290. http://www.columbia.edu/kermit/ckermit70.html#x7.9.2
- 291. http://www.columbia.edu/kermit/ckermit70.html#x7.10
- 292. http://www.columbia.edu/kermit/ckermit70.html#x7.10.1
- 293. http://www.columbia.edu/kermit/ckermit70.html#x7.10.2
- 294. http://www.columbia.edu/kermit/ckermit70.html#x7.10.3
- 295. http://www.columbia.edu/kermit/ckermit70.html#x7.10.4
- 296. http://www.columbia.edu/kermit/ckermit70.html#x7.10.5
- 297. http://www.columbia.edu/kermit/ckermit70.html#x7.10.6
- 298. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 299. http://www.columbia.edu/kermit/ckermit70.html#x7.10.8
- 300. http://www.columbia.edu/kermit/ckermit70.html#x7.10.9
- 301. http://www.columbia.edu/kermit/ckermit70.html#x7.10.10
- 302. http://www.columbia.edu/kermit/ckermit70.html#x7.11
- 303. http://www.columbia.edu/kermit/ckermit70.html#x7.12
- 304. http://www.columbia.edu/kermit/ckermit70.html#x7.13
- 305. http://www.columbia.edu/kermit/ckermit70.html#x7.14
- 306. http://www.columbia.edu/kermit/ckermit70.html#x7.15
- 307. http://www.columbia.edu/kermit/ckermit70.html#x7.16
- 308. http://www.columbia.edu/kermit/ckermit70.html#x7.17
- 309. http://www.columbia.edu/kermit/ckermit70.html#x7.18
- 310. http://www.columbia.edu/kermit/ckermit70.html#x7.19
- 311. http://www.columbia.edu/kermit/ckermit70.html#x7.20
- 312. http://www.columbia.edu/kermit/ckermit70.html#x7.20.1
- 313. http://www.columbia.edu/kermit/ckermit70.html#x7.20.2
- 314. http://www.columbia.edu/kermit/ckermit70.html#x7.21
- 315. http://www.columbia.edu/kermit/ckermit70.html#x7.22
- 316. http://www.columbia.edu/kermit/ckermit70.html#x7.23
- 317. http://www.columbia.edu/kermit/ckermit70.html#x7.24
- 318. http://www.columbia.edu/kermit/ckermit70.html#x7.25
- 319. http://www.columbia.edu/kermit/ckermit70.html#x7.26
- 320. http://www.columbia.edu/kermit/ckermit70.html#x7.26.1
- 321. http://www.columbia.edu/kermit/ckermit70.html#x7.26.2
- 322. http://www.columbia.edu/kermit/ckermit70.html#x7.27
- 323. http://www.columbia.edu/kermit/ckermit70.html#x8
- 324. http://www.columbia.edu/kermit/ckermit70.html#x9
- 325. http://www.columbia.edu/kermit/ckermit70.html#x9.0
- 326. http://www.columbia.edu/kermit/ckermit70.html#x9.1
- 327. http://www.columbia.edu/kermit/ckermit70.html#x9.2
- 328. http://www.columbia.edu/kermit/ckermit70.html#x9.3
- 329. http://www.columbia.edu/kermit/ckermit70.html#x10
- 330. http://www.columbia.edu/kermit/ckermit70.html#xiii
- 331. http://www.columbia.edu/kermit/ckermit70.html#xiii.1
- 332. http://www.columbia.edu/kermit/ckermit70.html#xiii.1.1
- 333. http://www.columbia.edu/kermit/ckermit70.html#xiii.1.2
- 334. http://www.columbia.edu/kermit/ckermit70.html#xiii.1.2.1
- 335. http://www.columbia.edu/kermit/ckermit70.html#xiii.1.2.2
- 336. http://www.columbia.edu/kermit/ckermit70.html#xiii.1.2.3
- 337. http://www.columbia.edu/kermit/ckermit70.html#xiii.2
- 338. http://www.columbia.edu/kermit/ckermit70.html#xiv
- 339. http://www.columbia.edu/kermit/ckermit70.html#xv
- 340. http://www.columbia.edu/kermit/ckb2.htm
- 341. http://www.columbia.edu/kermit/ckbreviews.html
- 342. http://www.bhusa.com/
- 343. http://www.columbia.edu/kermit/manuals.html#ckde
- 344. http://www.columbia.edu/kermit/manuals.html#ktb
- 345. http://www.columbia.edu/kermit/news.html
- 346. news:comp.protocols.kermit.announce
- 347. news:comp.protocols.kermit.misc
- 348. http://www.columbia.edu/kermit/ckb2.htm
- 349. http://www.columbia.edu/kermit/ckermit70.html#x4
- 350. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 351. http://www.columbia.edu/kermit/ckermit70.html#x4.23
- 352. http://www.columbia.edu/kermit/ckermit70.html#x4.5.1
- 353. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 354. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 355. http://www.columbia.edu/kermit/ckermit70.html#x4.9.
- 356. http://www.columbia.edu/kermit/ckb2.htm
- 357. http://www.columbia.edu/kermit/ckermit70.html#x7.9.2
- 358. http://www.columbia.edu/kermit/ckermit70.html#x2.15
- 359. http://www.columbia.edu/kermit/ckermit70.html#x9.1
- 360. http://www.columbia.edu/kermit/ckermit70.html#x1.6
- 361. http://www.columbia.edu/kermit/ckermit70.html#x7.4
- 362. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 363. http://www.columbia.edu/kermit/ckermit70.html#mjd
- 364. http://www.columbia.edu/kermit/ckermit70.html#mjd
- 365. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 366. http://www.columbia.edu/kermit/ckb2.htm
- 367. http://www.columbia.edu/kermit/ckb2.htm
- 368. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 369. http://www.columbia.edu/kermit/ckermit70.html#x2.12
- 370. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 371. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 372. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5
- 373. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 374. http://www.columbia.edu/kermit/ckermit70.html#x7.18
- 375. http://www.columbia.edu/kermit/ckermit70.html#x7.4
- 376. http://www.columbia.edu/kermit/ckermit70.html#x1.15
- 377. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 378. http://www.columbia.edu/kermit/ckermit70.html#x7.3
- 379. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 380. http://www.columbia.edu/kermit/ckermit70.html#x7.1
- 381. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 382. ftp://kermit.columbia.edu/kermit/f/ckccfg.txt
- 383. ftp://kermit.columbia.edu/kermit/f/ckccfg.txt
- 384. http://www.columbia.edu/kermit/ckermit70.html#x1.22.4
- 385. http://www.columbia.edu/kermit/ckermit70.html#x1.22.5
- 386. http://www.columbia.edu/kermit/ckb2.htm
- 387. http://www.columbia.edu/kermit/ckermit70.html#x1.22.5
- 388. http://www.columbia.edu/kermit/ckermit70.html#x7.12
- 389. http://www.columbia.edu/kermit/ckermit70.html#x2.1.16
- 390. http://www.columbia.edu/kermit/ckermit70.html#x2.7
- 391. http://www.columbia.edu/kermit/ckermit70.html#x2.3.5
- 392. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 393. http://www.telefonica.es/cambiodenumeracion/
- 394. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 395. http://www.columbia.edu/kermit/ckb2.htm
- 396. http://www.columbia.edu/kermit/ckermit70.html#x2.2.2
- 397. http://www.columbia.edu/kermit/ckermit70.html#x2.1.11
- 398. http://www.columbia.edu/kermit/ckermit70.html#x2.1.13
- 399. http://www.columbia.edu/kermit/ckermit70.html#x2.1.12
- 400. http://www.columbia.edu/kermit/ckb2.htm
- 401. http://www.columbia.edu/kermit/ckermit70.html#x2.1.1
- 402. http://www.columbia.edu/kermit/ckb2.htm
- 403. http://www.columbia.edu/kermit/ckb2.htm
- 404. http://www.columbia.edu/kermit/ckermit70.html#x2.1.7
- 405. http://www.columbia.edu/kermit/ckermit70.html#x2.1.6
- 406. http://www.columbia.edu/kermit/ckb2.htm
- 407. ftp://kermit.columbia.edu/kermit/f/telnet.txt
- 408. http://www.columbia.edu/kermit/telnet.htm
- 409. ftp://kermit.columbia.edu/kermit/f/telnet.txt
- 410. http://www.columbia.edu/kermit/telnet.htm
- 411. ftp://ftp.isi.edu/in-notes/rfc1572.txt
- 412. ftp://ftp.isi.edu/in-notes/rfc779.txt
- 413. http://www.columbia.edu/kermit/ckb2.htm
- 414. http://www.columbia.edu/kermit/ckermit70.html#x2.10
- 415. http://www.columbia.edu/kermit/ckermit70.html#x2.8
- 416. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 417. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 418. http://www.psy.uq.oz.au/~ftp/Crypto/
- 419. http://www.columbia.edu/kermit/security.htm
- 420. http://srp.stanford.edu/srp/
- 421. http://www.columbia.edu/kermit/ckermit70.html#x2.7.1,
- 422. ftp://kermit.columbia.edu/kermit/f/ckccfg.txt
- 423. http://www.columbia.edu/kermit/security.htm
- 424. http://www.columbia.edu/kermit/ckb2.htm
- 425. http://www.columbia.edu/kermit/ckermit70.html#x2.7
- 426. http://www.columbia.edu/kermit/ckermit70.html#x2.0
- 427. ftp://kermit.columbia.edu/kermit/f/ckuins.txt
- 428. ftp://kermit.columbia.edu/kermit/f/ckubwr.txt
- 429. ftp://kermit.columbia.edu/kermit/f/ckuins.txt
- 430. http://www.columbia.edu/kermit/iksd.html#x4.2
- 431. http://www.columbia.edu/kermit/iksd.html
- 432. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.1
- 433. ftp://ftp.isi.edu/in-notes/rfc1945.txt
- 434. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 435. http://www.columbia.edu/kermit/ckermit70.html#x3.2
- 436. http://www.columbia.edu/kermit/ckermit70.html#x3.2
- 437. http://www.columbia.edu/kermit/ckb2.htm
- 438. http://www.columbia.edu/kermit/ckb2.htm
- 439. http://www.columbia.edu/kermit/ckermit70.html#x5.4
- 440. ftp://kermit.columbia.edu/kermit/f/ckubwr.txt
- 441. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 442. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 443. http://www.columbia.edu/kermit/ckermit70.html#x4.7.3
- 444. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 445. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 446. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 447. http://www.columbia.edu/kermit/ckermit70.html#x4.15
- 448. http://www.columbia.edu/kermit/ckermit70.html#x4.2.4
- 449. http://www.columbia.edu/kermit/ckermit70.html#x4.7
- 450. http://www.columbia.edu/kermit/ckermit70.html#x4.2.3
- 451. http://www.columbia.edu/kermit/ckermit70.html#x4.2.1.3
- 452. http://www.columbia.edu/kermit/ckb2.htm
- 453. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2
- 454. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 455. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.2
- 456. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 457. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 458. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 459. http://www.columbia.edu/kermit/ckermit70.html#x4.15
- 460. http://www.telstra.com.au/docs/PGP/
- 461. http://www.telstra.com.au/docs/PGP/pgpdoc2/pgpdoc2_17.html
- 462. http://www.columbia.edu/kermit/security.htm
- 463. http://www.columbia.edu/kermit/ckermit70.html#x2.7
- 464. http://www.columbia.edu/kermit/ckb2.htm
- 465. http://www.columbia.edu/kermit/ckermit70.html#x2.14
- 466. http://www.columbia.edu/kermit/ckermit70.html#x1.23
- 467. http://www.columbia.edu/kermit/ckermit70.html#x4.7
- 468. http://www.columbia.edu/kermit/ckb2.htm
- 469. http://www.columbia.edu/kermit/ckb2.htm
- 470. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 471. http://www.columbia.edu/kermit/ckb2.htm
- 472. http://www.columbia.edu/kermit/ckermit70.html#x1.5.4
- 473. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 474. http://www.columbia.edu/kermit/ckermit70.html#x1.5.5
- 475. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 476. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 477. http://www.columbia.edu/kermit/ckermit70.html#x1.5.4
- 478. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 479. http://www.columbia.edu/kermit/ckermit70.html#x1.5.4
- 480. http://www.columbia.edu/kermit/ckermit70.html#x1.5.5
- 481. http://www.columbia.edu/kermit/ckb2.htm
- 482. http://www.columbia.edu/kermit/ckb2.htm
- 483. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 484. http://www.columbia.edu/kermit/ckermit70.html#x1.6
- 485. http://www.columbia.edu/kermit/ckermit70.html#x7.10
- 486. http://www.columbia.edu/kermit/ckermit70.html#x7.10.11
- 487. http://www.columbia.edu/kermit/ckermit70.html#x1.6
- 488. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2
- 489. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 490. http://www.columbia.edu/kermit/ckermit70.html#x1.5.4
- 491. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 492. http://www.columbia.edu/kermit/ckermit70.html#x4.0.6
- 493. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 494. http://www.columbia.edu/kermit/ckermit70.html#x4.1
- 495. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 496. http://www.columbia.edu/kermit/ckb2.htm
- 497. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 498. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2
- 499. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 500. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 501. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 502. http://www.columbia.edu/kermit/ckermit70.html#x4.2.2
- 503. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 504. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 505. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 506. http://www.columbia.edu/kermit/ckermit70.html#x1.11.5
- 507. http://www.columbia.edu/kermit/ckermit70.html#x4.0.6
- 508. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 509. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 510. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 511. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 512. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 513. http://www.columbia.edu/kermit/ckermit70.html#x4.5.1
- 514. http://www.columbia.edu/kermit/ckermit70.html#x7.10
- 515. http://www.columbia.edu/kermit/ckermit70.html#x7.10.5
- 516. http://www.columbia.edu/kermit/ckermit70.html#x7.10.3
- 517. http://www.columbia.edu/kermit/ckermit70.html#x7.10.5
- 518. http://www.columbia.edu/kermit/ckb2.htm
- 519. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 520. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 521. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 522. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 523. http://www.columbia.edu/kermit/ckermit70.html#x4.15
- 524. http://www.columbia.edu/kermit/ckermit70.html#x4.18
- 525. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 526. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 527. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 528. http://www.columbia.edu/kermit/ckermit70.html#x4.19
- 529. http://www.columbia.edu/kermit/ckermit70.html#x4.16
- 530. http://www.columbia.edu/kermit/ckermit70.html#x4.19
- 531. http://www.columbia.edu/kermit/ckermit70.html#x4.20.2.3
- 532. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 533. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.4
- 534. http://www.columbia.edu/kermit/ckermit70.html#x4.22.2
- 535. http://www.columbia.edu/kermit/ckermit70.html#x4.22.3
- 536. http://www.columbia.edu/kermit/ckb2.htm
- 537. http://www.columbia.edu/kermit/ckb2.htm
- 538. http://www.columbia.edu/kermit/ckermit70.html#x9.3
- 539. http://www.columbia.edu/kermit/ckermit70.html#x5.2.1
- 540. http://www.columbia.edu/kermit/ckermit70.html#x4.5.1
- 541. http://www.columbia.edu/kermit/ckermit70.html#x4.5.2
- 542. http://www.columbia.edu/kermit/ckermit70.html#x6.6
- 543. http://www.columbia.edu/kermit/ckermit70.html#xiii
- 544. http://www.columbia.edu/kermit/ckermit70.html#xiii
- 545. ftp://ftp.isi.edu/in-notes/rfc1489.txt
- 546. ftp://ftp.isi.edu/in-notes/rfc2319.txt
- 547. http://www.unicode.org/
- 548. http://www.columbia.edu/kermit/ckermit70.html#x6.6.2
- 549. http://www.columbia.edu/kermit/ckermit70.html#x6.6.5.1
- 550. ftp://ftp.isi.edu/in-notes/rfc2640.txt
- 551. http://www.columbia.edu/kermit/ckermit70.html#x6.6.2
- 552. http://www.columbia.edu/kermit/ckermit70.html#x6.0
- 553. http://www.columbia.edu/kermit/ckermit70.html#x6.5
- 554. http://www.columbia.edu/kermit/ckermit70.html#x6.4
- 555. http://www.columbia.edu/kermit/ckb2.htm
- 556. http://www.columbia.edu/kermit/ckermit70.html#x4.21
- 557. http://www.columbia.edu/kermit/ckermit70.html#x6.5
- 558. http://www.columbia.edu/kermit/ckermit70.html#x2.8
- 559. http://www.columbia.edu/kermit/ckermit70.html#x7.7
- 560. http://www.columbia.edu/kermit/ckermit70.html#x7.2
- 561. http://www.columbia.edu/kermit/ckermit70.html#x1.19
- 562. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 563. http://www.columbia.edu/kermit/ckermit70.html#x4.1
- 564. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 565. http://www.columbia.edu/kermit/ckermit70.html#x4.1
- 566. http://www.columbia.edu/kermit/ckermit70.html#x4.2
- 567. http://www.columbia.edu/kermit/ckermit70.html#x2.1.11
- 568. http://www.columbia.edu/kermit/ckermit70.html#x2.10
- 569. http://www.columbia.edu/kermit/ckermit70.html#ferrstring
- 570. http://www.columbia.edu/kermit/ckermit70.html#x4.2.5
- 571. http://www.columbia.edu/kermit/ckermit70.html#x2.1.10
- 572. http://www.columbia.edu/kermit/ckermit70.html#x9.1
- 573. http://www.columbia.edu/kermit/ckermit70.html#x7.23
- 574. http://www.columbia.edu/kermit/ckermit70.html#x7.23
- 575. http://www.columbia.edu/kermit/ckermit70.html#x1.22
- 576. http://www.columbia.edu/kermit/ckermit70.html#x1.6
- 577. http://www.columbia.edu/kermit/ckermit70.html#x7.23
- 578. http://www.columbia.edu/kermit/ckermit70.html#x7.24
- 579. http://www.columbia.edu/kermit/ckermit70.html#x7.24
- 580. http://www.columbia.edu/kermit/ckermit70.html#x4.2.3
- 581. http://www.columbia.edu/kermit/ck90.html
- 582. http://www.columbia.edu/kermit/ckermit70.html#x7.12
- 583. http://www.columbia.edu/kermit/ckermit70.html#x7.9
- 584. http://www.columbia.edu/kermit/ckb2.htm
- 585. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 586. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 587. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 588. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 589. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 590. http://www.columbia.edu/kermit/ckermit70.html#x4.2.8.4
- 591. http://www.columbia.edu/kermit/ckermit70.html#x4.2.5
- 592. http://www.columbia.edu/kermit/ckermit70.html#x7.8
- 593. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 594. http://www.columbia.edu/kermit/ckb2.htm
- 595. http://www.columbia.edu/kermit/ckermit70.html#x7.19
- 596. http://www.columbia.edu/kermit/ckermit70.html#x7.16
- 597. http://www.columbia.edu/kermit/ckermit70.html#x7.9.1
- 598. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 599. http://www.columbia.edu/kermit/ckermit70.html#x7.3
- 600. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 601. http://www.columbia.edu/kermit/ckermit70.html#x4.5.1
- 602. http://www.columbia.edu/kermit/ckermit70.html#x7.10
- 603. http://www.columbia.edu/kermit/ckermit70.html#x7.10.10
- 604. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 605. http://www.columbia.edu/kermit/ckermit70.html#x7.23
- 606. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 607. http://www.columbia.edu/kermit/ckermit70.html#x7.10.7
- 608. http://www.columbia.edu/kermit/ckermit70.html#x4.11.3
- 609. http://www.columbia.edu/kermit/ckermit70.html#x7.10.11
- 610. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 611. http://www.columbia.edu/kermit/ckermit70.html#x7.10.3
- 612. http://www.columbia.edu/kermit/ckermit70.html#x7.3
- 613. http://www.columbia.edu/kermit/ckermit70.html#x7.9.2
- 614. http://www.columbia.edu/kermit/ckb2.htm
- 615. http://www.columbia.edu/kermit/ckermit70.html#x4.17.2
- 616. http://www.columbia.edu/kermit/ckermit70.html#x1.22
- 617. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 618. http://www.columbia.edu/kermit/ckermit70.html#x1.22
- 619. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 620. http://www.columbia.edu/kermit/ckermit70.html#x4.9
- 621. http://www.columbia.edu/kermit/ckermit70.html#x1.22
- 622. http://www.columbia.edu/kermit/ckermit70.html#x1.6
- 623. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 624. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 625. http://www.columbia.edu/kermit/ckermit70.html#x7.19
- 626. http://www.columbia.edu/kermit/ckermit70.html#x4.9.1
- 627. http://www.columbia.edu/kermit/ckermit70.html#x9.3
- 628. http://www.columbia.edu/kermit/ckermit70.html#x7.5
- 629. http://www.columbia.edu/kermit/ckb2.htm
- 630. http://www.columbia.edu/kermit/ckermit80.html
- 631. http://www.columbia.edu/kermit/ckermit80.html#x9
- 632. http://www.columbia.edu/kermit/ckermit70.html#x7.4
- 633. http://www.columbia.edu/kermit/ckermit80.html
- 634. http://www.columbia.edu/kermit/ckermit80.html#x9
- 635. http://www.columbia.edu/kermit/ckermit70.html#x7.20.2
- 636. http://www.columbia.edu/kermit/ckermit70.html#x7.10.5
- 637. http://www.columbia.edu/kermit/ckermit70.html#x7.10.9
- 638. http://www.columbia.edu/kermit/ckermit70.html#x1.10
- 639. http://www.columbia.edu/kermit/ckermit70.html#x1.5
- 640. http://www.columbia.edu/kermit/ckermit70.html#x4.7.1
- 641. http://www.columbia.edu/kermit/iksd.html
- 642. http://www.columbia.edu/kermit/ckermit70.html#x7.19
- 643. http://www.columbia.edu/kermit/ckermit70.html#x4.10
- 644. http://www.columbia.edu/kermit/ckermit70.html#x4.11
- 645. http://www.columbia.edu/kermit/ckermit70.html#x4.3
- 646. http://www.columbia.edu/kermit/gkermit.html
- 647. http://www.columbia.edu/kermit/ckermit70.html#x4.20
- 648. http://www.columbia.edu/kermit/gkermit.html
- 649. http://www.columbia.edu/kermit/ckb2.htm
- 650. http://www.columbia.edu/kermit/ckermit70.html#x7.3
- 651. mailto:kermit@columbia.edu
- 652. http://www.columbia.edu/kermit/ckermit70.html#top
- 653. http://www.columbia.edu/kermit/ckermit.html
- 654. http://www.columbia.edu/kermit/index.html

@@ -1,9 +1,10 @@
 
-   [1]The Columbia Crown The Kermit Project | Columbia University
-   612 West 115th Street, New York NY 10025 USA o [2]kermit@columbia.edu
+   The Kermit Project
+   Columbia University
+   612 West 115th Street
+   New York NY 10025 USA
+   kermit@columbia.edu
    ...since 1981
-   [3]Home [4]Kermit 95 [5]C-Kermit [6]Scripts [7]Current [8]New [9]FAQ
-   [10]Support
 
 C-Kermit Configuration Options
 
@@ -14,27 +15,25 @@ C-Kermit Configuration Options
      this file is a plain-text dump of a Web page. You can visit the
      original (and possibly more up-to-date) Web page here:
 
-  [11]http://www.columbia.edu/kermit/ckccfg.html
-
-   [ [12]C-Kermit Home ] [ [13]Kermit Home ]
+  http://www.columbia.edu/kermit/ckccfg.html
 
   CONTENTS
 
-  1. [14]FILE TRANSFER
-  2. [15]SERIAL COMMUNICATION SPEEDS
-  3. [16]FULLSCREEN FILE TRANSFER DISPLAY
-  4. [17]CHARACTER SETS
-  5. [18]APC EXECUTION
-  6. [19]PROGRAM SIZE
-  7. [20]MODEM DIALING
-  8. [21]NETWORK SUPPORT
-  9. [22]EXCEPTION HANDLING
- 10. [23]SECURITY FEATURES
- 11. [24]ENABLING SELECT()
- 12. [25]I/O REDIRECTION
- 13. [26]FLOATING-POINT NUMBERS, TIMERS, AND ARITHMETIC
- 14. [27]SPECIAL CONFIGURATIONS
-  I. [28]SUMMARY OF COMPILE-TIME OPTIONS
+  1. FILE TRANSFER
+  2. SERIAL COMMUNICATION SPEEDS
+  3. FULLSCREEN FILE TRANSFER DISPLAY
+  4. CHARACTER SETS
+  5. APC EXECUTION
+  6. PROGRAM SIZE
+  7. MODEM DIALING
+  8. NETWORK SUPPORT
+  9. EXCEPTION HANDLING
+ 10. SECURITY FEATURES
+ 11. ENABLING SELECT()
+ 12. I/O REDIRECTION
+ 13. FLOATING-POINT NUMBERS, TIMERS, AND ARITHMETIC
+ 14. SPECIAL CONFIGURATIONS
+  I. SUMMARY OF COMPILE-TIME OPTIONS
 
   OVERVIEW
 
@@ -46,13 +45,9 @@ C-Kermit Configuration Options
 
    For details about your particular operating system, also see the
    system-specific installation instructions file, such as the
-   [29]C-Kermit Installation Instructions for Unix.
-
-   [ [30]C-Kermit Home ] [ [31]Kermit Home ]
+   C-Kermit Installation Instructions for Unix.
 
   1. FILE TRANSFER
-
-   [ [32]Top ] [ [33]Contents ] [ [34]Next ] [ [35]Previous ]
 
    Prior to version 7.0, C-Kermit was always built with the most
    conservative Kermit file-transfer protocol defaults on every platform:
@@ -71,11 +66,7 @@ C-Kermit Configuration Options
    is now set to CAUTIOUS rather than NONE at startup). C-Kermit's
    settings prevail when it is receiving.
 
-   [ [36]C-Kermit Home ] [ [37]Kermit Home ]
-
   2. SERIAL COMMUNICATION SPEEDS
-
-   [ [38]Top ] [ [39]Contents ] [ [40]Next ] [ [41]Previous ]
 
    As of 6 September 1997, a new simplified mechanism for obtaining the
    list of legal serial interface speeds is in place:
@@ -84,8 +75,8 @@ C-Kermit Configuration Options
        ttspdlist() is called at program initialization to obtain the list.
      * This symbol should be defined only for C-Kermit implementations
        that have implemented the ttspdlist() function, typically in the
-       ck?tio.c module. See [42]ckutio.c for an example.
-     * TTSPDLIST is automatically defined in [43]ckcdeb.h for UNIX. Add
+       ck?tio.c module. See ckutio.c for an example.
+     * TTSPDLIST is automatically defined in ckcdeb.h for UNIX. Add
        the appropriate #ifdefs for other platforms when the corresponding
        ttspdlist() functions are filled in.
      * If TTSPDLIST is (or normally would be) defined, the old code
@@ -113,7 +104,7 @@ C-Kermit Configuration Options
    applies:
 
    Speeds are defined in two places: the SET SPEED keyword list in the
-   command parser (as of this writing, in the [44]ckuus3.c source file),
+   command parser (as of this writing, in the ckuus3.c source file),
    and in the system- dependent communications i/o module, ck?tio.c,
    functions ttsspd() (set speed) and ttgspd() (get speed). The following
    speeds are assumed to be available in all versions:
@@ -146,7 +137,7 @@ C-Kermit Configuration Options
    460800       BPS_460K     NOB_460K
    921600       BPS_921K     NOB_921K
 
-   The [45]ckcdeb.h header file contains default speed configurations for
+   The ckcdeb.h header file contains default speed configurations for
    the many systems that C-Kermit supports. You can override these
    defaults by (a) editing ckcdeb.h, or (b) defining the appropriate
    enabling and/or disabling symbols on the CC command line, for example:
@@ -173,7 +164,7 @@ C-Kermit Configuration Options
    ALSO IMPORTANT: The list of available speeds is independent of how they
    are set. The many UNIXes, for example, offer a wide variety of APIs
    that are BSD-based, SYSV-based, POSIX-based, and purely made up. See
-   the ttsspd(), ttgspd(), and ttspdlist() routines in [46]ckutio.c for
+   the ttsspd(), ttgspd(), and ttspdlist() routines in ckutio.c for
    illustrations.
 
    The latest entries in this horserace are the tcgetspeed() and
@@ -184,13 +175,9 @@ C-Kermit Configuration Options
    there is no way to build a list of legal speeds at compile time, since
    no Bnnnn symbols are defined (except for "deprecated, legacy"
    interfaces like ioctl()) and so the legal speed list must be enumerated
-   in the code -- see ttspdlist() in [47]ckutio.c.
-
-   [ [48]C-Kermit Home ] [ [49]Kermit Home ]
+   in the code -- see ttspdlist() in ckutio.c.
 
   3. FULLSCREEN FILE TRANSFER DISPLAY
-
-   [ [50]Top ] [ [51]Contents ] [ [52]Next ] [ [53]Previous ]
 
    New to edit 180 is support for an MS-DOS-Kermit-like local-mode full
    screen file transfer display, accomplished using the curses library, or
@@ -211,9 +198,9 @@ C-Kermit Configuration Options
   "LIBS= -ltinfo"
 
    "man curses" for further information, and search through the Unix
-   [54]makefile for "CK_CURSES" to see many examples, and also see the
-   relevant sections of the [55]Unix C-Kermit Installation Instructions,
-   particularly Sections [56]4 and [57]9.2.
+   makefile for "CK_CURSES" to see many examples, and also see the
+   relevant sections of the Unix C-Kermit Installation Instructions,
+   particularly Sections 4 and 9.2.
 
    There might still be a complication. Some implementations of curses
    reserve the right to alter the buffering on the output file without
@@ -226,7 +213,7 @@ C-Kermit Configuration Options
 
   -DCK_NEWTERM
 
-   to your makefile target (see comments in screenc() in [58]ckuusx.c for
+   to your makefile target (see comments in screenc() in ckuusx.c for
    an explanation).
 
    If that doesn't fix the problem, then use a bigger hammer and replace
@@ -303,14 +290,10 @@ C-Kermit Configuration Options
 
    In some C-Kermit builds, we replace printf() via #define printf...
    However, this can cause conflicts with the [n]curses header files.
-   Various hacks are required to get around this -- see [59]ckutio.c,
-   [60]ckufio.c, [61]ckuusx.c, [62]ckucmd.c, etc.
-
-   [ [63]C-Kermit Home ] [ [64]Kermit Home ]
+   Various hacks are required to get around this -- see ckutio.c,
+   ckufio.c, ckuusx.c, ckucmd.c, etc.
 
   4. CHARACTER SETS
-
-   [ [65]Top ] [ [66]Contents ] [ [67]Next ] [ [68]Previous ]
 
    Since version 5A, C-Kermit has included support for conversion of
    character sets for Western European languages (i.e. languages that
@@ -328,7 +311,7 @@ C-Kermit Configuration Options
    no KANJI include -DNOKANJI. There is presently no way to include
    Latin-2, Cyrillic, Hebrew, or Kanji without also including Latin-1.
 
-   [69]Unicode support was added in C-Kermit 7.0, and it adds a fair
+   Unicode support was added in C-Kermit 7.0, and it adds a fair
    amount of tables and code (and this is only a "Level 1" implementation
    -- a higher level would also require building in the entire Unicode
    database). On a PC with RH 5.2 Linux, building C-Kermit 7.0, we get the
@@ -344,11 +327,7 @@ C-Kermit Configuration Options
    non-Unicode Kanji sets (Shift-JIS, EUC-JP, JIS-7, etc). Kanji is still
    representable in UCS-2 and UTF-8.
 
-   [ [70]C-Kermit Home ] [ [71]Kermit Home ]
-
   5. APC EXECUTION
-
-   [ [72]Top ] [ [73]Contents ] [ [74]Next ] [ [75]Previous ]
 
    The Kermit CONNECT and INPUT commands are coded to execute Application
    Program Command escape sequences from the host:
@@ -363,10 +342,10 @@ C-Kermit Configuration Options
 
   CK_APC
 
-   is defined automatically in [76]ckuusr.h. For OS/2, APC is enabled at
+   is defined automatically in ckuusr.h. For OS/2, APC is enabled at
    runtime by default, for UNIX it is disabled. It is controlled by the
    SET TERMINAL APC command. Configuring APC capability into a version
-   that gets it by default (because CK_APC is defined in [77]ckuusr.h) can
+   that gets it by default (because CK_APC is defined in ckuusr.h) can
    be overridden by including:
 
   -DNOAPC
@@ -377,20 +356,16 @@ C-Kermit Configuration Options
    deconfiguring APC also disables autodownload (it doesn't use APC escape
    sequences, but uses the APC switching mechanism internally).
 
-   [ [78]C-Kermit Home ] [ [79]Kermit Home ]
-
   6. PROGRAM SIZE
-
-   [ [80]Top ] [ [81]Contents ] [ [82]Next ] [ [83]Previous ]
 
    SECTION CONTENTS
 
-  6.1. [84]Feature Selection
-  6.2. [85]Changing Buffer Sizes
-  6.3. [86]Other Size-Related Items
-  6.4. [87]Space/Time Tradeoffs
+  6.1. Feature Selection
+  6.2. Changing Buffer Sizes
+  6.3. Other Size-Related Items
+  6.4. Space/Time Tradeoffs
 
-   (Also see [88]Section 4)
+   (Also see Section 4)
 
    Each release of C-Kermit is larger than the last. On some computers
    (usually old ones) the size of the program prevents it from being
@@ -406,7 +381,7 @@ C-Kermit Configuration Options
    your connection, and the remote end is Unix based, take a look at
    G-Kermit:
 
-  [89]http://www.columbia.edu/kermit/gkermit.html
+  http://www.columbia.edu/kermit/gkermit.html
 
   6.1. Feature Selection
 
@@ -484,7 +459,7 @@ C-Kermit Configuration Options
   BIGBUFOK
 
    as it is by default for most modern platforms (Linux, AIX 4 and 5,
-   HP-UX 10 and 11, Solaris, etc) in [90]ckuusr.h. If your build does not
+   HP-UX 10 and 11, Solaris, etc) in ckuusr.h. If your build does not
    get big buffers automatically (SHOW FEATURES tells you), you can
    include them by rebuilding with BIGBUFOK defined; e.g. in Unix:
 
@@ -496,7 +471,7 @@ C-Kermit Configuration Options
   make xxxx KFLAGS=-DNOBIGBUF
 
    There are options to control Kermit's packet buffer allocations. The
-   following symbols are defined in [91]ckcker.h in such a way that you
+   following symbols are defined in ckcker.h in such a way that you
    can override them by redefining them in CFLAGS:
 
   -DMAXSP=xxxx - Maximum send-packet length.
@@ -570,18 +545,14 @@ C-Kermit Configuration Options
    to the program. Both methods work, take your choice; IFDEBUG is
    preferred if memory is not a constraint but the computer is likely to
    be slow. The first method is the default, i.e. if nothing is done to
-   the CFLAGS or in [92]ckcdeb.h (but in some cases, e.g. VMS, it is). To
+   the CFLAGS or in ckcdeb.h (but in some cases, e.g. VMS, it is). To
    select the second method, include -DIFDEBUG in the compilation (and
    don't include -DNODEBUG).
 
-   [ [93]C-Kermit Home ] [ [94]Kermit Home ]
-
   7. MODEM DIALING
 
-   [ [95]Top ] [ [96]Contents ] [ [97]Next ] [ [98]Previous ]
-
    -DNODIAL removes automatic modem dialing completely, including the
-   entire [99]ckudia.c module, plus all commands that refer to dialing in
+   entire ckudia.c module, plus all commands that refer to dialing in
    the various ckuus*.c modules.
 
    -DMINIDIAL leaves the DIAL and related commands (SET/SHOW MODEM,
@@ -606,17 +577,13 @@ C-Kermit Configuration Options
 
   -DM_OLD=1
 
-   [ [100]C-Kermit Home ] [ [101]Kermit Home ]
-
   8. NETWORK SUPPORT
-
-   [ [102]Top ] [ [103]Contents ] [ [104]Next ] [ [105]Previous ]
 
    SECTION CONTENTS
 
-  8.1. [106]TCP/IP
-  8.2. [107]X.25
-  8.3. [108]Other Networks
+  8.1. TCP/IP
+  8.2. X.25
+  8.3. Other Networks
 
    C-Kermit supports not only serial-port and modem connections, but also
    TCP/IP and X.25 network connections. Some versions support other
@@ -631,12 +598,12 @@ C-Kermit Configuration Options
 
    SUBSECTION CONTENTS
 
-  8.1.1. [109]Firewalls
-  8.1.2. [110]Compilation and Linking Problems
-  8.1.3. [111]Enabling Host Address Lists
-  8.1.4. [112]Enabling Telnet NAWS
-  8.1.5. [113]Enabling Incoming TCP/IP Connections
-  8.1.6. [114]Disabling SET TCP Options
+  8.1.1. Firewalls
+  8.1.2. Compilation and Linking Problems
+  8.1.3. Enabling Host Address Lists
+  8.1.4. Enabling Telnet NAWS
+  8.1.5. Enabling Incoming TCP/IP Connections
+  8.1.6. Disabling SET TCP Options
 
    C-Kermit's TCP/IP features require the Berkeley sockets library or
    equivalent, generally available on any Unix system, as well as in
@@ -669,8 +636,8 @@ C-Kermit Configuration Options
    ("man ln" for details about links.)
 
    The network support for TCP/IP and X.25 is in the source files
-   [115]ckcnet.h, [116]ckctel.c, [117]ckctel.c, [118]ckctel.h,
-   [119]ckcftp.c, with miscellaneous SHOW commands, etc, in the various
+   ckcnet.h, ckctel.c, ckctel.c, ckctel.h,
+   ckcftp.c, with miscellaneous SHOW commands, etc, in the various
    ckuus*.c modules, plus code in the ck*con.c or ckucns.c (CONNECT
    command) and several other modules to detect TELNET negotiations, etc.
 
@@ -689,7 +656,7 @@ C-Kermit Configuration Options
 
   SET TCP NODELAY (Nagle algorithm)
 
-   See the [120]C-Kermit user documentation for descriptions of these
+   See the C-Kermit user documentation for descriptions of these
    commands.
 
   8.1.1. Firewalls
@@ -731,7 +698,7 @@ C-Kermit Configuration Options
 
   8.1.2. Compilation and Linking Problems
 
-   If you get a compilation error in [121]ckcnet.c, with a complaint like
+   If you get a compilation error in ckcnet.c, with a complaint like
    "incompatible types in assignment", it probably has something to do
    with the data type your system uses for the inet_addr() function, which
    is declared (usually) in <arpa/inet.h>. Kermit uses "unsigned long"
@@ -754,7 +721,7 @@ C-Kermit Configuration Options
    struct, which might or might not not include a list of addresses; if it
    does, then if the first one fails, Kermit can try the second one, and
    so on. However, this will only work if the symbol "h_addr" is a macro
-   defined as "h_addr_list[0]", usually in netdb.h. If it is, then you can
+   defined as "h_addr_list", usually in netdb.h. If it is, then you can
    activate this feature by defining the following symbol in CFLAGS:
 
   HADDRLIST
@@ -771,12 +738,12 @@ C-Kermit Configuration Options
    TERMINAL fails to show reasonable "Rows =, Columns =" values, then take
    a look at (or write) the appropriate ttgwsiz() routine. On the other
    hand, if CK_NAWS is defined by default for your system (in
-   [122]ckcnet.h), but causes trouble, you can override this definition by
+   ckcnet.h), but causes trouble, you can override this definition by
    including the -DNONAWS switch on your CC command line, thus disabling
    the NAWS feature.
 
    This appears to be needed at least on the AT&T 3B2, where in
-   [123]ckutio.c, the routine ttgwsiz() finds that the TIOCGWINSZ symbol
+   ckutio.c, the routine ttgwsiz() finds that the TIOCGWINSZ symbol
    is defined but lacks definitions for the corresponding winsize struct
    and its members ws_col and ws_row.
 
@@ -793,7 +760,7 @@ C-Kermit Configuration Options
    connection on the given port. This feature is enabled automatically at
    compile if TCPSOCKET is defined and SELECT is also defined. But watch
    out, simply defining SELECT on the cc command line does not guarantee
-   successful compilation or linking (see [124]Section 11).
+   successful compilation or linking (see Section 11).
 
    If you want to disable incoming TCP/IP connections, then build C-Kermit
    with:
@@ -832,14 +799,10 @@ C-Kermit Configuration Options
    Provision is made in the organization of the modules, header files,
    commands, etc, for addition of new network types such as DECnet, X.25
    for other systems (HP-UX, VMS, etc), and so on. Send email to
-   [125]kermit@columbia.edu if you are willing and able to work on such a
+   kermit@columbia.edu if you are willing and able to work on such a
    project.
 
-   [ [126]C-Kermit Home ] [ [127]Kermit Home ]
-
   9. EXCEPTION HANDLING
-
-   [ [128]Top ] [ [129]Contents ] [ [130]Next ] [ [131]Previous ]
 
    The C language setjmp/longjmp mechanism is used for handling
    exceptions. The jump buffer is of type jmp_buf, which almost everywhere
@@ -850,11 +813,7 @@ C-Kermit Configuration Options
 
   JBNOTARRAY
 
-   [ [132]C-Kermit Home ] [ [133]Kermit Home ]
-
   10. SECURITY FEATURES
-
-   [ [134]Top ] [ [135]Contents ] [ [136]Next ] [ [137]Previous ]
 
    Security, in the sense of secure authentication and strong encryption,
    can be built into versionf of C-Kermit for which the appropriate
@@ -1005,7 +964,7 @@ C-Kermit Configuration Options
           the server's execution of REMOTE HOST commands (and, of course,
           the ENABLE HOST command). Add NODISPO to also prevent acceptance
           of incoming MAIL or REMOTE PRINT files. For UNIX, also be sure
-          to read [138]Section 11 of the [139]Unix C-Kermit Installation
+          to read Section 11 of the Unix C-Kermit Installation
           Instructions. about set[ug]id configuration. Additional
           restrictions can be enforced when in server mode; read about the
           DISABLE command in the user manual.
@@ -1019,11 +978,7 @@ C-Kermit Configuration Options
    NOPUSH and NOCCTRAP together allow Kermit to be run from restricted
    shells, preventing access to system functions.
 
-   [ [140]C-Kermit Home ] [ [141]Kermit Home ]
-
   11. ENABLING SELECT()
-
-   [ [142]Top ] [ [143]Contents ] [ [144]Next ] [ [145]Previous ]
 
    Kermit works best if it can do nonblocking reads, nondestructive input
    buffer checking, and millisecond sleeps. All of these functions can be
@@ -1081,7 +1036,7 @@ C-Kermit Configuration Options
    original UNIX CONNECT command, based on fork(), and those used by
    select(), are so different, it was not practical to implement them both
    in one module. So the select()-based CONNECT command module for UNIX is
-   [146]ckucns.c, and the fork-based one remains [147]ckucon.c. To choose
+   ckucns.c, and the fork-based one remains ckucon.c. To choose
    the fork-based one, which is more portable (but slower and more
    fragile), use "wermit" as the make target. To choose the select-based
    one, use "xermit". Only do this if you can verify that the CONNECT
@@ -1102,11 +1057,7 @@ C-Kermit Configuration Options
    added to them. Whenever changing a target over from wermit to xermit,
    also remember to remove NOLEARN.
 
-   [ [148]C-Kermit Home ] [ [149]Kermit Home ]
-
   12. I/O REDIRECTION
-
-   [ [150]Top ] [ [151]Contents ] [ [152]Next ] [ [153]Previous ]
 
    The REDIRECT command allows a local program to be run with its i/o
    redirected over the communications connection. Your version of C-Kermit
@@ -1130,11 +1081,7 @@ C-Kermit Configuration Options
    -DNETCMD. CK_RDIR must also be defined, since the same mechanisms are
    used internally.
 
-   [ [154]C-Kermit Home ] [ [155]Kermit Home ]
-
   13. FLOATING-POINT NUMBERS, TIMERS, AND ARITHMETIC
-
-   [ [156]Top ] [ [157]Contents ] [ [158]Next ] [ [159]Previous ]
 
    Floating-point support was added in C-Kermit 7.0.
 
@@ -1169,7 +1116,7 @@ C-Kermit Configuration Options
    did), or else give up and use -DNOGFTIMER (or -DNOFLOAT) instead. Hint:
    depending on your machine architecture, you might have better luck
    using double than float as the data type for floating-point numbers, or
-   vice versa. Look in [160]ckcdeb.h for the CKFLOAT definition.
+   vice versa. Look in ckcdeb.h for the CKFLOAT definition.
 
    Floating-point arithmetic is also supported in the script programming
    language. First via the \fpp...() functions, such as \fppadd(), which
@@ -1192,11 +1139,7 @@ C-Kermit Configuration Options
 
    Note: S-Expressions require FNFLOAT.
 
-   [ [161]C-Kermit Home ] [ [162]Kermit Home ]
-
   14. SPECIAL CONFIGURATIONS
-
-   [ [163]Top ] [ [164]Contents ] [ [165]Previous ]
 
    As of C-Kermit 7.0, if you build C-Kermit normally, but with -DNOICP
    (No Interactive Command Parser), you get a program capable of making
@@ -1213,18 +1156,14 @@ C-Kermit Configuration Options
    communications program that is considerably smaller than the full
    C-Kermit.
 
-   [ [166]C-Kermit Home ] [ [167]Kermit Home ]
-
   APPENDIX I: SUMMARY OF COMPILE-TIME OPTIONS
-
-   [ [168]Top ] [ [169]Contents ]
 
    These are the symbols that can be specified on the cc command line,
    listed alphabetically. Others are used internally, including those
    taken from header files, those defined by the compiler itself, and
    those inferred from the ones given below. Kermit's SHOW VERSIONS
-   command attempts to display most of these. See [170]ckcdeb.h and
-   [171]ckcnet.h for inference rules. For example SVR3 implies ATTSV,
+   command attempts to display most of these. See ckcdeb.h and
+   ckcnet.h for inference rules. For example SVR3 implies ATTSV,
    MULTINET implies TCPSOCKET, and so on.
 
    Here is the complete list of the Kermit-specific compile-time switches:
@@ -1465,7 +1404,7 @@ C-Kermit Configuration Options
    NOXFER Build with no Kermit or other file-transfer protocols.
    NOXMIT Build with no TRANSMIT command.
    NOXPRINT Disables transparent print code.
-   OLDMSG Use old "entering server mode" message (see [172]ckcmai.c).
+   OLDMSG Use old "entering server mode" message (see ckcmai.c).
    OLINUXHISPEED Build in old Linux hi-serial-speed code (for Linux <=
    1.0).
    OPENBSD Build for OpenBSD.
@@ -1548,191 +1487,10 @@ C-Kermit Configuration Options
    ZJDATE Has zjdate() function that converts date to Julian format.
    XPRINT Transparent print code included in CONNECT module.
 
-   [ [173]Top ] [ [174]Contents ] [ [175]C-Kermit Home ] [ [176]Kermit
-   Home ]
      __________________________________________________________________
 
 
-    C-Kermit Configuration Options / [177]The Kermit Project /
-    [178]kermit@columbia.edu / 30 June 2011
-
-References
-
-   1. http://www.columbia.edu/
-   2. mailto:kermit@columbia.edu
-   3. http://www.columbia.edu/kermit/index.html
-   4. http://www.columbia.edu/kermit/k95.html
-   5. http://www.columbia.edu/kermit/ckermit.html
-   6. http://www.columbia.edu/kermit/ckscripts.html
-   7. http://www.columbia.edu/kermit/current.html
-   8. http://www.columbia.edu/kermit/whatsnew.html
-   9. http://www.columbia.edu/kermit/faq.html
-  10. http://www.columbia.edu/kermit/support.html
-  11. http://www.columbia.edu/kermit/ckccfg.html
-  12. http://www.columbia.edu/kermit/ckermit.html
-  13. http://www.columbia.edu/kermit/index.html
-  14. http://www.columbia.edu/kermit/ckccfg.html#x1
-  15. http://www.columbia.edu/kermit/ckccfg.html#x2
-  16. http://www.columbia.edu/kermit/ckccfg.html#x3
-  17. http://www.columbia.edu/kermit/ckccfg.html#x4
-  18. http://www.columbia.edu/kermit/ckccfg.html#x5
-  19. http://www.columbia.edu/kermit/ckccfg.html#x6
-  20. http://www.columbia.edu/kermit/ckccfg.html#x7
-  21. http://www.columbia.edu/kermit/ckccfg.html#x8
-  22. http://www.columbia.edu/kermit/ckccfg.html#x9
-  23. http://www.columbia.edu/kermit/ckccfg.html#x10
-  24. http://www.columbia.edu/kermit/ckccfg.html#x11
-  25. http://www.columbia.edu/kermit/ckccfg.html#x12
-  26. http://www.columbia.edu/kermit/ckccfg.html#x13
-  27. http://www.columbia.edu/kermit/ckccfg.html#x14
-  28. http://www.columbia.edu/kermit/ckccfg.html#xa1
-  29. http://www.columbia.edu/kermit/ckuins.html
-  30. http://www.columbia.edu/kermit/ckermit.html
-  31. http://www.columbia.edu/kermit/index.html
-  32. http://www.columbia.edu/kermit/ckccfg.html#top
-  33. http://www.columbia.edu/kermit/ckccfg.html#contents
-  34. http://www.columbia.edu/kermit/ckccfg.html#x2
-  35. http://www.columbia.edu/kermit/ckccfg.html#x0
-  36. http://www.columbia.edu/kermit/ckermit.html
-  37. http://www.columbia.edu/kermit/index.html
-  38. http://www.columbia.edu/kermit/ckccfg.html#top
-  39. http://www.columbia.edu/kermit/ckccfg.html#contents
-  40. http://www.columbia.edu/kermit/ckccfg.html#x3
-  41. http://www.columbia.edu/kermit/ckccfg.html#x1
-  42. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
-  43. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
-  44. ftp://kermit.columbia.edu/kermit/c-kermit/ckuus3.c
-  45. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
-  46. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
-  47. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
-  48. http://www.columbia.edu/kermit/ckermit.html
-  49. http://www.columbia.edu/kermit/index.html
-  50. http://www.columbia.edu/kermit/ckccfg.html#top
-  51. http://www.columbia.edu/kermit/ckccfg.html#contents
-  52. http://www.columbia.edu/kermit/ckccfg.html#x4
-  53. http://www.columbia.edu/kermit/ckccfg.html#x2
-  54. ftp://kermit.columbia.edu/kermit/c-kermit/makefile
-  55. http://www.columbia.edu/kermit/ckuins.html
-  56. http://www.columbia.edu/kermit/ckuins.html#x4
-  57. http://www.columbia.edu/kermit/ckuins.html#x9.2
-  58. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusx.c
-  59. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
-  60. ftp://kermit.columbia.edu/kermit/c-kermit/ckufio.c
-  61. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusx.c
-  62. ftp://kermit.columbia.edu/kermit/c-kermit/ckucmd.c
-  63. http://www.columbia.edu/kermit/ckermit.html
-  64. http://www.columbia.edu/kermit/index.html
-  65. http://www.columbia.edu/kermit/ckccfg.html#top
-  66. http://www.columbia.edu/kermit/ckccfg.html#contents
-  67. http://www.columbia.edu/kermit/ckccfg.html#x5
-  68. http://www.columbia.edu/kermit/ckccfg.html#x3
-  69. http://www.columbia.edu/kermit/unicode.html
-  70. http://www.columbia.edu/kermit/ckermit.html
-  71. http://www.columbia.edu/kermit/index.html
-  72. http://www.columbia.edu/kermit/ckccfg.html#top
-  73. http://www.columbia.edu/kermit/ckccfg.html#contents
-  74. http://www.columbia.edu/kermit/ckccfg.html#x6
-  75. http://www.columbia.edu/kermit/ckccfg.html#x4
-  76. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusr.h
-  77. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusr.h
-  78. http://www.columbia.edu/kermit/ckermit.html
-  79. http://www.columbia.edu/kermit/index.html
-  80. http://www.columbia.edu/kermit/ckccfg.html#top
-  81. http://www.columbia.edu/kermit/ckccfg.html#contents
-  82. http://www.columbia.edu/kermit/ckccfg.html#x7
-  83. http://www.columbia.edu/kermit/ckccfg.html#x5
-  84. http://www.columbia.edu/kermit/ckccfg.html#x6.1
-  85. http://www.columbia.edu/kermit/ckccfg.html#x6.2
-  86. http://www.columbia.edu/kermit/ckccfg.html#x6.3
-  87. http://www.columbia.edu/kermit/ckccfg.html#x6.4
-  88. http://www.columbia.edu/kermit/ckccfg.html#x4
-  89. http://www.columbia.edu/kermit/gkermit.html
-  90. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusr.h
-  91. ftp://kermit.columbia.edu/kermit/c-kermit/ckcker.h
-  92. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
-  93. http://www.columbia.edu/kermit/ckermit.html
-  94. http://www.columbia.edu/kermit/index.html
-  95. http://www.columbia.edu/kermit/ckccfg.html#top
-  96. http://www.columbia.edu/kermit/ckccfg.html#contents
-  97. http://www.columbia.edu/kermit/ckccfg.html#x8
-  98. http://www.columbia.edu/kermit/ckccfg.html#x6
-  99. ftp://kermit.columbia.edu/kermit/c-kermit/ckudia.c
- 100. http://www.columbia.edu/kermit/ckermit.html
- 101. http://www.columbia.edu/kermit/index.html
- 102. http://www.columbia.edu/kermit/ckccfg.html#top
- 103. http://www.columbia.edu/kermit/ckccfg.html#contents
- 104. http://www.columbia.edu/kermit/ckccfg.html#x9
- 105. http://www.columbia.edu/kermit/ckccfg.html#x7
- 106. http://www.columbia.edu/kermit/ckccfg.html#x8.1
- 107. http://www.columbia.edu/kermit/ckccfg.html#x8.2
- 108. http://www.columbia.edu/kermit/ckccfg.html#x8.3
- 109. http://www.columbia.edu/kermit/ckccfg.html#x8.1.1
- 110. http://www.columbia.edu/kermit/ckccfg.html#x8.1.2
- 111. http://www.columbia.edu/kermit/ckccfg.html#x8.1.3
- 112. http://www.columbia.edu/kermit/ckccfg.html#x8.1.4
- 113. http://www.columbia.edu/kermit/ckccfg.html#x8.1.5
- 114. http://www.columbia.edu/kermit/ckccfg.html#x8.1.6
- 115. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.h
- 116. ftp://kermit.columbia.edu/kermit/c-kermit/ckctel.c
- 117. ftp://kermit.columbia.edu/kermit/c-kermit/ckctel.c
- 118. ftp://kermit.columbia.edu/kermit/c-kermit/ckctel.h
- 119. ftp://kermit.columbia.edu/kermit/c-kermit/ckcftp.c
- 120. http://www.columbia.edu/kermit/ckermit.html
- 121. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.c
- 122. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.h
- 123. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
- 124. http://www.columbia.edu/kermit/ckccfg.html#x11
- 125. mailto:kermit@columbia.edu
- 126. http://www.columbia.edu/kermit/ckermit.html
- 127. http://www.columbia.edu/kermit/index.html
- 128. http://www.columbia.edu/kermit/ckccfg.html#top
- 129. http://www.columbia.edu/kermit/ckccfg.html#contents
- 130. http://www.columbia.edu/kermit/ckccfg.html#x10
- 131. http://www.columbia.edu/kermit/ckccfg.html#x8
- 132. http://www.columbia.edu/kermit/ckermit.html
- 133. http://www.columbia.edu/kermit/index.html
- 134. http://www.columbia.edu/kermit/ckccfg.html#top
- 135. http://www.columbia.edu/kermit/ckccfg.html#contents
- 136. http://www.columbia.edu/kermit/ckccfg.html#x11
- 137. http://www.columbia.edu/kermit/ckccfg.html#x9
- 138. http://www.columbia.edu/kermit/ckuins.html#x11
- 139. http://www.columbia.edu/kermit/ckuins.html
- 140. http://www.columbia.edu/kermit/ckermit.html
- 141. http://www.columbia.edu/kermit/index.html
- 142. http://www.columbia.edu/kermit/ckccfg.html#top
- 143. http://www.columbia.edu/kermit/ckccfg.html#contents
- 144. http://www.columbia.edu/kermit/ckccfg.html#x12
- 145. http://www.columbia.edu/kermit/ckccfg.html#x10
- 146. ftp://kermit.columbia.edu/kermit/c-kermit/ckucns.c
- 147. ftp://kermit.columbia.edu/kermit/c-kermit/ckucon.c
- 148. http://www.columbia.edu/kermit/ckermit.html
- 149. http://www.columbia.edu/kermit/index.html
- 150. http://www.columbia.edu/kermit/ckccfg.html#top
- 151. http://www.columbia.edu/kermit/ckccfg.html#contents
- 152. http://www.columbia.edu/kermit/ckccfg.html#x13
- 153. http://www.columbia.edu/kermit/ckccfg.html#x11
- 154. http://www.columbia.edu/kermit/ckermit.html
- 155. http://www.columbia.edu/kermit/index.html
- 156. http://www.columbia.edu/kermit/ckccfg.html#top
- 157. http://www.columbia.edu/kermit/ckccfg.html#contents
- 158. http://www.columbia.edu/kermit/ckccfg.html#x14
- 159. http://www.columbia.edu/kermit/ckccfg.html#x12
- 160. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
- 161. http://www.columbia.edu/kermit/ckermit.html
- 162. http://www.columbia.edu/kermit/index.html
- 163. http://www.columbia.edu/kermit/ckccfg.html#top
- 164. http://www.columbia.edu/kermit/ckccfg.html#contents
- 165. http://www.columbia.edu/kermit/ckccfg.html#x13
- 166. http://www.columbia.edu/kermit/ckermit.html
- 167. http://www.columbia.edu/kermit/index.html
- 168. http://www.columbia.edu/kermit/ckccfg.html#top
- 169. http://www.columbia.edu/kermit/ckccfg.html#contents
- 170. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
- 171. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.h
- 172. ftp://kermit.columbia.edu/kermit/c-kermit/ckcmai.c
- 173. http://www.columbia.edu/kermit/ckccfg.html#top
- 174. http://www.columbia.edu/kermit/ckccfg.html#contents
- 175. http://www.columbia.edu/kermit/ckermit.html
- 176. http://www.columbia.edu/kermit/index.html
- 177. http://www.columbia.edu/kermit/index.html
- 178. mailto:kermit@columbia.edu
+    C-Kermit Configuration Options
+	The Kermit Project
+    kermit@columbia.edu
+	30 June 2011

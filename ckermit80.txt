@@ -7,9 +7,7 @@
 
 C-Kermit 8.0 Update Notes
 
-   [ [11]Contents ] [ [12]C-Kermit ] [ [13]Kermit Home ]
-
-Second Supplement to [14]Using C-Kermit, 2nd Edition
+Second Supplement to Using C-Kermit, 2nd Edition
 
 For C-Kermit 8.0
 
@@ -926,7 +924,7 @@ not available in time for the 7.0 release:
 
    In SSH v2, it is possible to make an SSH connection direct to a Kermit
    server system if the host administrator has configured the SSH server
-   to allow this; [179]CLICK HERE for details.
+   to allow this.
 
    Since Kermit uses external ssh client software, and since there are
    different ssh clients (and different releases of each one), the exact
@@ -1889,8 +1887,7 @@ set host /pipe ssh -e none -l olga -T -s hq.xyzcorp.com kermit
    As you read this and the following sections, bear in mind that any
    command that can be given at the prompt can also be used in a script
    program. Kermit's script programming language is the same as its
-   interactive command language. [234]CLICK HERE if you would like to
-   learn a bit more about script writing.
+   interactive command language. 
 
    An FTP session is established with the FTP OPEN command:
 
@@ -3394,8 +3391,7 @@ C-Kermit>ftp put ? Filename, or switch, one of the following:
    /EXCEPT:{pattern} or /EXCEPT:{{pattern}{pattern}{...}}
           Exception list for MGET; skip downloading any file whose name
           matches any of the given patterns (when using the second format,
-          up to 64 patterns may be specified). [317]CLICK HERE for syntax
-          details.
+          up to 64 patterns may be specified).
 
    /SMALLER-THAN:number
           Download only files whose size is smaller than the given number
@@ -3773,8 +3769,7 @@ C-Kermit>ftp put ? Filename, or switch, one of the following:
   set ftp server-character-set ?
   set file character-set ?
 
-   A typical list looks like this ([339]CLICK HERE for an explanation of
-   the names):
+   A typical list looks like this:
 
   C-Kermit>set file char ? One of the following:
    ascii            cp869-greek       hebrew-7         mazovia-pc
@@ -4087,8 +4082,6 @@ C-Kermit>ftp put ? Filename, or switch, one of the following:
    variables, arrays, built-in functions, and all the rest. You can't use
    INPUT, MINPUT, OUTPUT, CLEAR, or SCRIPT on an FTP session, but these
    are not needed since the FTP protocol is well defined.
-
-   [354]CLICK HERE for an FTP scripting tutorial.
 
 3.10.1. FTP-Specific Variables and Functions
 

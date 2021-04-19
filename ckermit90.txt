@@ -6,11 +6,6 @@
    [10]Support
 
 
-      [11]CLICK HERE to read about some of these items.
-
-          [12]Table of platforms   [13]Book: Using C-Kermit   [14]Download
-                                                              C-Kermit 9.0
-
 C-Kermit 9.0 Update Notes
 
    Note:   C-Kermit 9.0.301 contains a correction that applies only to
@@ -1382,12 +1377,12 @@ Using External File-Transfer Protocols on Secure Connections
 
 Demonstration: Fetch Mail from POP Server Secured by SSL
 
-   [96]pop.ksc is a fully elaborated production script for fetching one's
+   pop.ksc is a fully elaborated production script for fetching one's
    mail from a POP3 server over a connection secured by SSL. For
-   explanation and documentation, [97]CLICK HERE. [98]mailcheck is a
-   wrapper for the pop.ksc script, which collects your password one time,
-   and then checks for new mail every 5 minutes (or other selected
-   interval) and calls pop.ksc to fetch it if there is any.
+   explanation and documentation, mailcheck is a wrapper for the pop.ksc
+   script, which collects your password one time, and then checks for new
+   mail every 5 minutes (or other selected interval) and calls pop.ksc to
+   fetch it if there is any.
 
 Demonstration: HP Switch Configuration Backup
 
@@ -2016,137 +2011,3 @@ Demonstration Scripts for Webmasters
 
     C-Kermit 9.0 / [128]The Kermit Project / [129]Columbia University /
     [130]kermit@columbia.edu / [131]validate
-
-References
-
-   1. http://www.columbia.edu/
-   2. mailto:kermit@columbia.edu
-   3. http://www.columbia.edu/kermit/index.html
-   4. http://www.columbia.edu/kermit/k95.html
-   5. http://www.columbia.edu/kermit/ckermit.html
-   6. http://www.columbia.edu/kermit/ckscripts.html
-   7. http://www.columbia.edu/kermit/current.html
-   8. http://www.columbia.edu/kermit/whatsnew.html
-   9. http://www.columbia.edu/kermit/faq.html
-  10. http://www.columbia.edu/kermit/support.html
-  11. http://www.columbia.edu/cu/computinghistory/books/#menagerie
-  12. http://www.columbia.edu/kermit/ck90tables.html
-  13. http://www.amazon.com/gp/product/1555581641?ie=UTF8&tag=aleidmoreldom-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1555581641
-  14. http://www.columbia.edu/kermit/ckermit.html#download
-  15. http://www.columbia.edu/kermit/ckermit90.html#LargeFiles
-  16. http://www.columbia.edu/kermit/ckermit90.html#TestLargeFiles
-  17. http://www.columbia.edu/kermit/ckermit90.html#Bignums
-  18. http://www.columbia.edu/kermit/ckermit90.html#force3
-  19. http://www.columbia.edu/kermit/ckermit90.html#Vareval
-  20. http://www.columbia.edu/kermit/ckermit90.html#rename
-  21. http://www.columbia.edu/kermit/ckermit90.html#Other
-  22. http://www.columbia.edu/kermit/ckermit90.html#Incompatibilities
-  23. http://www.columbia.edu/kermit/ckermit90.html#NotIn9.0
-  24. http://www.columbia.edu/kermit/ckermit90.html#LooseEnd
-  25. http://www.columbia.edu/kermit/ckermit90.html#pop
-  26. http://www.columbia.edu/kermit/ckermit90.html#HPswitch
-  27. http://www.columbia.edu/kermit/ckermit90.html#iLO
-  28. http://www.columbia.edu/kermit/ckermit90.html#Rolm
-  29. http://www.columbia.edu/kermit/ckermit90.html#CSV
-  30. http://www.columbia.edu/kermit/ckermit90.html#Otherdemos
-  31. http://www.columbia.edu/kermit/ck60manual.html
-  32. http://www.amazon.com/gp/product/B002ACPF9M?ie=UTF8&tag=aleidmoreldom-20&linkCode=as2&camp=1789&creative=390957&creativeASIN=B002ACPF9M
-  33. http://www.columbia.edu/kermit/ckermit70.html
-  34. http://www.columbia.edu/kermit/ckermit80.html
-  35. http://www.columbia.edu/kermit/ckscripts.html
-  36. http://www.columbia.edu/cu/computinghistory/dec20.html
-  37. mailto:fdc@columbia.edu
-  38. http://www.columbia.edu/kermit/k95.html
-  39. http://www.columbia.edu/kermit/cu-bsd-license.html
-  40. http://www.columbia.edu/kermit/ckermit90.html#LargeFiles
-  41. http://www.columbia.edu/kermit/ck90tables.html
-  42. http://www.columbia.edu/kermit/ck90tables.html
-  43. http://www.columbia.edu/kermit/ckermit90.html#force3
-  44. http://www.columbia.edu/kermit/ckermit90.html#Vareval
-  45. http://www.columbia.edu/kermit/ckrename.html
-  46. http://www.columbia.edu/kermit/csv.html
-  47. http://www.columbia.edu/kermit/csetnames.html
-  48. http://www.columbia.edu/kermit/ckermit90.html#HPswitch
-  49. http://www.columbia.edu/kermit/ckdaily.html
-  50. http://www.columbia.edu/kermit/cu-bsd-license.html
-  51. http://www.opensource.org/
-  52. http://kermit.columbia.edu/ck90tables.html#LF
-  53. ftp://kermit.columbia.edu/kermit/utils/bigfile.c
-  54. http://www.columbia.edu/kermit/ckermit80.html#x9
-  55. http://www.columbia.edu/kermit/ck90tables.html#LF
-  56. ftp://kermit.columbia.edu/kermit/scripts/ckermit/easter2
-  57. http://www.columbia.edu/kermit/em-apex.html
-  58. http://www.iridium.com/
-  59. http://science1.nasa.gov/science-news/science-at-nasa/2006/09jan_electrichurricanes/
-  60. http://www.columbia.edu/kermit/ek.html
-  61. ftp://kermit.columbia.edu/kermit/ek/simirid/
-  62. http://www.columbia.edu/kermit/ek.html
-  63. http://www.columbia.edu/kermit/ckermit70.html#x7.10.10
-  64. http://www.columbia.edu/kermit/csv.html
-  65. http://www.columbia.edu/kermit/ckermit70.html#x1.11
-  66. http://www.columbia.edu/kermit/ckermit70.html
-  67. http://www.columbia.edu/kermit/ckermit80.html#x9
-  68. http://www.columbia.edu/kermit/csetnames.html
-  69. http://www.columbia.edu/kermit/ckdaily.html
-  70. http://www.columbia.edu/kermit/ftpclient.html
-  71. http://www.columbia.edu/kermit/ckdaily.html
-  72. http://www.columbia.edu/kermit/csetnames.html
-  73. http://www.columbia.edu/kermit/ckermit90.html#Otherdemos
-  74. http://www.columbia.edu/kermit/input_nowrap.html
-  75. http://www.columbia.edu/~fdc/mm/index.html
-  76. http://www.columbia.edu/kermit/photoalbum.html
-  77. http://www.columbia.edu/~fdc/kermit/logserial.html
-  78. http://www.columbia.edu/kermit/ckermit90.html#message
-  79. http://www.columbia.edu/kermit/ckermit90.html#NotIn9.0
-  80. http://www.columbia.edu/kermit/csv.html#join
-  81. http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-3767
-  82. http://www.columbia.edu/kermit/ftp/test/tar/x.zip
-  83. http://www.mseclab.com/?p=180
-  84. http://www.theregister.co.uk/2009/07/30/universal_ssl_certificate/
-  85. http://www.columbia.edu/kermit/ckermit90.html#HPswitch
-  86. http://www.columbia.edu/kermit/em-apex.html
-  87. http://www.freebsd.org/releases/8.0R/announce.html
-  88. http://www.columbia.edu/kermit/security81.html#x4.2.3
-  89. http://www.columbia.edu/kermit/ckermit80.html#x9
-  90. http://www.columbia.edu/kermit/ckermit80.html#x8.7.2
-  91. http://www.columbia.edu/kermit/ckermit80.html#x9
-  92. http://www.columbia.edu/kermit/ckpackages.html
-  93. http://docs.hp.com/en/B9106-90013/pty.7.html
-  94. http://www.columbia.edu/kermit/test/text/ckc299.txt
-  95. http://www.columbia.edu/kermit/test/text/ckutio.c
-  96. http://www.columbia.edu/~fdc/mm/pop
-  97. http://www.columbia.edu/~fdc/mm/
-  98. http://www.columbia.edu/~fdc/mm/mailcheck
-  99. http://en.wikipedia.org/wiki/Trivial_File_Transfer_Protocol
- 100. http://www.columbia.edu/kermit/ftp/scripts/ckermit/gethpconfig
- 101. http://www.columbia.edu/kermit/ftp/scripts/ckermit/TestSwitches.txt
- 102. http://en.wikipedia.org/wiki/Standard_streams
- 103. http://kermit.columbia.edu/cudocs/ilosetup.html
- 104. http://www.columbia.edu/kermit/cudocs/cbx.html
- 105. http://www.columbia.edu/kermit/ckermit90.html#record
- 106. http://www.columbia.edu/kermit/ckermit90.html#join
- 107. http://www.columbia.edu/kermit/ckermit90.html#file
- 108. http://www.columbia.edu/kermit/ckermit80.html#fjoin
- 109. http://www.columbia.edu/kermit/ckermit90.html#rules
- 110. http://www.columbia.edu/kermit/ckermit80.html#fjoin
- 111. http://www.columbia.edu/kermit/ckermit90.html#varasg
- 112. http://www.columbia.edu/kermit/ckermit70.html#x7.9
- 113. http://www.amazon.com/gp/product/1555581641?ie=UTF8&tag=aleidmoreldom-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=1555581641
- 114. http://www.columbia.edu/kermit/ckscripts.html#oops
- 115. http://www.columbia.edu/kermit/ckscripts.html
- 116. http://www.columbia.edu/kermit/ksitemap.html
- 117. http://www.columbia.edu/kermit/weblog.html
- 118. http://kermit.columbia.edu/ftp/scripts/ckermit/amazon
- 119. http://www.columbia.edu/kermit/photoalbum.html
- 120. http://www.columbia.edu/kermit/index.html
- 121. http://www.columbia.edu/kermit/k95.html
- 122. http://www.columbia.edu/kermit/ckermit.html
- 123. http://www.columbia.edu/kermit/ckscripts.html
- 124. http://www.columbia.edu/kermit/current.html
- 125. http://www.columbia.edu/kermit/whatsnew.html
- 126. http://www.columbia.edu/kermit/faq.html
- 127. http://www.columbia.edu/kermit/support.html
- 128. http://www.columbia.edu/kermit/index.html
- 129. http://www.columbia.edu/
- 130. mailto:kermit@columbia.edu
- 131. http://validator.w3.org/check?uri=http%3A%2F%2Fkermit.columbia.edu%2Fckermit90.html
