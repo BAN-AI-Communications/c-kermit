@@ -1,14 +1,15 @@
 
-   [1]The Columbia Crown The Kermit Project | Columbia University
-   612 West 115th Street, New York NY 10025 USA o [2]kermit@columbia.edu
+   The Kermit Project
+   Columbia University
+   612 West 115th Street
+   New York NY 10025 USA
+   kermit@columbia.edu
    ...since 1981
-   [3]Home [4]Kermit 95 [5]C-Kermit [6]Scripts [7]Current [8]New [9]FAQ
-   [10]Support
 
 C-Kermit Program Logic Manual
 
      Frank da Cruz
-     [11]The Kermit Project
+     The Kermit Project
 
    As of: C-Kermit 9.0.300, 30 June 2011
    Last update: Fri Jul 1 15:47:34 2011
@@ -17,28 +18,28 @@ C-Kermit Program Logic Manual
      this file is a plain-text dump of a Web page. You can visit the
      original (and possibly more up-to-date) Web page here:
 
-  [12]http://www.columbia.edu/kermit/ckcplm.html
+  http://www.columbia.edu/kermit/ckcplm.html
 
 CONTENTS
 
-  1. [13]INTRODUCTION
-  2. [14]FILES
-  3. [15]SOURCE CODE PORTABILITY AND STYLE
-  4. [16]MODULES
-     4.A. [17]Group A: Library Routines
-     4.B. [18]Group B: Kermit File Transfer
-     4.C. [19]Group C: Character-Set Conversion
-     4.D. [20]Group D: User Interface
-     4.E. [21]Group E: Platform-Dependent I/O
-     4.F. [22]Group F: Network Support
-     4.G. [23]Group G: Formatted Screen Support
-     4.H. [24]Group H: Pseudoterminal Support
-     4.I. [25]Group I: Security
-  I. [26]APPENDIX I: FILE PERMISSIONS
+  1. INTRODUCTION
+  2. FILES
+  3. SOURCE CODE PORTABILITY AND STYLE
+  4. MODULES
+     4.A. Group A: Library Routines
+     4.B. Group B: Kermit File Transfer
+     4.C. Group C: Character-Set Conversion
+     4.D. Group D: User Interface
+     4.E. Group E: Platform-Dependent I/O
+     4.F. Group F: Network Support
+     4.G. Group G: Formatted Screen Support
+     4.H. Group H: Pseudoterminal Support
+     4.I. Group I: Security
+  I. APPENDIX I: FILE PERMISSIONS
 
 1. INTRODUCTION
 
-   The Kermit Protocol is specified in the book [27]Kermit, A File
+   The Kermit Protocol is specified in the book Kermit, A File
    Transfer Protocol by Frank da Cruz, Digital Press / Butterworth
    Heinemann, Newton, MA, USA (1987), 379 pages, ISBN 0-932376-88-6. It is
    assumed the reader is familiar with the Kermit protocol specification.
@@ -47,7 +48,7 @@ CONTENTS
    C-Kermit 5A and later, and other programming considerations. C-Kermit
    is designed to be portable to any kind of computer that has a C
    compiler. The source code is broken into many files that are grouped
-   according to their function, as shown in the [28]Contents.
+   according to their function, as shown in the Contents.
 
    C-Kermit has seen constant development since 1985. Throughout its
    history, there has been a neverending tug-of-war among:
@@ -80,28 +81,28 @@ CONTENTS
    every effort should be made to preserve it through future releases.
 
    Voluminous edit histories are available going back to May 1985. The
-   first versions of C-Kermit were done on our [29]DEC VAX-11/750 with
+   first versions of C-Kermit were done on our DEC VAX-11/750 with
    Ultrix 1.0 and 2.0 (as well as departmental 750s with 4.2BSD**), DEC
    Pro-380 workstations (desktop PDP-11s) running 2.9BSD, which was
-   [30]ported to the 380 by us. Later (1988 or so) on a big VAX 8650 with
+   ported to the 380 by us. Later (1988 or so) on a big VAX 8650 with
    Ultrix, which became an 8700 (these no doubt weighed several tons), and
    finally a succession of non-DEC equipment: an Encore Multimax, 25 years
-   worth of Suns, and now Linux on [31]HP Blades. We also had our own VMS
+   worth of Suns, and now Linux on HP Blades. We also had our own VMS
    development systems for some years. All this plus a generous assortment
    of departmental and offsite guest accounts on a multitude of platforms.
    Anyway, the edit histories:
 
-     [32]ckc04e.txt C-Kermit 4.2(030) May 1985 to 4E(072) Jan 1989.
-     [33]ckc04f.txt C-Kermit 4F(077) Arp 1989 to 4F(095) Aug 1989.
-     [34]ckc168.txt Updates to C-Kermit 5A(168) for VMS Nov 1991
-     [35]ckc178.txt C-Kermit 5A(100) Jul 1989 to 5A(178) Jan 1992
-     [36]ckc188.txt C-Kermit 5A(188) development, 1992
-     [37]ckc189.txt C-Kermit 5A(189) development, 1993
-     [38]ckc192.txt C-Kermit 6.0(192) development, 1998
-     [39]ckc197.txt C-Kermit 7.0(197) development, 2000
-     [40]ckc200.txt C-Kermit 8.0.200 development, 2001
-     [41]ckc211.txt C-Kermit 8.0.201 through 8.0.209 2001-2004
-     [42]ckc300.txt C-Kermit 9.0.300 June 2011
+     ckc04e.txt C-Kermit 4.2(030) May 1985 to 4E(072) Jan 1989.
+     ckc04f.txt C-Kermit 4F(077) Arp 1989 to 4F(095) Aug 1989.
+     ckc168.txt Updates to C-Kermit 5A(168) for VMS Nov 1991
+     ckc178.txt C-Kermit 5A(100) Jul 1989 to 5A(178) Jan 1992
+     ckc188.txt C-Kermit 5A(188) development, 1992
+     ckc189.txt C-Kermit 5A(189) development, 1993
+     ckc192.txt C-Kermit 6.0(192) development, 1998
+     ckc197.txt C-Kermit 7.0(197) development, 2000
+     ckc200.txt C-Kermit 8.0.200 development, 2001
+     ckc211.txt C-Kermit 8.0.201 through 8.0.209 2001-2004
+     ckc300.txt C-Kermit 9.0.300 June 2011
 
    _________________________________
    * C-Kermit 6.0 was the last one to be built on V7, as I recall. The
@@ -116,8 +117,6 @@ CONTENTS
 
    **  C-Kermit 9.0.300 was built successfully on 4.2BSD about 25 years
    later, in June 2011.
-
-   [ [43]Contents ] [ [44]C-Kermit ] [ [45]Kermit Home ]
 
 2. FILES
 
@@ -197,7 +196,7 @@ foo(x,y) int x, y; {
   $ emacs
   Esc-X Visit-Tags-Table<CR><CR>
 
-   (but remember that the source file for ckcpro.c is [46]ckcpro.w!)
+   (but remember that the source file for ckcpro.c is ckcpro.w!)
 
    Also:
 
@@ -207,8 +206,6 @@ foo(x,y) int x, y; {
        indentation conventions, which are: 4 for block contents, 2 for
        most other stuff (obviously this is not a portability issue, just
        style).
-
-   [ [47]Contents ] [ [48]C-Kermit ] [ [49]Kermit Home ]
 
 3. SOURCE CODE PORTABILITY AND STYLE
 
@@ -306,7 +303,7 @@ foo(x,y) int x, y; {
        modifier other than L.
      * Unsigned char is not portable, use CHAR (a preprocessor symbol
        defined in the Kermit header files) and always take precautions
-       against character signage (more about this [50]below).
+       against character signage (more about this below).
      * Don't use initializers with automatic arrays or structs: it's not
        portable.
      * Don't use big automatic arrays or structs in functions that might
@@ -500,8 +497,6 @@ foo(x,y) int x, y; {
    certain not to apply. For example, in VMS-specific code, it is OK to
    use #if, because VAX C, DEC C, and VMS GCC all support it.
 
-   [ [51]Contents ] [ [52]C-Kermit ] [ [53]Kermit Home ]
-
 3.1. Memory Leaks
 
    The C language and standard C library are notoriously inadequate and
@@ -552,9 +547,7 @@ foo(x,y) int x, y; {
    ckmakxmsg()
           Like ckmakmsg() but accepts up to 12 items
 
-   More about library functions in [54]Section 4.A.
-
-   [ [55]Contents ] [ [56]C-Kermit ] [ [57]Kermit Home ]
+   More about library functions in Section 4.A.
 
 3.2. The "char" vs "unsigned char" Dilemma
 
@@ -581,8 +574,6 @@ foo(x,y) int x, y; {
    arguments that are declared as signed chars (or pointers to them),
    whereas our character data is unsigned. Fine, we can can use casts here
    too -- but who knows what happens inside these routines.
-
-   [ [58]Contents ] [ [59]C-Kermit ] [ [60]Kermit Home ]
 
 4. MODULES
 
@@ -616,17 +607,13 @@ foo(x,y) int x, y; {
    console or interruptions from it (except for "in-band" interruptions
    such as ^C^C^C).
 
-   [ [61]Contents ] [ [62]C-Kermit ] [ [63]Kermit Home ]
-
 4.A. Group A: Library Functions
 
    Library functions, strictly portable, can be used by all modules on all
-   platforms: [64]ckclib.h, [65]ckclib.c.
+   platforms: ckclib.h, ckclib.c.
 
-   (To be filled in... For now, see [66]Section 3.1 and the comments in
+   (To be filled in... For now, see Section 3.1 and the comments in
    ckclib.c.)
-
-   [ [67]Contents ] [ [68]C-Kermit ] [ [69]Kermit Home ]
 
 4.B. Group B: Kermit File Transfer
 
@@ -640,72 +627,70 @@ foo(x,y) int x, y; {
    contain any library calls except from the standard C library (e.g.
    printf()). They most certainly do not contain any system calls. Files:
 
-   [70]ckcsym.h
+   ckcsym.h
           For use by C compilers that don't allow -D on the command line.
 
-   [71]ckcasc.h
+   ckcasc.h
           ASCII character symbol definitions.
 
-   [72]ckcsig.h
+   ckcsig.h
           System-independent signal-handling definitions and prototypes.
 
-   [73]ckcdeb.h
+   ckcdeb.h
           Originally, debugging definitions. Now this file also contains
           all definitions and prototypes that are shared by all modules in
           all groups.
 
-   [74]ckcker.h
+   ckcker.h
           Kermit protocol symbol definitions.
 
-   [75]ckcxla.h
+   ckcxla.h
           Character-set-related symbol definitions (see next section).
 
-   [76]ckcmai.c
+   ckcmai.c
           The main program. This module contains the declarations of all
           the protocol-related global variables that are shared among the
           other modules.
 
-   [77]ckcpro.w
+   ckcpro.w
           The protocol module itself, written in "wart", a lex-like
           preprocessor that is distributed with Kermit under the name
           CKWART.C.
 
-   [78]ckcfns.c, [79]ckcfn2.c, [80]ckcfn3.c
+   ckcfns.c, ckcfn2.c, ckcfn3.c
           The protocol support functions used by the protocol module.
 
-   [81]Group B modules may call upon functions from [82]Group E, but not
-   from [83]Group D modules (with the single exception that the main
+   Group B modules may call upon functions from Group E, but not
+   from Group D modules (with the single exception that the main
    program invokes the user interface, which is in Group D). (This last
    assertion is really only a conjecture.)
 
-   [ [84]Contents ] [ [85]C-Kermit ] [ [86]Kermit Home ]
-
 4.C. Group C: Character-Set Conversion
 
-   Character set translation tables and functions. Used by the [87]Group
+   Character set translation tables and functions. Used by the Group
    B, protocol modules, but may be specific to different computers. (So
    far, all character character sets supported by C-Kermit are supported
-   in [88]ckuxla.c and [89]ckuxla.h, including Macintosh and IBM character
+   in ckuxla.c and ckuxla.h, including Macintosh and IBM character
    sets). These modules should be completely portable, and not rely on any
    kind of system or library services.
 
-   [90]ckcxla.h
+   ckcxla.h
           Character-set definitions usable by all versions of C-Kermit.
 
    ck?xla.h
-          Character-set definitions for computer "?", e.g. [91]ckuxla.h
-          for UNIX, [92]ckmxla.h for Macintosh.
+          Character-set definitions for computer "?", e.g. ckuxla.h
+          for UNIX, ckmxla.h for Macintosh.
 
-   [93]ck?xla
+   ck?xla
           Character-set translation tables and functions for computer "?",
           For example, CKUXLA.C for UNIX, CKMXLA.C for Macintosh. So far,
           these are the only two such modules. The UNIX module is used for
           all versions of C-Kermit except the Macintosh version.
 
-   [94]ckcuni.h
+   ckcuni.h
           Unicode definitions
 
-   [95]ckcuni.c
+   ckcuni.c
           Unicode module
 
    Here's how to add a new file character set in the original (non-Unicode
@@ -767,8 +752,6 @@ foo(x,y) int x, y; {
 
           + (To be filled in...)
 
-   [ [96]Contents ] [ [97]C-Kermit ] [ [98]Kermit Home ]
-
 4.D. Group D: User Interface
 
    This is the code that communicates with the user, gets her commands,
@@ -791,7 +774,7 @@ foo(x,y) int x, y; {
        such as the CONNECT command, local file management commands,
        parameter-setting commands, FTP client commands, etc.
 
-   If you plan to embed the [99]Group B, files into a program with a
+   If you plan to embed the Group B, files into a program with a
    different user interface, your interface must supply an appropriate
    screen() function, plus a couple related ones like chkint() and
    intmsg() for handling keyboard (or mouse, etc) interruptions during
@@ -806,38 +789,38 @@ foo(x,y) int x, y; {
    combination, and it can even be built with no user interface at all (in
    which case it runs as a remote-mode Kermit server).
 
-   [100]ckucmd.h
-   [101]ckucmd.c
+   ckucmd.h
+   ckucmd.c
           The command parsing primitives used by the interactive command
           parser to parse keywords, numbers, filenames, etc, and to give
           help, complete fields, supply defaults, allow abbreviations and
           editing, etc. This package is totally independent of Kermit, but
-          does depend on the [102]Group E functions.
+          does depend on the Group E functions.
 
-   [103]ckuusr.h
+   ckuusr.h
           Definitions of symbols used in Kermit's commands.
 
    ckuus*.c
           Kermit's interactive command parser, including the script
-          programming language: [104]ckuusr.c (includes top-level keyword
-          tables); [105]ckuus2.c (HELP command text); [106]ckuus3.c (most
-          of the SET command); [107]ckuus4.c (includes variables and
-          functions); ckuus[567].c (miscellaneous);
+          programming language: ckuusr.c (includes top-level keyword
+          tables); ckuus2.c (HELP command text); ckuus3.c (most
+          of the SET command); ckuus4.c (includes variables and
+          functions); ckuus.c (miscellaneous);
 
-   [108]ckuusy.c
+   ckuusy.c
           The command-line-option parser.
 
-   [109]ckuusx.c
+   ckuusx.c
           User interface functions common to both the interactive and
           command-line parsers.
 
-   [110]ckuver.h
+   ckuver.h
           Version heralds for different implementations.
 
-   [111]ckuscr.c
+   ckuscr.c
           The (old, uucp-like) SCRIPT command
 
-   [112]ckudia.c
+   ckudia.c
           The DIAL command. Includes specific knowledge of many types of
           modems.
 
@@ -851,8 +834,8 @@ foo(x,y) int x, y; {
           The CONNECT command. Terminal connection, and in some cases
           (Macintosh, Windows) also terminal emulation. NOTE: As of
           C-Kermit 7.0, there are two different CONNECT modules for UNIX:
-          [113]ckucon.c -- the traditional, portable, fork()-based version
-          -- and [114]ckucns.c, a new version that uses select() rather
+          ckucon.c -- the traditional, portable, fork()-based version
+          -- and ckucns.c, a new version that uses select() rather
           than forks so it can handle encryption. ckucns.c is the
           preferred version for Unix; ckucon.c is not likely to keep pace
           with it in terms of upgrades, etc. However, since select() is
@@ -885,7 +868,7 @@ foo(x,y) int x, y; {
    existence of C library features like fopen, fgets, feof, (f)printf,
    argv/argc, etc. Other functions that are likely to vary among operating
    systems -- like setting terminal modes or interrupts -- are invoked via
-   calls to functions that are defined in the [115]Group E
+   calls to functions that are defined in the Group E
    platform-dependent modules, ck?[ft]io.c. The command line parser
    processes any arguments found on the command line, as passed to main()
    via argv/argc. The interactive parser uses the facilities of the cmd
@@ -894,7 +877,7 @@ foo(x,y) int x, y; {
    requirements for the Kermit command parser are these:
 
     1. Set parameters via global variables like duplex, speed, ttname,
-       etc. See [116]ckcmai.c for the declarations and descriptions of
+       etc. See ckcmai.c for the declarations and descriptions of
        these variables.
     2. If a command can be executed without the use of Kermit protocol,
        then execute the command directly and set the sstate (start state)
@@ -942,18 +925,16 @@ foo(x,y) int x, y; {
    defined). The intmsg() and chkint() functions provide the user i/o for
    interrupting file transfers.
 
-   [ [117]Contents ] [ [118]C-Kermit ] [ [119]Kermit Home ]
-
 4.E. Group E: Platform-Dependent I/O
 
    Platform-dependent function definitions. All the Kermit modules,
    including the command package, call upon these functions, which are
    designed to provide system-independent primitives for controlling and
    manipulating devices and files. For Unix, these functions are defined
-   in the files [120]ckufio.c (files), [121]ckutio.c (communications), and
-   [122]ckusig.c (signal handling).
+   in the files ckufio.c (files), ckutio.c (communications), and
+   ckusig.c (signal handling).
 
-   For VMS, the files are [123]ckvfio.c, ckvtio.c, and [124]ckusig.c (VMS
+   For VMS, the files are ckvfio.c, ckvtio.c, and ckusig.c (VMS
    can use the same signal handling routines as Unix). It doesn't really
    matter what the files are called, except for Kermit distribution
    purposes (grouping related files together alphabetically), only that
@@ -1067,7 +1048,7 @@ foo(x,y) int x, y; {
    int dfflow;
           Default flow control. 0 = none, 1 = Xon/Xoff, ... (see FLO_xxx
           symbols in ckcdeb.h)
-          Set by Group E module. Used by [125]ckcmai.c to initialize flow
+          Set by Group E module. Used by ckcmai.c to initialize flow
           control variable.
 
    int dfloc;
@@ -1119,8 +1100,6 @@ foo(x,y) int x, y; {
           mode. Since this is not implemented everywhere, references to it
           are in #ifdef CK_TTYFD..#endif.
 
-   [ [126]Contents ] [ [127]C-Kermit ] [ [128]Kermit Home ]
-
 4.E.2. Functions
 
    These are divided into three categories: file-related functions (B.1),
@@ -1129,8 +1108,8 @@ foo(x,y) int x, y; {
 4.E.2.1. File-Related Functions
 
    In most implementations, these are collected together into a module
-   called ck?fio.c, where ? = "u" ([129]ckutio.c for Unix), "v"
-   ([130]ckvtio.c for VMS), [131]etc. To be totally platform-independent,
+   called ck?fio.c, where ? = "u" (ckutio.c for Unix), "v"
+   (ckvtio.c for VMS), etc. To be totally platform-independent,
    C-Kermit maintains its own file numbers, and provides the functions
    described in this section to deal with the files associated with them.
    The file numbers are referred to symbolically, and are defined as
@@ -1718,7 +1697,7 @@ foo(x,y) int x, y; {
    is a date of the form yyyymmdd hh:mm:ss, e.g. 19900208 13:00:00, which
    is to be used for setting or comparing the file date. Other attributes
    in the struct can also be set, such as the protection/permission (See
-   [132]Appendix I), when it makes sense (e.g. "yy->lprotect.val" can be
+   Appendix I), when it makes sense (e.g. "yy->lprotect.val" can be
    set if the remote system ID matches the local one).
     x: A function code: 0 means to set the file's creation date as given.
    1 means compare the date from the yy struct with the file's date.
@@ -1837,7 +1816,7 @@ foo(x,y) int x, y; {
    In UNIX, the only need Kermit has for privileged status is access to
    the UUCP lockfile directory, in order to read, create, and destroy
    lockfiles, and to open communication devices that are normally
-   protected against the user (see the [133]Unix C-Kermit Installation
+   protected against the user (see the Unix C-Kermit Installation
    Instructions for discussion). Therefore, privileges should only be
    enabled for these operations and disabled at all other times. This
    relieves the programmer of the responsibility of putting expensive and
@@ -2249,9 +2228,9 @@ foo(x,y) int x, y; {
               modem:
                       Less than zero: this is the negative of the network
                       type, and ttname is a network host name. Network
-                      types (from [134]ckcnet.h:
+                      types (from ckcnet.h:
 
-  NET_TCPB 1   TCP/IP Berkeley (socket)  (implemented in [135]ckutio.c)
+  NET_TCPB 1   TCP/IP Berkeley (socket)  (implemented in ckutio.c)
   NET_TCPA 2   TCP/IP AT&T (streams)     (not yet implemented)
   NET_DEC  3   DECnet                    (not yet implemented)
 
@@ -2556,21 +2535,19 @@ foo(x,y) int x, y; {
            -1: if this function is not supported.
             0: on success.
 
-   [ [136]Contents ] [ [137]C-Kermit ] [ [138]Kermit Home ]
-
 4.F. Group F: Network Support
 
    As of version 5A, C-Kermit includes support for several networks.
    Originally, this was just worked into the ttopen(), ttclos(), ttinc(),
-   ttinl(), and similar routines in [139]ckutio.c. But this made it
+   ttinl(), and similar routines in ckutio.c. But this made it
    impossible to share this code with non-UNIX versions, like VMS, AOS/VS,
    OS/2, etc. So as of edit 168, network code has been separated out into
    its own module and header file, ckcnet.c and ckcnet.h:
 
-     [140]ckcnet.h: Network-related symbol definitions.
-     [141]ckcnet.c: Network i/o (TCP/IP, X.25, etc), shared by most
+     ckcnet.h: Network-related symbol definitions.
+     ckcnet.c: Network i/o (TCP/IP, X.25, etc), shared by most
    platforms.
-     [142]cklnet.c: Network i/o (TCP/IP, X.25, etc) specific to Stratus
+     cklnet.c: Network i/o (TCP/IP, X.25, etc) specific to Stratus
    VOS.
 
    The routines and variables in these modules fall into two categories:
@@ -2655,8 +2632,6 @@ foo(x,y) int x, y; {
    contain code to test for the network type, which is available via the
    global variable ttnet.
 
-   [ [143]Contents ] [ [144]C-Kermit ] [ [145]Kermit Home ]
-
 4.F.1. Telnet Protocol
 
    (This section needs a great deal of updating...)
@@ -2665,8 +2640,8 @@ foo(x,y) int x, y; {
    it can be implemented in remote mode, which does not have a network
    connection:
 
-      [146]ckctel.h: Telnet protocol symbol definitions.
-      [147]ckctel.c: Telnet protocol.
+      ckctel.h: Telnet protocol symbol definitions.
+      ckctel.c: Telnet protocol.
 
    The Telnet protocol is supported by the following variables and
    routines:
@@ -2692,7 +2667,7 @@ foo(x,y) int x, y; {
 
 4.F.2. FTP Protocol
 
-   (To be filled in...) See the [148]source file
+   (To be filled in...) See the source file
 
 4.F.3. HTTP Protocol
 
@@ -2742,8 +2717,6 @@ foo(x,y) int x, y; {
    int
           x25inl()
           Read a Kermit packet from X.25 circuit.
-
-   [ [149]Contents ] [ [150]C-Kermit ] [ [151]Kermit Home ]
 
 4.F.5. Adding New Network Types
 
@@ -2804,14 +2777,12 @@ foo(x,y) int x, y; {
    You can NOT use constructions like "#if defined (HPX25 || IBMX25)";
    they are not portable.
 
-   [ [152]Contents ] [ [153]C-Kermit ] [ [154]Kermit Home ]
-
 4.G. Group G: Formatted Screen Support
 
    So far, this is used only for the fullscreen local-mode file transfer
    display. In the future, it might be extended to other uses. The
    fullscreen display code is in and around the routine screenc() in
-   [155]ckuusx.c.
+   ckuusx.c.
 
    In the UNIX version, we use the curses library, plus one call from the
    termcap library. In other versions (OS/2, VMS, etc) we insert dummy
@@ -2857,18 +2828,14 @@ foo(x,y) int x, y; {
           management service keeps a copy of the entire screen, as curses
           and SMG do. C-Kermit does not do this itself.
 
-   [ [156]Contents ] [ [157]C-Kermit ] [ [158]Kermit Home ]
-
 4.H. Group H: Pseudoterminal Support
 
-   (To be filled in...) But see: [159]these comments, and the source files
-   [160]ckupty.h and [161]ckupty.c.
+   (To be filled in...) But see: these comments, and the source files
+   ckupty.h and ckupty.c.
 
 4.I. Group I: Security
 
-   (To be filled in...) Meanwhile, see [162]security.html.
-
-   [ [163]Contents ] [ [164]C-Kermit ] [ [165]Kermit Home ]
+   (To be filled in...) Meanwhile, see security.html.
 
 APPENDIX I. FILE PERMISSIONS
 
@@ -2930,184 +2897,10 @@ I.2. Handling of Generic Protection
    etc), except that no non-Owner field should give more permissions than
    the Owner field.
 
-   [ [166]Top ] [ [167]Contents ] [ [168]C-Kermit Home ] [ [169]Kermit
-   Home ]
      __________________________________________________________________
 
 
-    C-Kermit Program Logic Manual / [170]The Kermit Project /
-    [171]kermit@columbia.edu / 30 June 2011
-
-References
-
-   1. http://www.columbia.edu/
-   2. mailto:kermit@columbia.edu
-   3. http://www.columbia.edu/kermit/index.html
-   4. http://www.columbia.edu/kermit/k95.html
-   5. http://www.columbia.edu/kermit/ckermit.html
-   6. http://www.columbia.edu/kermit/ckscripts.html
-   7. http://www.columbia.edu/kermit/current.html
-   8. http://www.columbia.edu/kermit/whatsnew.html
-   9. http://www.columbia.edu/kermit/ckfaq.html
-  10. http://www.columbia.edu/kermit/support.html
-  11. http://www.columbia.edu/kermit/
-  12. http://www.columbia.edu/kermit/ckcplm.html
-  13. http://www.columbia.edu/kermit/ckcplm.html#x1
-  14. http://www.columbia.edu/kermit/ckcplm.html#x2
-  15. http://www.columbia.edu/kermit/ckcplm.html#x3
-  16. http://www.columbia.edu/kermit/ckcplm.html#x4
-  17. http://www.columbia.edu/kermit/ckcplm.html#x4.A
-  18. http://www.columbia.edu/kermit/ckcplm.html#x4.B
-  19. http://www.columbia.edu/kermit/ckcplm.html#x4.C
-  20. http://www.columbia.edu/kermit/ckcplm.html#x4.D
-  21. http://www.columbia.edu/kermit/ckcplm.html#x4.E
-  22. http://www.columbia.edu/kermit/ckcplm.html#x4.F
-  23. http://www.columbia.edu/kermit/ckcplm.html#x4.G
-  24. http://www.columbia.edu/kermit/ckcplm.html#x4.H
-  25. http://www.columbia.edu/kermit/ckcplm.html#x4.I
-  26. http://www.columbia.edu/kermit/ckcplm.html#xa1
-  27. http://www.amazon.com/gp/product/0932376886?ie=UTF8&tag=aleidmoreldom-20&linkCode=as2&camp=1789&creative=9325&creativeASIN=0932376886
-  28. http://www.columbia.edu/kermit/ckcplm.html#contents
-  29. http://www.columbia.edu/kermit/vax_11-750.jpg
-  30. http://www.columbia.edu/cu/computinghistory/hermit.html
-  31. http://www.columbia.edu/kermit/cudocs/ilosetup.html
-  32. ftp://kermit.columbia.edu/kermit/f/ckc04e.txt
-  33. ftp://kermit.columbia.edu/kermit/f/ckc04f.txt
-  34. ftp://kermit.columbia.edu/kermit/f/ckc168.txt
-  35. ftp://kermit.columbia.edu/kermit/f/ckc178.txt
-  36. ftp://kermit.columbia.edu/kermit/f/ckc188.txt
-  37. ftp://kermit.columbia.edu/kermit/f/ckc189.txt
-  38. ftp://kermit.columbia.edu/kermit/f/ckc192.txt
-  39. ftp://kermit.columbia.edu/kermit/f/ckc197.txt
-  40. ftp://kermit.columbia.edu/kermit/f/ckc200.txt
-  41. ftp://kermit.columbia.edu/kermit/f/ckc211.txt
-  42. ftp://kermit.columbia.edu/kermit/f/ckc300.txt
-  43. http://www.columbia.edu/kermit/ckcplm.html#contents
-  44. http://www.columbia.edu/kermit/ckermit.html
-  45. http://www.columbia.edu/kermit/index.html
-  46. ftp://kermit.columbia.edu/kermit/c-kermit/ckcpro.w
-  47. http://www.columbia.edu/kermit/ckcplm.html#contents
-  48. http://www.columbia.edu/kermit/ckermit.html
-  49. http://www.columbia.edu/kermit/index.html
-  50. http://www.columbia.edu/kermit/ckcplm.html#x3.2
-  51. http://www.columbia.edu/kermit/ckcplm.html#contents
-  52. http://www.columbia.edu/kermit/ckermit.html
-  53. http://www.columbia.edu/kermit/index.html
-  54. http://www.columbia.edu/kermit/ckcplm.html#x4.A
-  55. http://www.columbia.edu/kermit/ckcplm.html#contents
-  56. http://www.columbia.edu/kermit/ckermit.html
-  57. http://www.columbia.edu/kermit/index.html
-  58. http://www.columbia.edu/kermit/ckcplm.html#contents
-  59. http://www.columbia.edu/kermit/ckermit.html
-  60. http://www.columbia.edu/kermit/index.html
-  61. http://www.columbia.edu/kermit/ckcplm.html#contents
-  62. http://www.columbia.edu/kermit/ckermit.html
-  63. http://www.columbia.edu/kermit/index.html
-  64. ftp://kermit.columbia.edu/kermit/c-kermit/ckclib.h
-  65. ftp://kermit.columbia.edu/kermit/c-kermit/ckclib.c
-  66. http://www.columbia.edu/kermit/ckcplm.html#x3.1
-  67. http://www.columbia.edu/kermit/ckcplm.html#contents
-  68. http://www.columbia.edu/kermit/ckermit.html
-  69. http://www.columbia.edu/kermit/index.html
-  70. ftp://kermit.columbia.edu/kermit/c-kermit/ckcsym.h
-  71. ftp://kermit.columbia.edu/kermit/c-kermit/ckcasc.h
-  72. ftp://kermit.columbia.edu/kermit/c-kermit/ckcsig.h
-  73. ftp://kermit.columbia.edu/kermit/c-kermit/ckcdeb.h
-  74. ftp://kermit.columbia.edu/kermit/c-kermit/ckcker.h
-  75. ftp://kermit.columbia.edu/kermit/c-kermit/ckcxla.h
-  76. ftp://kermit.columbia.edu/kermit/c-kermit/ckcmai.c
-  77. ftp://kermit.columbia.edu/kermit/c-kermit/ckcpro.w
-  78. ftp://kermit.columbia.edu/kermit/c-kermit/ckcfns.c
-  79. ftp://kermit.columbia.edu/kermit/c-kermit/ckcfn2.c
-  80. ftp://kermit.columbia.edu/kermit/c-kermit/ckcfn3.c
-  81. http://www.columbia.edu/kermit/ckcplm.html#x4.B
-  82. http://www.columbia.edu/kermit/ckcplm.html#x4.E
-  83. http://www.columbia.edu/kermit/ckcplm.html#x4.D
-  84. http://www.columbia.edu/kermit/ckcplm.html#contents
-  85. http://www.columbia.edu/kermit/ckermit.html
-  86. http://www.columbia.edu/kermit/index.html
-  87. http://www.columbia.edu/kermit/ckcplm.html#x4.B
-  88. ftp://kermit.columbia.edu/kermit/c-kermit/ckuxla.c
-  89. ftp://kermit.columbia.edu/kermit/c-kermit/ckuxla.h
-  90. ftp://kermit.columbia.edu/kermit/c-kermit/ckcxla.h
-  91. ftp://kermit.columbia.edu/kermit/c-kermit/ckuxla.h
-  92. ftp://kermit.columbia.edu/kermit/c-kermit/ckmxla.h
-  93. ftp://kermit.columbia.edu/kermit/c-kermit/ck?xla
-  94. ftp://kermit.columbia.edu/kermit/c-kermit/ckcuni.h
-  95. ftp://kermit.columbia.edu/kermit/c-kermit/ckcuni.c
-  96. http://www.columbia.edu/kermit/ckcplm.html#contents
-  97. http://www.columbia.edu/kermit/ckermit.html
-  98. http://www.columbia.edu/kermit/index.html
-  99. http://www.columbia.edu/kermit/ckcplm.html#x4.B
- 100. ftp://kermit.columbia.edu/kermit/c-kermit/ckucmd.h
- 101. ftp://kermit.columbia.edu/kermit/c-kermit/ckucmd.c
- 102. http://www.columbia.edu/kermit/ckcplm.html#x4.E
- 103. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusr.h
- 104. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusr.c
- 105. ftp://kermit.columbia.edu/kermit/c-kermit/ckuus2.c
- 106. ftp://kermit.columbia.edu/kermit/c-kermit/ckuus3.c
- 107. ftp://kermit.columbia.edu/kermit/c-kermit/ckuus4.c
- 108. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusy.c
- 109. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusx.c
- 110. ftp://kermit.columbia.edu/kermit/c-kermit/ckuver.h
- 111. ftp://kermit.columbia.edu/kermit/c-kermit/ckuscr.c
- 112. ftp://kermit.columbia.edu/kermit/c-kermit/ckudia.c
- 113. ftp://kermit.columbia.edu/kermit/c-kermit/ckucon.c
- 114. ftp://kermit.columbia.edu/kermit/c-kermit/ckucns.c
- 115. http://www.columbia.edu/kermit/ckcplm.html#x4.E
- 116. ftp://kermit.columbia.edu/kermit/c-kermit/ckcmai.c
- 117. http://www.columbia.edu/kermit/ckcplm.html#contents
- 118. http://www.columbia.edu/kermit/ckermit.html
- 119. http://www.columbia.edu/kermit/index.html
- 120. ftp://kermit.columbia.edu/kermit/c-kermit/ckufio.c
- 121. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
- 122. ftp://kermit.columbia.edu/kermit/c-kermit/ckusig.c
- 123. ftp://kermit.columbia.edu/kermit/c-kermit/ckvfio.c
- 124. ftp://kermit.columbia.edu/kermit/c-kermit/ckusig.c
- 125. ftp://kermit.columbia.edu/kermit/c-kermit/ckcmai.c
- 126. http://www.columbia.edu/kermit/ckcplm.html#contents
- 127. http://www.columbia.edu/kermit/ckermit.html
- 128. http://www.columbia.edu/kermit/index.html
- 129. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
- 130. ftp://kermit.columbia.edu/kermit/c-kermit/ckvtio.c
- 131. http://www.columbia.edu/kermit/ckcplm.html#x2
- 132. http://www.columbia.edu/kermit/ckcplm.html#xa1
- 133. http://www.columbia.edu/kermit/ckuins.html
- 134. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.h
- 135. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
- 136. http://www.columbia.edu/kermit/ckcplm.html#contents
- 137. http://www.columbia.edu/kermit/ckermit.html
- 138. http://www.columbia.edu/kermit/index.html
- 139. ftp://kermit.columbia.edu/kermit/c-kermit/ckutio.c
- 140. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.h
- 141. ftp://kermit.columbia.edu/kermit/c-kermit/ckcnet.c
- 142. ftp://kermit.columbia.edu/kermit/c-kermit/cklnet.c
- 143. http://www.columbia.edu/kermit/ckcplm.html#contents
- 144. http://www.columbia.edu/kermit/ckermit.html
- 145. http://www.columbia.edu/kermit/index.html
- 146. ftp://kermit.columbia.edu/kermit/c-kermit/ckctel.h
- 147. ftp://kermit.columbia.edu/kermit/c-kermit/ckctel.c
- 148. ftp://kermit.columbia.edu/kermit/c-kermit/ckcftp.c
- 149. http://www.columbia.edu/kermit/ckcplm.html#contents
- 150. http://www.columbia.edu/kermit/ckermit.html
- 151. http://www.columbia.edu/kermit/index.html
- 152. http://www.columbia.edu/kermit/ckcplm.html#contents
- 153. http://www.columbia.edu/kermit/ckermit.html
- 154. http://www.columbia.edu/kermit/index.html
- 155. ftp://kermit.columbia.edu/kermit/c-kermit/ckuusx.c
- 156. http://www.columbia.edu/kermit/ckcplm.html#contents
- 157. http://www.columbia.edu/kermit/ckermit.html
- 158. http://www.columbia.edu/kermit/index.html
- 159. http://www.columbia.edu/kermit/ckermit90.html#LooseEnd
- 160. ftp://kermit.columbia.edu/kermit/f/ckupty.h
- 161. ftp://kermit.columbia.edu/kermit/f/ckupty.c
- 162. http://www.columbia.edu/kermit/security.html
- 163. http://www.columbia.edu/kermit/ckcplm.html#contents
- 164. http://www.columbia.edu/kermit/ckermit.html
- 165. http://www.columbia.edu/kermit/index.html
- 166. http://www.columbia.edu/kermit/ckcplm.html#top
- 167. http://www.columbia.edu/kermit/ckcplm.html#contents
- 168. http://www.columbia.edu/kermit/ckermit.html
- 169. http://www.columbia.edu/kermit/index.html
- 170. http://www.columbia.edu/kermit/index.html
- 171. mailto:kermit@columbia.edu
+    C-Kermit Program Logic Manual
+	The Kermit Project
+    kermit@columbia.edu
+	30 June 2011
