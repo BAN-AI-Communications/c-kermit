@@ -564,6 +564,7 @@ struct keytab spdtab[] = {
   "921600", 92160,0,                    /* Need 32 bits for this... */
 #endif /* BPS_921K */
   "9600",   960,  0
+  "1500000",   150000,  0
 };
 int nspd = (sizeof(spdtab) / sizeof(struct keytab)); /* How many speeds */
 #endif /* TTSPDLIST */
@@ -583,7 +584,8 @@ struct keytab tnspdtab[] = {            /* RFC 2217 TELNET COMPORT Option */
     "4800",     480,  0,
     "57600",   5760,  0,
     "600",       60,  0,
-    "9600",     960,  0
+    "9600",     960,  0,
+  	"1500000",   150000,  0
 };
 int ntnspd = (sizeof(tnspdtab) / sizeof(struct keytab)); /* How many speeds */
 #endif /* TN_COMPORT */
@@ -11552,13 +11554,16 @@ case XYDEBU:                            /* SET DEBUG { on, off, session } */
             return(success = 0);
         } else {
 #ifdef CK_TAPI
+            printf("CK_TAPI\n");
             if (!tttapi || tapipass)
               speed = ttgspd();         /* Read it back */
             else
               speed = zz;
 #else /* CK_TAPI */
+            printf("NOT CK_TAPI\n");
             speed = ttgspd();           /* Read it back */
 #endif /* CK_TAPI */
+            printf("? line speed - %ld\n",zz);
             if (speed != zz)  {         /* Call ttsspd with cps, not bps! */
                 printf("?SET SPEED fails, speed is %ld\n",speed);
                 return(success = 0);

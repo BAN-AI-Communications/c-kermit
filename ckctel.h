@@ -1198,6 +1198,7 @@ _PROTOTYP( VOID fwdx_thread,(VOID *));
 #define TNC_BPS_115200                  14
 #define TNC_BPS_230400                  15
 #define TNC_BPS_460800                  16
+#define TNC_BPS_1500000                  17
 
 #define TNC_DS_REQUEST                   0
 #define TNC_DS_5                         5

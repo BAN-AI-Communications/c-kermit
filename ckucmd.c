@@ -3251,7 +3251,12 @@ cmkey2(table,n,xhlp,xdef,tok,f,pmsg)
     /* debug(F101,"cmkey: cmdbuf","",cmdbuf);*/
 
     ppvnambuf[0] = NUL;
-
+#if 0
+	for(i = 0; i < n; i++) {
+		printf("");	
+		printf("TABLE[%d] kwd=[%s] kwval=%d\n",i,table[i].kwd,table[i].kwval);
+	}
+#endif
     if ((zz = cmflgs) == 1) {		/* Command already entered? */
 	if (setatm(xdef,0) < 0) {	/* Yes, copy default into atom buf */
 	    printf("?Default too long\n");
@@ -3269,7 +3274,6 @@ cmkey2(table,n,xhlp,xdef,tok,f,pmsg)
     debug(F101,"cmkey table length","",n);
     debug(F101,"cmkey cmflgs","",cmflgs);
     debug(F101,"cmkey cc","",cc);
-
     while (1) {
 	xc += cc;
 	debug(F111,"cmkey gtword xc",atmbuf,xc);
@@ -3381,8 +3385,15 @@ cmkey2(table,n,xhlp,xdef,tok,f,pmsg)
 		}
 	    }
 #endif /* TOKPRECHECK */
-
 	    y = lookup(table,atmbuf,n,&z); /* Look up word in the table */
+//by linwei
+#if 0
+		if(atmbuf != NULL)
+			printf("atmbuf=%s,nz=%d\n",atmbuf,z);	
+		for(i = 0; i < n; i++) {
+			printf("TABLE[%d] kwd=[%s] kwval=%d\n",i,table[i].kwd,table[i].kwval);
+		}
+#endif
 	    debug(F111,"cmkey lookup",atmbuf,y);
 	    debug(F101,"cmkey zz","",zz);
 	    debug(F101,"cmkey cmflgs","",cmflgs);

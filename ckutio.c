@@ -7368,6 +7368,9 @@ ttvt(speed,flow) long speed; int flow;
 #ifndef B921600
 #define	B921600	0000026
 #endif /* B921600 */
+#ifndef B1500000
+#define	B1500000 0000027
+#endif /* B1500000 */
 #endif /* CK_SCOV5 */
 /*
   Plan 9's native speed setting interface lets you set anything you like,
@@ -7438,6 +7441,9 @@ ttvt(speed,flow) long speed; int flow;
 #ifndef B921600
 #define B921600 921600
 #endif /* B921600 */
+#ifndef B1500000
+#define	B1500000 1500000
+#endif /* B1500000 */
 #endif /* Plan9 */
 
 /*  T T S S P D  --  Checks and sets transmission rate.  */
@@ -7658,6 +7664,9 @@ ttsspd(cps) int cps; {
 #ifdef B921600
       case 92160: s = B921600; break;
 #endif /* B921600 */
+#ifdef B1500000
+      case 150000: s = B1500000; break;
+#endif /* B1500000 */
 #endif /* HPUX */
       default:
 	ok = 0;				/* Good speed not found, so not ok */
@@ -7836,6 +7845,7 @@ ttspdlist() {
     spdlist[i++] = 307200L;
     spdlist[i++] = 460800L;
     spdlist[i++] = 921600L;
+    spdlist[i++] = 1500000L;
 #endif /* UW7 */
 
 #else  /* USETCSETSPEED */
@@ -7966,6 +7976,9 @@ ttspdlist() {
     debug(F101,"ttspdlist B921600","",B921600);
     spdlist[i++] = 921600L;
 #endif /* B921600 */
+#ifdef B1500000
+    spdlist[i++] = 1500000L;
+#endif /* B1500000 */
 #endif /* USETCSETSPEED */
     spdlist[0] = i - 1;			/* Return count in 0th element */
     debug(F111,"ttspdlist spdlist","0",spdlist[0]);
@@ -8021,6 +8034,7 @@ ttgspd() {				/* Get current serial device speed */
 
     x = tcgetattr(ttyfd,&ttcur);	/* Get current speed */
     debug(F101,"ttgspd tcgetattr","",x);
+    printf("ttgspd tcgetattr x=%d\n",x);
     if (x < 0)
       return(-1);
     errno = 0;
@@ -8106,10 +8120,15 @@ ttgspd() {				/* Get current serial device speed */
 #ifdef OLINUXHISPEED
     debug(F101,"ttgspd spd_flags","",spd_flags);
 #endif /* OLINUXHISPEED */
+    printf("ttgspd spd s=%d,B150000=%d\n",s,B1500000);
     switch (s) {
 #ifdef B0
       case B0:    ss = 0L; break;
 #endif /* B0 */
+
+#ifdef B1500000
+      case B1500000: ss = 1500000L; break;
+#endif /* B1500000 */
 
 #ifndef MINIX
 /*
@@ -8237,6 +8256,7 @@ ttgspd() {				/* Get current serial device speed */
     }
 #endif /* Plan9 */
     debug(F101,"ttgspd speed","",ss);
+    printf("ttgspd speed=%d\n",ss);
     return(ss);
 
 #endif /* USETCSETSPEED */
