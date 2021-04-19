@@ -416,7 +416,7 @@ int pty_master_fd = -1;			/* pty master file descriptor */
   copy_termbuf(cp)
   set_termbuf()
 
-  These three routines are used to get and set the "termbuf" structure
+  These three routines are used to get and set the "termbuf" structure
   to and from the kernel.  init_termbuf() gets the current settings.
   copy_termbuf() hands in a new "termbuf" to write to the kernel, and
   set_termbuf() writes the structure into the kernel.
